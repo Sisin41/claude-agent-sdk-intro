@@ -1,0 +1,67 @@
+{
+  "client_id": "acme-corp",
+  "recommendations": [
+    {
+      "recommendation_id": "rec-001",
+      "date": "2024-01-10T10:00:00Z",
+      "source_analysis": "seo-audit-2024-01-10-100000",
+      "category": "technical-seo",
+      "recommendation": "Optimize images with lazy loading and WebP format",
+      "priority": "high",
+      "status": "implemented",
+      "implementation_date": "2024-01-12",
+      "outcome": "Page load time improved from 4.2s to 2.1s",
+      "impact_verified": true
+    },
+    {
+      "recommendation_id": "rec-002",
+      "date": "2024-01-10T10:00:00Z",
+      "source_analysis": "seo-audit-2024-01-10-100000",
+      "category": "content",
+      "recommendation": "Create pillar page for 'marketing attribution' topic cluster",
+      "priority": "medium",
+      "status": "in-progress",
+      "implementation_date": null,
+      "estimated_completion": "2024-02-15",
+      "impact_verified": false
+    },
+    {
+      "recommendation_id": "rec-003",
+      "date": "2024-01-12T14:00:00Z",
+      "source_analysis": "ads-campaign-analysis-2024-01-12-140000",
+      "category": "paid-ads",
+      "recommendation": "Shift 30% of budget from generic keywords to competitor comparison keywords",
+      "priority": "high",
+      "status": "implemented",
+      "implementation_date": "2024-01-15",
+      "outcome": "ROAS improved from 2.3 to 2.8 in first week",
+      "impact_verified": true
+    },
+    {
+      "recommendation_id": "rec-004",
+      "date": "2024-01-12T14:00:00Z",
+      "source_analysis": "ads-campaign-analysis-2024-01-12-140000",
+      "category": "paid-ads",
+      "recommendation": "A/B test new ad creative focusing on 'setup time' benefit",
+      "priority": "medium",
+      "status": "pending",
+      "implementation_date": null,
+      "estimated_completion": "2024-01-25",
+      "impact_verified": false
+    }
+  ],
+  "recommendation_stats": {
+    "total_recommendations": 4,
+    "implemented": 2,
+    "in_progress": 1,
+    "pending": 1,
+    "success_rate": 1.0,
+    "avg_implementation_time_days": 3
+  },
+  "lessons_learned": [
+    "Technical SEO fixes show immediate impact on page speed",
+    "Competitor comparison keywords have 40% higher conversion rate than generic terms",
+    "Content recommendations take 4-6 weeks to implement"
+  ],
+  "last_updated": "2024-01-15T14:30:22Z"
+}

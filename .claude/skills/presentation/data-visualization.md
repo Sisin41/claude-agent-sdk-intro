@@ -15,6 +15,221 @@ Create compelling, accurate data visualizations for marketing presentations, das
 
 ---
 
+## Workspace & Chart Generation with Bash
+
+### Load Source Data
+
+**Load analysis files for visualization**:
+```python
+# Load SEO audit data
+seo_data = Read(f"/data/clients/{CLIENT_ID}/analyses/seo/seo-audit-{timestamp}.json")
+
+# Load ads analysis data
+ads_data = Read(f"/data/clients/{CLIENT_ID}/analyses/ads/ads-campaign-analysis-{timestamp}.json")
+```
+
+### Generate Charts as PNG Images
+
+**Using matplotlib to create professional charts**:
+
+**Example 1: Bar Chart for Campaign ROAS**:
+```python
+Bash(f"""
+python3 << 'EOF'
+import matplotlib.pyplot as plt
+import json
+
+# Load data
+with open('/data/clients/{CLIENT_ID}/analyses/ads/ads-campaign-analysis-{timestamp}.json') as f:
+    data = json.load(f)
+
+# Extract chart data
+campaigns = [c['campaign'] for c in data['findings']['top_campaigns']]
+roas_values = [c['roas'] for c in data['findings']['top_campaigns']]
+
+# Create chart
+plt.figure(figsize=(10, 6))
+bars = plt.barh(campaigns, roas_values, color='#0066CC')
+
+# Highlight top performer
+bars[0].set_color('#00CC88')
+
+plt.xlabel('ROAS', fontsize=12)
+plt.title('Top 5 Campaigns by ROAS', fontsize=14, fontweight='bold')
+plt.grid(axis='x', alpha=0.3)
+
+# Add value labels
+for i, (campaign, roas) in enumerate(zip(campaigns, roas_values)):
+    plt.text(roas + 0.1, i, f'{roas:.2f}', va='center')
+
+plt.tight_layout()
+
+# Save chart
+output_file = '/docs/marketing/{CLIENT_ID}/charts/campaign-roas-bar-chart.png'
+plt.savefig(output_file, dpi=300, bbox_inches='tight')
+print(f"Chart saved: {{output_file}}")
+EOF
+""")
+```
+
+**Example 2: Line Chart for Traffic Trend**:
+```python
+Bash("""
+python3 << 'EOF'
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from datetime import datetime
+
+# Sample data
+months = ['2023-08', '2023-09', '2023-10', '2023-11', '2023-12', '2024-01']
+organic_traffic = [8500, 9200, 9800, 10500, 11200, 12100]
+paid_traffic = [5200, 5400, 5100, 5800, 6200, 6500]
+
+# Create chart
+fig, ax = plt.subplots(figsize=(12, 6))
+
+ax.plot(months, organic_traffic, marker='o', linewidth=2.5, markersize=8,
+        color='#0066CC', label='Organic Traffic')
+ax.plot(months, paid_traffic, marker='s', linewidth=2.5, markersize=8,
+        color='#FF6B35', label='Paid Traffic')
+
+ax.set_xlabel('Month', fontsize=12)
+ax.set_ylabel('Visitors', fontsize=12)
+ax.set_title('Traffic Growth: Organic vs Paid', fontsize=14, fontweight='bold')
+ax.grid(True, alpha=0.3)
+ax.legend(fontsize=11)
+
+# Rotate x-axis labels
+plt.xticks(rotation=45)
+
+plt.tight_layout()
+plt.savefig('/docs/marketing/{CLIENT_ID}/charts/traffic-trend-line-chart.png', dpi=300)
+print("Traffic trend chart saved")
+EOF
+""")
+```
+
+**Example 3: Pie Chart for Budget Allocation**:
+```python
+Bash("""
+python3 << 'EOF'
+import matplotlib.pyplot as plt
+
+# Budget data
+channels = ['Paid Search', 'Paid Social', 'Content', 'SEO Tools']
+budget = [50000, 30000, 20000, 5000]
+colors = ['#0066CC', '#00CC88', '#FF6B35', '#6B7280']
+
+# Create pie chart
+fig, ax = plt.subplots(figsize=(10, 8))
+wedges, texts, autotexts = ax.pie(budget, labels=channels, autopct='%1.1f%%',
+                                    colors=colors, startangle=90, textprops={'fontsize': 11})
+
+# Make percentage text bold
+for autotext in autotexts:
+    autotext.set_color('white')
+    autotext.set_fontweight('bold')
+
+ax.set_title('Marketing Budget Allocation', fontsize=14, fontweight='bold', pad=20)
+
+plt.tight_layout()
+plt.savefig('/docs/marketing/{CLIENT_ID}/charts/budget-allocation-pie-chart.png', dpi=300)
+print("Budget pie chart saved")
+EOF
+""")
+```
+
+**Example 4: Multi-Bar Chart for Platform Comparison**:
+```python
+Bash("""
+python3 << 'EOF'
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data for comparison
+platforms = ['Google Ads', 'Meta Ads', 'LinkedIn Ads']
+impressions = [125000, 95000, 42000]
+clicks = [8500, 6200, 1800]
+conversions = [450, 320, 95]
+
+x = np.arange(len(platforms))
+width = 0.25
+
+fig, ax = plt.subplots(figsize=(12, 7))
+
+# Create bars
+bars1 = ax.bar(x - width, impressions, width, label='Impressions (K)', color='#0066CC')
+bars2 = ax.bar(x, clicks, width, label='Clicks', color='#00CC88')
+bars3 = ax.bar(x + width, conversions, width, label='Conversions', color='#FF6B35')
+
+ax.set_xlabel('Platform', fontsize=12)
+ax.set_ylabel('Count', fontsize=12)
+ax.set_title('Platform Performance Comparison', fontsize=14, fontweight='bold')
+ax.set_xticks(x)
+ax.set_xticklabels(platforms)
+ax.legend()
+ax.grid(axis='y', alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('/docs/marketing/{CLIENT_ID}/charts/platform-comparison-bars.png', dpi=300)
+EOF
+""")
+```
+
+### Chart Styling Best Practices
+
+**Use brand colors from brand-guidelines.json**:
+```python
+# Load brand colors
+brand_guidelines = Read(f"/data/clients/{CLIENT_ID}/context/brand-guidelines.json")
+primary_color = brand_guidelines["visual_identity"]["primary_colors"]["brand_blue"]
+accent_color = brand_guidelines["visual_identity"]["secondary_colors"]["accent_green"]
+```
+
+**Matplotlib style configuration**:
+```python
+Bash("""
+python3 << 'EOF'
+import matplotlib.pyplot as plt
+
+# Set style
+plt.style.use('seaborn-v0_8-darkgrid')  # Professional style
+
+# Custom font sizes
+plt.rcParams['font.size'] = 11
+plt.rcParams['axes.labelsize'] = 12
+plt.rcParams['axes.titlesize'] = 14
+plt.rcParams['xtick.labelsize'] = 10
+plt.rcParams['ytick.labelsize'] = 10
+plt.rcParams['legend.fontsize'] = 11
+
+# High DPI for crisp charts
+plt.rcParams['figure.dpi'] = 100
+plt.rcParams['savefig.dpi'] = 300
+EOF
+""")
+```
+
+### Save Charts to Workspace
+
+**Directory structure for charts**:
+```bash
+# Create charts directory if needed
+mkdir -p /docs/marketing/{CLIENT_ID}/charts
+```
+
+**Naming convention**:
+```
+/docs/marketing/{client-id}/charts/{chart-type}-{metric}-{timestamp}.png
+
+Examples:
+- bar-chart-campaign-roas-2024-01-15.png
+- line-chart-traffic-trend-2024-01-15.png
+- pie-chart-budget-allocation-2024-01-15.png
+```
+
+---
+
 ## Visualization Types & Use Cases
 
 ### 1. Comparison Charts

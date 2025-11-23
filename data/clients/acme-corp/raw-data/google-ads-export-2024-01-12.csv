@@ -1,0 +1,23 @@
+campaign,ad_group,keyword,impressions,clicks,ctr,spend,conversions,cost_per_conversion,roas,quality_score
+Brand Search,Acme Brand,acme analytics,1250,85,6.8,425.50,12,35.46,4.2,9
+Brand Search,Acme Brand,acme platform,980,62,6.3,310.00,8,38.75,3.9,9
+Competitor Comparison,vs Competitor A,acme vs competitor a,650,45,6.9,360.00,9,40.00,3.8,7
+Competitor Comparison,vs Competitor A,competitor a alternative,580,38,6.6,304.00,8,38.00,3.9,7
+Competitor Comparison,vs Competitor B,acme vs competitor b,420,28,6.7,224.00,6,37.33,4.1,8
+Generic Keywords,Analytics Tools,marketing analytics software,3200,95,3.0,950.00,8,118.75,1.7,5
+Generic Keywords,Analytics Tools,analytics platform,2800,78,2.8,780.00,6,130.00,1.5,4
+Generic Keywords,Analytics Tools,marketing data platform,2100,58,2.8,580.00,5,116.00,1.6,5
+Generic Keywords,Dashboard Tools,marketing dashboard,1850,52,2.8,520.00,4,130.00,1.4,4
+Generic Keywords,Dashboard Tools,analytics dashboard tool,1620,42,2.6,420.00,3,140.00,1.3,4
+Bottom Funnel,Pricing Intent,acme pricing,850,68,8.0,340.00,18,18.89,5.3,10
+Bottom Funnel,Pricing Intent,acme cost,620,48,7.7,240.00,12,20.00,5.0,9
+Bottom Funnel,Demo Intent,acme demo,720,58,8.1,290.00,15,19.33,5.2,10
+Bottom Funnel,Demo Intent,acme free trial,540,42,7.8,210.00,11,19.09,5.2,9
+Solution Keywords,Attribution,marketing attribution software,1200,45,3.8,450.00,6,75.00,2.0,6
+Solution Keywords,Attribution,multi touch attribution,980,36,3.7,360.00,5,72.00,2.1,6
+Solution Keywords,Reporting,marketing reporting tool,1100,40,3.6,400.00,5,80.00,1.9,5
+Solution Keywords,Reporting,automated marketing reports,920,32,3.5,320.00,4,80.00,1.9,5
+Retargeting,Site Visitors,retargeting - visited pricing,450,85,18.9,255.00,22,11.59,8.6,n/a
+Retargeting,Site Visitors,retargeting - visited demo,380,72,18.9,216.00,18,12.00,8.3,n/a
+Retargeting,Content Readers,retargeting - blog readers,620,95,15.3,285.00,15,19.00,5.3,n/a
+Retargeting,Email List,retargeting - email subscribers,290,68,23.4,204.00,20,10.20,9.8,n/a

@@ -1,0 +1,100 @@
+{
+  "client_id": "acme-corp",
+  "company_name": "Acme Corporation",
+  "industry": "B2B SaaS",
+  "website": "https://acmecorp.com",
+  "description": "Cloud analytics platform for marketing teams",
+  "value_propositions": [
+    "Real-time marketing analytics across all channels",
+    "AI-powered insights and recommendations",
+    "Cross-channel attribution modeling",
+    "No-code dashboard builder"
+  ],
+  "ideal_customer_profile": {
+    "company_size": "50-500 employees",
+    "revenue_range": "$10M-$100M ARR",
+    "departments": [
+      "Marketing",
+      "Growth",
+      "Analytics",
+      "Revenue Operations"
+    ],
+    "pain_points": [
+      "Data silos across marketing tools (GA, HubSpot, Salesforce)",
+      "Slow manual reporting process (20+ hours/week)",
+      "No clear attribution model for multi-touch journeys",
+      "Can't prove marketing ROI to executives"
+    ],
+    "buying_personas": [
+      {
+        "role": "CMO",
+        "priorities": [
+          "ROI visibility",
+          "Team efficiency",
+          "Executive reporting"
+        ],
+        "objections": [
+          "Integration complexity",
+          "Change management"
+        ]
+      },
+      {
+        "role": "Marketing Analyst",
+        "priorities": [
+          "Data accuracy",
+          "Ease of use",
+          "Automation"
+        ],
+        "objections": [
+          "Learning curve",
+          "Data migration"
+        ]
+      },
+      {
+        "role": "VP of Growth",
+        "priorities": [
+          "Attribution clarity",
+          "Experiment tracking",
+          "Channel optimization"
+        ],
+        "objections": [
+          "Cost vs current tools",
+          "Implementation timeline"
+        ]
+      }
+    ]
+  },
+  "competitors": [
+    {
+      "name": "Competitor A",
+      "url": "https://competitora.com",
+      "strengths": [
+        "Strong brand recognition",
+        "Enterprise features"
+      ],
+      "weaknesses": [
+        "Complex setup",
+        "Expensive"
+      ]
+    },
+    {
+      "name": "Competitor B",
+      "url": "https://competitorb.com",
+      "strengths": [
+        "Easy to use",
+        "Affordable"
+      ],
+      "weaknesses": [
+        "Limited integrations",
+        "Basic analytics"
+      ]
+    }
+  ],
+  "positioning": "The only analytics platform built specifically for modern B2B marketing teams, combining powerful attribution with effortless setup",
+  "target_markets": [
+    "B2B SaaS companies",
+    "Marketing agencies",
+    "Enterprise tech companies"
+  ],
+  "last_updated": "2024-01-15T14:30:22Z"
+}

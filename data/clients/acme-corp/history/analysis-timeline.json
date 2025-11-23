@@ -1,0 +1,75 @@
+{
+  "client_id": "acme-corp",
+  "workspace_created": "2024-01-10T09:00:00Z",
+  "total_analyses": 3,
+  "analyses": [
+    {
+      "analysis_id": "seo-audit-2024-01-10-100000",
+      "type": "seo",
+      "subtype": "audit",
+      "timestamp": "2024-01-10T10:00:00Z",
+      "agent": "seo-analyst",
+      "status": "completed",
+      "execution_mode": "COMPREHENSIVE",
+      "duration_seconds": 320,
+      "file_path": "/data/clients/acme-corp/analyses/seo/seo-audit-2024-01-10-100000.json",
+      "summary": "Technical SEO audit identified 12 high-priority issues including slow page load times (4.2s), missing alt tags on 80% of images, and 15 broken internal links. Recommended image optimization and content improvements.",
+      "key_findings": [
+        "Page speed: 4.2s (target: <2s)",
+        "80% of images missing alt tags",
+        "15 broken internal links",
+        "No schema markup on product pages"
+      ],
+      "recommendations_count": 12,
+      "high_priority_count": 4
+    },
+    {
+      "analysis_id": "ads-campaign-analysis-2024-01-12-140000",
+      "type": "ads",
+      "subtype": "campaign-analysis",
+      "timestamp": "2024-01-12T14:00:00Z",
+      "agent": "ads-analyst",
+      "status": "completed",
+      "execution_mode": "CURRENT_PERFORMANCE",
+      "duration_seconds": 180,
+      "file_path": "/data/clients/acme-corp/analyses/ads/ads-campaign-analysis-2024-01-12-140000.json",
+      "summary": "Analysis of Google Ads campaigns (Dec 2023). Current ROAS: 2.5 across $50K monthly spend. Top insight: competitor comparison keywords have 3.8 ROAS vs 1.9 for generic keywords. Recommended budget reallocation.",
+      "key_findings": [
+        "Overall ROAS: 2.5 (below target of 4.0)",
+        "Competitor keywords: 3.8 ROAS",
+        "Generic keywords: 1.9 ROAS",
+        "Mobile conversion rate 40% lower than desktop"
+      ],
+      "recommendations_count": 8,
+      "high_priority_count": 3
+    },
+    {
+      "analysis_id": "competitor-analysis-2024-01-14-093000",
+      "type": "competitive",
+      "subtype": "competitor-analysis",
+      "timestamp": "2024-01-14T09:30:00Z",
+      "agent": "competitor-analyst",
+      "status": "completed",
+      "execution_mode": "MARKET_LANDSCAPE",
+      "duration_seconds": 420,
+      "file_path": "/data/clients/acme-corp/analyses/competitive/competitor-analysis-2024-01-14-093000.json",
+      "summary": "Analyzed top 5 competitors. Key gap: no competitor offers real-time Slack/Teams notifications for attribution changes. Competitor A dominates SEO with 5x our organic traffic. Competitor B has aggressive retargeting but poor content.",
+      "key_findings": [
+        "Competitor A: 50K organic traffic vs our 10K",
+        "No competitor has real-time alerts feature",
+        "Avg competitor pricing: $499/mo vs our $399/mo",
+        "Content quality: We rank #2 of 5 competitors"
+      ],
+      "recommendations_count": 6,
+      "high_priority_count": 2
+    }
+  ],
+  "analyses_by_type": {
+    "seo": 1,
+    "ads": 1,
+    "competitive": 1,
+    "geo": 0,
+    "content": 0
+  },
+  "last_updated": "2024-01-15T14:30:22Z"
+}

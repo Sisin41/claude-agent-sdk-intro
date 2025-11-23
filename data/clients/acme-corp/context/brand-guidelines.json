@@ -1,0 +1,92 @@
+{
+  "client_id": "acme-corp",
+  "brand_voice": {
+    "personality": [
+      "Professional yet approachable",
+      "Data-driven and analytical",
+      "Empowering and educational",
+      "Not overly technical"
+    ],
+    "tone": "Confident, clear, and consultative",
+    "writing_style": [
+      "Use active voice",
+      "Short sentences and paragraphs",
+      "Focus on benefits before features",
+      "Include specific numbers and data",
+      "Avoid jargon unless defining it"
+    ],
+    "do": [
+      "Lead with customer pain points",
+      "Use concrete examples and case studies",
+      "Show ROI and measurable outcomes",
+      "Emphasize ease of implementation"
+    ],
+    "dont": [
+      "Use buzzwords without context",
+      "Make promises without evidence",
+      "Talk down to readers",
+      "Ignore competitor alternatives"
+    ]
+  },
+  "messaging_framework": {
+    "tagline": "Marketing Analytics Made Simple",
+    "elevator_pitch": "Acme is a cloud analytics platform that helps B2B marketing teams prove ROI and optimize spend—without the complexity of traditional tools.",
+    "key_messages": [
+      "See your full marketing funnel in one place",
+      "Prove ROI with multi-touch attribution",
+      "Get AI-powered recommendations automatically",
+      "Set up in days, not months"
+    ],
+    "value_props_by_persona": {
+      "CMO": "Show executives clear ROI on every marketing dollar",
+      "Marketing Analyst": "Stop wasting 20 hours/week on manual reporting",
+      "VP of Growth": "Know exactly which channels drive revenue"
+    }
+  },
+  "visual_identity": {
+    "primary_colors": {
+      "brand_blue": "#0066CC",
+      "brand_dark": "#1A1A1A",
+      "brand_light": "#F5F8FA"
+    },
+    "secondary_colors": {
+      "accent_green": "#00CC88",
+      "accent_orange": "#FF6B35",
+      "neutral_gray": "#6B7280"
+    },
+    "typography": {
+      "headings": "Inter Bold",
+      "body": "Inter Regular",
+      "code": "JetBrains Mono"
+    },
+    "logo_usage": [
+      "Always use on white or brand-dark backgrounds",
+      "Maintain clear space equal to logo height",
+      "Never distort or rotate"
+    ]
+  },
+  "content_guidelines": {
+    "blog_posts": {
+      "target_length": "1,500-2,500 words",
+      "structure": "Problem → Solution → How-to → CTA",
+      "cta_placement": "Mid-article and end"
+    },
+    "case_studies": {
+      "structure": "Challenge → Solution → Results",
+      "required_metrics": true,
+      "target_length": "800-1,200 words"
+    },
+    "social_media": {
+      "linkedin_tone": "Professional, data-focused",
+      "twitter_tone": "Concise, educational",
+      "post_frequency": "3x per week minimum"
+    }
+  },
+  "seo_guidelines": {
+    "target_keywords_per_page": "1 primary, 2-3 secondary",
+    "internal_linking": "Minimum 3 internal links per post",
+    "meta_description_length": "150-160 characters",
+    "title_tag_format": "{Primary Keyword} | Acme"
+  },
+  "last_updated": "2024-01-15T14:30:22Z"
+}

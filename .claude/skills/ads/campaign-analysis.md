@@ -41,6 +41,172 @@ Analyze advertising campaign performance across Google Ads, Meta Ads (Facebook/I
 
 ---
 
+## Workspace & File Management
+
+### Client Workspace Setup
+
+**Before starting, ensure client workspace exists**:
+```bash
+CLIENT_ID="client-slug"  # e.g., "acme-corp"
+
+# Check if workspace exists
+if [ ! -d "/data/clients/${CLIENT_ID}" ]; then
+    mkdir -p /data/clients/${CLIENT_ID}/{analyses/{geo,seo,ads,competitive,content},context,history,raw-data,temp}
+fi
+```
+
+### Load Client Context
+
+**Load marketing goals for ROAS/CPA targets**:
+```python
+goals = Read(f"/data/clients/{CLIENT_ID}/context/marketing-goals.json")
+# Extract: ROAS target, budget, KPIs
+```
+
+### Load Raw Campaign Data
+
+**If client has uploaded CSV exports**:
+```python
+# List available data files
+import os
+raw_data_path = f"/data/clients/{CLIENT_ID}/raw-data/"
+csv_files = [f for f in os.listdir(raw_data_path) if f.endswith('.csv')]
+
+# Load Google Ads export
+google_ads_file = f"{raw_data_path}google-ads-export-{date}.csv"
+```
+
+### Using Bash for Campaign Data Analysis
+
+**Analyze Google Ads CSV with pandas**:
+```python
+Bash(f"""
+python3 << 'EOF'
+import pandas as pd
+import json
+
+# Load campaign data
+df = pd.read_csv('/data/clients/{CLIENT_ID}/raw-data/google-ads-export-2024-01-12.csv')
+
+# Calculate key metrics
+analysis = {{
+    "total_spend": float(df['spend'].sum()),
+    "total_conversions": int(df['conversions'].sum()),
+    "avg_ctr": float(df['ctr'].mean()),
+    "avg_roas": float(df['roas'].mean()),
+    "campaigns_analyzed": len(df['campaign'].unique()),
+
+    # Top performers
+    "top_campaigns": df.nlargest(5, 'roas')[['campaign', 'roas', 'spend', 'conversions']].to_dict('records'),
+
+    # Bottom performers
+    "underperforming": df.nsmallest(5, 'roas')[['campaign', 'roas', 'spend']].to_dict('records'),
+
+    # Campaign type breakdown
+    "by_campaign_type": df.groupby('campaign').agg({{
+        'spend': 'sum',
+        'conversions': 'sum',
+        'roas': 'mean'
+    }}).to_dict('index')
+}}
+
+print(json.dumps(analysis, indent=2))
+EOF
+""")
+```
+
+**Statistical significance testing for A/B tests**:
+```python
+Bash("""
+python3 << 'EOF'
+from scipy import stats
+import pandas as pd
+
+# Compare two ad variants
+variant_a = {"clicks": 850, "conversions": 42}
+variant_b = {"clicks": 920, "conversions": 58}
+
+# Chi-square test
+observed = [[variant_a["conversions"], variant_a["clicks"] - variant_a["conversions"]],
+            [variant_b["conversions"], variant_b["clicks"] - variant_b["conversions"]]]
+
+chi2, p_value = stats.chi2_contingency(observed)[:2]
+
+if p_value < 0.05:
+    print(f"✅ Statistically significant difference (p={p_value:.4f})")
+    print(f"Variant B has {(variant_b['conversions']/variant_b['clicks'] - variant_a['conversions']/variant_a['clicks']) * 100:.1f}% higher conversion rate")
+else:
+    print(f"⚠️ Not statistically significant (p={p_value:.4f})")
+    print("Need more data before making decisions")
+EOF
+""")
+```
+
+**Forecast future performance**:
+```python
+Bash("""
+python3 << 'EOF'
+import pandas as pd
+import numpy as np
+
+# Historical ROAS data
+historical_roas = [2.1, 2.3, 2.5, 2.8, 2.7, 3.0]
+current_spend = 50000
+
+# Simple linear forecast
+trend = np.polyfit(range(len(historical_roas)), historical_roas, 1)
+next_month_roas = np.polyval(trend, len(historical_roas))
+
+projected_revenue = current_spend * next_month_roas
+
+print(f"Projected ROAS next month: {next_month_roas:.2f}")
+print(f"With ${current_spend:,} spend, projected revenue: ${projected_revenue:,.2f}")
+EOF
+""")
+```
+
+### Save Analysis Results
+
+**File naming**:
+```bash
+timestamp=$(date +"%Y-%m-%d-%H%M%S")
+analysis_file="/data/clients/${CLIENT_ID}/analyses/ads/ads-campaign-analysis-${timestamp}.json"
+```
+
+**Save complete analysis**:
+```python
+analysis_data = {
+    "analysis_id": f"ads-campaign-analysis-{timestamp}",
+    "client_id": CLIENT_ID,
+    "analysis_type": "ads",
+    "analysis_subtype": "campaign-analysis",
+    "timestamp": timestamp,
+    "agent": "ads-analyst",
+    "inputs": {...},
+    "findings": {...},
+    "recommendations": [...],
+    "metrics": {...}
+}
+
+Write(analysis_file, json.dumps(analysis_data, indent=2))
+```
+
+**Update analysis timeline**:
+```python
+timeline = Read(f"/data/clients/{CLIENT_ID}/history/analysis-timeline.json")
+timeline["analyses"].append({
+    "analysis_id": f"ads-campaign-analysis-{timestamp}",
+    "type": "ads",
+    "subtype": "campaign-analysis",
+    "timestamp": timestamp,
+    "summary": f"Analyzed {num_campaigns} campaigns. Current ROAS: {avg_roas}. Top opportunity: ...",
+    "file_path": analysis_file
+})
+Write(f"/data/clients/{CLIENT_ID}/history/analysis-timeline.json", timeline)
+```
+
+---
+
 ## Key Metrics by Platform
 
 ### Google Ads Metrics

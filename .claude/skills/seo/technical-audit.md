@@ -31,6 +31,124 @@ Evaluate technical SEO health of a website, identify critical issues affecting s
 
 ---
 
+## Workspace & File Management
+
+###Client Workspace Setup
+
+**Before starting, ensure client workspace exists**:
+```bash
+CLIENT_ID="client-slug"  # e.g., "acme-corp"
+
+# Check if workspace exists
+if [ ! -d "/data/clients/${CLIENT_ID}" ]; then
+    # Create workspace structure
+    mkdir -p /data/clients/${CLIENT_ID}/{analyses/{geo,seo,ads,competitive,content},context,history,raw-data,temp}
+    echo "Created workspace for ${CLIENT_ID}"
+fi
+```
+
+### Load Client Context
+
+**Always load company profile at start**:
+```python
+Read(f"/data/clients/{CLIENT_ID}/context/company-profile.json")
+# Extract: website, industry, target keywords, competitors
+```
+
+**Load marketing goals for strategic context**:
+```python
+Read(f"/data/clients/{CLIENT_ID}/context/marketing-goals.json")
+# Extract: traffic targets, ranking goals, priority pages
+```
+
+### File Naming Convention
+
+**Analysis files**:
+```
+/data/clients/{client-id}/analyses/seo/seo-audit-{YYYY-MM-DD-HHMMSS}.json
+```
+
+**Generate timestamp**:
+```bash
+timestamp=$(date +"%Y-%m-%d-%H%M%S")
+```
+
+### Save Analysis Results
+
+**At end of audit, save to workspace**:
+```python
+analysis_file = f"/data/clients/{CLIENT_ID}/analyses/seo/seo-audit-{timestamp}.json"
+Write(analysis_file, json.dumps(audit_results, indent=2))
+```
+
+**Update analysis timeline**:
+```python
+timeline = Read(f"/data/clients/{CLIENT_ID}/history/analysis-timeline.json")
+timeline["analyses"].append({
+    "analysis_id": f"seo-audit-{timestamp}",
+    "type": "seo",
+    "subtype": "audit",
+    "timestamp": timestamp,
+    "agent": "seo-analyst",
+    "status": "completed",
+    "file_path": analysis_file,
+    "summary": "Technical SEO audit found X issues...",
+    "key_findings": [...],
+    "recommendations_count": len(recommendations)
+})
+Write(f"/data/clients/{CLIENT_ID}/history/analysis-timeline.json", timeline)
+```
+
+### Using Bash for Data Analysis
+
+**When you have site speed data to analyze**:
+```python
+Bash("""
+python3 << 'EOF'
+import json
+
+# Sample data analysis
+pages = [
+    {"url": "/home", "load_time": 4.2},
+    {"url": "/pricing", "load_time": 3.1},
+    {"url": "/features", "load_time": 5.3}
+]
+
+# Calculate statistics
+avg_load_time = sum(p["load_time"] for p in pages) / len(pages)
+slow_pages = [p for p in pages if p["load_time"] > 3.0]
+
+print(f"Average load time: {avg_load_time:.2f}s")
+print(f"Slow pages (>3s): {len(slow_pages)}")
+EOF
+""")
+```
+
+**For processing crawl data from CSV**:
+```python
+# If you have raw crawl data exported
+Bash("""
+python3 << 'EOF'
+import pandas as pd
+import json
+
+df = pd.read_csv('/data/clients/{CLIENT_ID}/raw-data/crawl-data-{date}.csv')
+
+# Analyze issues
+issues = {
+    "missing_meta_desc": len(df[df['meta_description'].isna()]),
+    "duplicate_titles": df['title'].duplicated().sum(),
+    "broken_links": len(df[df['status_code'] != 200]),
+    "thin_content": len(df[df['word_count'] < 300])
+}
+
+print(json.dumps(issues, indent=2))
+EOF
+""")
+```
+
+---
+
 ## Technical SEO Categories
 
 ### 1. Crawlability & Indexability

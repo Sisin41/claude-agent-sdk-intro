@@ -49,6 +49,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         'TodoWrite',
         'WebSearch',
         'WebFetch',
+        'Bash',  # Enable Python/data analysis capabilities
     ]
 
     # Common tools for most sub-agents
@@ -62,6 +63,11 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         'TodoWrite',
         'WebSearch',
         'WebFetch',
+    ]
+
+    # Enhanced tools for data-focused agents (analysis, visualization)
+    data_analysis_tools = common_subagent_tools + [
+        'Bash',  # Enable Python for statistical analysis, chart generation, data processing
     ]
 
     # Define all specialized sub-agents
@@ -93,13 +99,28 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **LIGHT**: Quick scan (10-20 prompts, 2 engines, basic analysis) - ~5 min
 - **DEEP**: Comprehensive (50-100 prompts, all engines, detailed analysis) - ~15-20 min
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/company-profile.json`
+- Save analyses: `/data/clients/{client-id}/analyses/geo/geo-{analysis-name}-{timestamp}.json`
+- Update timeline: `/data/clients/{client-id}/history/analysis-timeline.json`
+- Save reports: `/docs/marketing/{client-id}/geo-{name}.md`
+
+**Bash Tool Capabilities:**
+- Run Python for citation clustering and statistical analysis
+- Perform sentiment scoring with NLP libraries
+- Aggregate multi-engine test results with pandas
+- Generate charts with matplotlib (when needed)
+
 **Workflow:**
-1. Determine execution mode (ask user if unclear: "light" or "deep"?)
-2. Use TodoWrite to create task list for transparency
-3. Follow skill workflows step-by-step
-4. Use MCP tools for parallel execution (when available)
-5. Save data to /data/geo/ directory
-6. Generate final report to /docs/marketing/
+1. Check if client workspace exists, create if needed
+2. Load company-profile.json for value props and ICP
+3. Determine execution mode (ask user if unclear: "light" or "deep"?)
+4. Use TodoWrite to create task list for transparency
+5. Follow skill workflows step-by-step
+6. Use MCP tools for parallel execution (when available)
+7. Save analysis with timestamp to /analyses/geo/
+8. Update analysis-timeline.json
+9. Generate final report to /docs/marketing/
 
 **Custom Tools** (when MCP server is configured):
 - mcp__MarketingTools__run_multi_engine_test: Execute prompts across AI engines in parallel
@@ -115,7 +136,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 
             model="sonnet",
 
-            tools=common_subagent_tools + [
+            tools=data_analysis_tools + [
                 # MCP tools will be added here when marketing-tools server is configured
                 # 'mcp__MarketingTools__run_multi_engine_test',
                 # 'mcp__MarketingTools__analyze_citations',
@@ -149,13 +170,29 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **QUICK**: Basic audit and top recommendations - ~5-10 min
 - **COMPREHENSIVE**: Deep analysis with detailed action plan - ~20-30 min
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/company-profile.json`, `marketing-goals.json`
+- Load raw data: `/data/clients/{client-id}/raw-data/keyword-data-*.json`
+- Save analyses: `/data/clients/{client-id}/analyses/seo/seo-{analysis-name}-{timestamp}.json`
+- Update timeline: `/data/clients/{client-id}/history/analysis-timeline.json`
+- Save reports: `/docs/marketing/{client-id}/seo-{name}.md`
+
+**Bash Tool Capabilities:**
+- Run Python for keyword clustering and difficulty scoring
+- Perform statistical analysis of ranking data with pandas
+- Calculate traffic forecasts and growth projections
+- Generate SEO performance charts with matplotlib
+
 **Workflow:**
-1. Understand the website/content to analyze
-2. Use TodoWrite to plan analysis steps
-3. Conduct research using WebSearch and WebFetch
-4. Use Playwright tools if deep site crawling needed
-5. Save findings to /data/seo/
-6. Generate actionable report to /docs/marketing/
+1. Check if client workspace exists, create if needed
+2. Load company-profile.json and marketing-goals.json
+3. Understand the website/content to analyze
+4. Use TodoWrite to plan analysis steps
+5. Conduct research using WebSearch and WebFetch
+6. Use Bash for statistical analysis and data processing
+7. Save analysis with timestamp to /analyses/seo/
+8. Update analysis-timeline.json
+9. Generate actionable report to /docs/marketing/
 
 **Output Format:**
 - Executive summary with key findings
@@ -172,7 +209,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 
             model="sonnet",
 
-            tools=common_subagent_tools
+            tools=data_analysis_tools
         ),
 
         # ============================================
@@ -203,13 +240,31 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **OPTIMIZATION PLAN**: Identify improvement opportunities
 - **NEW CAMPAIGN**: Design media plan from scratch
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/marketing-goals.json` (for ROAS targets)
+- Load raw data: `/data/clients/{client-id}/raw-data/google-ads-export-*.csv`, `meta-ads-*.csv`
+- Save analyses: `/data/clients/{client-id}/analyses/ads/ads-{analysis-name}-{timestamp}.json`
+- Update timeline: `/data/clients/{client-id}/history/analysis-timeline.json`
+- Save reports: `/docs/marketing/{client-id}/ads-{name}.md`
+
+**Bash Tool Capabilities:**
+- Run Python/pandas for campaign data analysis and aggregation
+- Perform A/B test statistical significance testing (t-tests, chi-square)
+- Calculate multi-touch attribution models
+- Forecast campaign performance and ROI projections
+- Generate campaign performance charts and visualizations
+
 **Workflow:**
-1. Understand the analysis objective
-2. Use TodoWrite to structure analysis
-3. Research platform benchmarks and best practices
-4. Analyze provided data or research industry standards
-5. Save analysis to /data/ads/
-6. Create recommendations report in /docs/marketing/
+1. Check if client workspace exists, create if needed
+2. Load marketing-goals.json for ROAS targets and budget
+3. Understand the analysis objective
+4. Use TodoWrite to structure analysis
+5. Load raw campaign data from /raw-data/ (if available)
+6. Use Bash for statistical analysis and metric calculations
+7. Research platform benchmarks for comparison
+8. Save analysis with timestamp to /analyses/ads/
+9. Update analysis-timeline.json
+10. Create recommendations report in /docs/marketing/
 
 **Output Format:**
 - Performance summary (KPIs, spend, ROAS, conversions)
@@ -227,7 +282,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 
             model="sonnet",
 
-            tools=common_subagent_tools
+            tools=data_analysis_tools
         ),
 
         # ============================================
@@ -256,14 +311,29 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **PITCH DECK**: Strategic recommendations for decision-making (~15 slides)
 - **REPORT OUT**: Campaign/project performance review (~12-15 slides)
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/brand-guidelines.json`
+- Load analyses: `/data/clients/{client-id}/analyses/*/*.json` (as source data)
+- Save presentations: `/docs/marketing/{client-id}/{name}-presentation.md`
+- Save charts: `/docs/marketing/{client-id}/charts/*.png`
+
+**Bash Tool Capabilities:**
+- Generate presentation charts as PNG/SVG images using matplotlib
+- Create data visualizations (bar charts, line charts, pie charts)
+- Convert markdown presentations to HTML/PDF
+- Process analysis data for presentation-ready formatting
+
 **Workflow:**
-1. Read any source data/reports provided
-2. Use TodoWrite to plan presentation structure
-3. Create slide-by-slide outline
-4. Write presentation content in markdown format
-5. Include data visualization descriptions
-6. Save to /docs/marketing/[name]-presentation.md
-7. Optionally generate HTML/PDF version
+1. Check if client workspace exists
+2. Load brand-guidelines.json for voice, colors, and style
+3. Read any source data/reports from /analyses/
+4. Use TodoWrite to plan presentation structure
+5. Create slide-by-slide outline
+6. Write presentation content in markdown format
+7. Use Bash to generate charts as PNG images
+8. Save presentation to /docs/marketing/{client-id}/
+9. Save chart images to /docs/marketing/{client-id}/charts/
+10. Optionally generate HTML/PDF version with Bash
 
 **Slide Structure:**
 - Title slide with presentation purpose
@@ -291,6 +361,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
                 'Grep',
                 'Glob',
                 'TodoWrite',
+                'Bash',  # Enable chart generation with matplotlib/plotly
             ]
         ),
 
@@ -320,14 +391,29 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **CONTENT**: Engagement, top performers, publishing calendar
 - **COMPREHENSIVE**: All-in-one marketing command center
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/marketing-goals.json` (for KPIs)
+- Load analyses: `/data/clients/{client-id}/analyses/*/*.json` (for dashboard data)
+- Save dashboards: `/dashboard/{client-id}/dashboard.html` or `/dashboard/{client-id}/components/*.jsx`
+- Save data feeds: `/dashboard/{client-id}/data/*.json`
+
+**Bash Tool Capabilities:**
+- Aggregate data from multiple analysis files using Python/pandas
+- Generate dashboard data feeds in JSON format
+- Create charts and visualizations for dashboard components
+- Process time-series data for trending metrics
+
 **Workflow:**
-1. Understand metrics to track and data sources
-2. Use TodoWrite to plan dashboard components
-3. Create standalone HTML version (for quick preview)
-4. Build React components (for production use)
-5. Include sample data for testing
-6. Add documentation for data integration
-7. Save to /dashboard/ directory
+1. Check if client workspace exists
+2. Load marketing-goals.json for KPIs to track
+3. Understand metrics to track and data sources
+4. Use TodoWrite to plan dashboard components
+5. Use Bash to aggregate data from /analyses/ into dashboard feeds
+6. Create standalone HTML version (for quick preview)
+7. Build React components (for production use)
+8. Include sample data for testing
+9. Add documentation for data integration
+10. Save to /dashboard/{client-id}/ directory
 
 **Dashboard Components:**
 - Header with filters (date range, segment, etc.)
@@ -361,6 +447,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
                 'Grep',
                 'Glob',
                 'TodoWrite',
+                'Bash',  # Enable data processing and aggregation
             ]
         ),
 
@@ -391,13 +478,25 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **CAMPAIGN PLAN**: Multi-channel campaign content
 - **AUDIT & GAP ANALYSIS**: Current content review + opportunities
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/company-profile.json`, `brand-guidelines.json`
+- Load analyses: `/data/clients/{client-id}/analyses/seo/*.json`, `/analyses/competitive/*.json`
+- Save strategies: `/data/clients/{client-id}/analyses/content/content-strategy-{timestamp}.json`
+- Update timeline: `/data/clients/{client-id}/history/analysis-timeline.json`
+- Save reports: `/docs/marketing/{client-id}/content-strategy-{name}.md`
+
 **Workflow:**
-1. Understand business goals and target audience
-2. Use TodoWrite to plan strategy development
-3. Research competitors and industry trends
-4. Identify content gaps and opportunities
-5. Create detailed content plan with topics, formats, channels
-6. Save to /docs/marketing/
+1. Check if client workspace exists, create if needed
+2. Load company-profile.json and brand-guidelines.json
+3. Load relevant SEO and competitive analyses for insights
+4. Understand business goals and target audience
+5. Use TodoWrite to plan strategy development
+6. Research competitors and industry trends
+7. Identify content gaps and opportunities
+8. Create detailed content plan with topics, formats, channels
+9. Save analysis to /analyses/content/
+10. Update analysis-timeline.json
+11. Save report to /docs/marketing/
 
 **Output Format:**
 - Strategy overview and objectives
@@ -447,14 +546,24 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - **FEATURE COMPARISON**: Side-by-side capability analysis
 - **STRATEGY ANALYSIS**: Marketing and positioning review
 
+**Workspace Structure:**
+- Load context: `/data/clients/{client-id}/context/company-profile.json` (existing competitors list)
+- Save analyses: `/data/clients/{client-id}/analyses/competitive/competitor-analysis-{timestamp}.json`
+- Update timeline: `/data/clients/{client-id}/history/analysis-timeline.json`
+- Save reports: `/docs/marketing/{client-id}/competitor-analysis-{name}.md`
+
 **Workflow:**
-1. Identify competitors to analyze
-2. Use TodoWrite to structure analysis
-3. Research using WebSearch and WebFetch
-4. Analyze websites, content, ads, social presence
-5. Use Playwright for deeper site analysis if needed
-6. Compile findings and insights
-7. Save to /docs/marketing/
+1. Check if client workspace exists, create if needed
+2. Load company-profile.json to see existing competitor list
+3. Identify competitors to analyze (or use existing list)
+4. Use TodoWrite to structure analysis
+5. Research using WebSearch and WebFetch
+6. Analyze websites, content, ads, social presence
+7. Compile findings and insights
+8. Save analysis to /analyses/competitive/
+9. Update analysis-timeline.json
+10. Update company-profile.json with new competitor insights
+11. Save report to /docs/marketing/
 
 **Output Format:**
 - Executive summary

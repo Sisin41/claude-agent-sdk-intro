@@ -1,0 +1,138 @@
+{
+  "client_id": "acme-corp",
+  "fiscal_year": "2024",
+  "objectives": [
+    {
+      "goal": "Increase organic traffic",
+      "target": "50% growth in 6 months",
+      "current_baseline": "10,000 monthly visitors",
+      "target_value": 15000,
+      "priority": "high",
+      "owner": "SEO Manager",
+      "timeline": "Q1-Q2 2024"
+    },
+    {
+      "goal": "Improve ROAS on paid ads",
+      "target": "4.0 ROAS across all channels",
+      "current_baseline": "2.5 ROAS",
+      "target_value": 4.0,
+      "priority": "high",
+      "owner": "Demand Gen Manager",
+      "timeline": "Ongoing"
+    },
+    {
+      "goal": "Increase AI engine visibility (GEO)",
+      "target": "50% citation rate in top 100 prompts",
+      "current_baseline": "Unknown (first analysis)",
+      "target_value": 50,
+      "priority": "medium",
+      "owner": "Content Marketing Manager",
+      "timeline": "Q2-Q3 2024"
+    },
+    {
+      "goal": "Generate 500 MQLs per month",
+      "target": "500 MQLs/month",
+      "current_baseline": "300 MQLs/month",
+      "target_value": 500,
+      "priority": "high",
+      "owner": "CMO",
+      "timeline": "Q2 2024"
+    }
+  ],
+  "kpis": [
+    {
+      "metric": "Organic Traffic",
+      "current": 10000,
+      "target": 15000,
+      "period": "monthly",
+      "unit": "visitors"
+    },
+    {
+      "metric": "MQLs",
+      "current": 300,
+      "target": 500,
+      "period": "monthly",
+      "unit": "leads"
+    },
+    {
+      "metric": "ROAS",
+      "current": 2.5,
+      "target": 4.0,
+      "period": "overall",
+      "unit": "ratio"
+    },
+    {
+      "metric": "CAC",
+      "current": 500,
+      "target": 350,
+      "period": "monthly",
+      "unit": "USD"
+    },
+    {
+      "metric": "Organic Rankings (Top 10)",
+      "current": 45,
+      "target": 100,
+      "period": "monthly",
+      "unit": "keywords"
+    }
+  ],
+  "budget": {
+    "paid_search": {
+      "amount": 50000,
+      "platform": "Google Ads",
+      "focus": "Bottom-funnel keywords"
+    },
+    "paid_social": {
+      "amount": 30000,
+      "platforms": [
+        "LinkedIn Ads",
+        "Meta Ads"
+      ],
+      "focus": "Thought leadership and retargeting"
+    },
+    "content": {
+      "amount": 20000,
+      "focus": "SEO content, whitepapers, case studies"
+    },
+    "seo_tools": {
+      "amount": 5000,
+      "tools": [
+        "Ahrefs",
+        "Clearscope",
+        "Screaming Frog"
+      ]
+    },
+    "total_monthly": 105000,
+    "period": "monthly",
+    "currency": "USD"
+  },
+  "target_channels": [
+    {
+      "channel": "Organic Search",
+      "priority": "high",
+      "allocation_percentage": 20
+    },
+    {
+      "channel": "Paid Search",
+      "priority": "high",
+      "allocation_percentage": 48
+    },
+    {
+      "channel": "Paid Social",
+      "priority": "medium",
+      "allocation_percentage": 29
+    },
+    {
+      "channel": "Content Marketing",
+      "priority": "medium",
+      "allocation_percentage": 19
+    },
+    {
+      "channel": "GEO / AI Search",
+      "priority": "low",
+      "allocation_percentage": 5,
+      "note": "Experimental channel"
+    }
+  ],
+  "last_updated": "2024-01-15T14:30:22Z"
+}
