@@ -29,17 +29,9 @@ export const logger = winston.createLogger({
     // Write errors to error.log
     new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
 
-    // Also log to console in development
-    ...(nodeEnv === 'development'
-      ? [
-          new winston.transports.Console({
-            format: winston.format.combine(
-              winston.format.colorize(),
-              winston.format.simple()
-            ),
-          }),
-        ]
-      : []),
+    // IMPORTANT: Do NOT log to console/stdout for MCP servers
+    // MCP protocol uses stdout for JSON-RPC communication
+    // Console logging would break the protocol
   ],
 });
 
