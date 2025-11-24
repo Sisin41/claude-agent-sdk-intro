@@ -137,10 +137,9 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
             model="sonnet",
 
             tools=data_analysis_tools + [
-                # MCP tools will be added here when marketing-tools server is configured
-                # 'mcp__MarketingTools__run_multi_engine_test',
-                # 'mcp__MarketingTools__analyze_citations',
-                # 'mcp__MarketingTools__competitor_visibility',
+                # MCP tools for parallel GEO analysis
+                'mcp__MarketingTools__run_multi_engine_test',
+                'mcp__MarketingTools__analyze_citations',
             ]
         ),
 
@@ -588,13 +587,12 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         ),
     }
 
-    # Configure MCP servers (initially empty, will add marketing-tools when built)
+    # Configure MCP servers
     mcp_servers = {
-        # Will add when MCP server is implemented:
-        # "MarketingTools": {
-        #     "command": "node",
-        #     "args": ["mcp-servers/marketing-tools/dist/index.js"]
-        # }
+        "MarketingTools": {
+            "command": "node",
+            "args": ["/home/user/claude-agent-sdk-intro/mcp-servers/marketing-tools/dist/index.js"]
+        }
     }
 
     # Build options
