@@ -151,8 +151,134 @@ def get_user_input(console: Console) -> str:
     return user_input
 
 
+def render_progress_bar(current: int, total: int, width: int = 20) -> str:
+    """Render ASCII progress bar"""
+    if total == 0:
+        return "[" + "░" * width + "] 0% (0/0)"
+
+    filled = int((current / total) * width)
+    bar = "█" * filled + "░" * (width - filled)
+    percent = int((current / total) * 100)
+
+    return f"[{bar}] {percent}% ({current}/{total})"
+
+
+def get_status_icon(status: str) -> str:
+    """Get icon for todo status"""
+    icons = {
+        "completed": "✓",
+        "in_progress": "⟳",
+        "pending": "○",
+        "failed": "✗"
+    }
+    return icons.get(status, "○")
+
+
+def render_todo_visualization(tool_input: dict, console: Console):
+    """Render TodoWrite visualization from tool input"""
+    todos = tool_input.get("todos", [])
+
+    if not todos:
+        return
+
+    # Calculate progress
+    total = len(todos)
+    completed = sum(1 for t in todos if t.get("status") == "completed")
+
+    # Build visualization
+    lines = []
+    lines.append(render_progress_bar(completed, total, width=20))
+    lines.append("")
+
+    for todo in todos:
+        status = todo.get("status", "pending")
+        content = todo.get("content", "")
+        active_form = todo.get("activeForm", content)
+
+        # Choose display text based on status
+        display_text = active_form if status == "in_progress" else content
+
+        icon = get_status_icon(status)
+        lines.append(f"{icon} {display_text}")
+
+    visualization = "\n".join(lines)
+
+    # Print in a special panel
+    panel = Panel(
+        visualization,
+        title="📋 Task Progress",
+        border_style="cyan",
+        title_align="left"
+    )
+    console.print(panel, end="\n\n")
+
+
+def format_tool_compact(tool_name: str, tool_input: dict) -> str:
+    """Format tool call compactly for display"""
+    if tool_name == "WebSearch":
+        query = tool_input.get("query", "")
+        return f'🔍 Web Search: "{query}"'
+
+    elif tool_name == "WebFetch":
+        url = tool_input.get("url", "")
+        # Truncate long URLs
+        display_url = url if len(url) < 60 else url[:57] + "..."
+        return f'📄 Fetching: {display_url}'
+
+    elif tool_name == "Read":
+        file_path = tool_input.get("file_path", "")
+        # Show just filename if path is long
+        if len(file_path) > 50:
+            parts = file_path.split("/")
+            file_path = ".../" + "/".join(parts[-2:]) if len(parts) > 1 else parts[-1]
+        return f'📖 Reading: {file_path}'
+
+    elif tool_name == "Write":
+        file_path = tool_input.get("file_path", "")
+        if len(file_path) > 50:
+            parts = file_path.split("/")
+            file_path = ".../" + "/".join(parts[-2:]) if len(parts) > 1 else parts[-1]
+        return f'💾 Writing: {file_path}'
+
+    elif tool_name == "Bash":
+        command = tool_input.get("command", "")
+        # Truncate long commands
+        if len(command) > 100:
+            command = command[:97] + "..."
+        # Show just first line if multiline
+        first_line = command.split("\n")[0]
+        if len(command.split("\n")) > 1:
+            first_line += "..."
+        return f'⚡ Running: {first_line}'
+
+    elif tool_name == "Task":
+        subagent = tool_input.get("subagent_type", "unknown")
+        description = tool_input.get("description", "")
+        return f'🤝 Delegating to {subagent}: {description}'
+
+    elif tool_name == "Grep":
+        pattern = tool_input.get("pattern", "")
+        path = tool_input.get("path", "current directory")
+        return f'🔎 Searching for "{pattern}" in {path}'
+
+    elif tool_name == "Glob":
+        pattern = tool_input.get("pattern", "")
+        return f'📁 Finding files: {pattern}'
+
+    elif tool_name == "Edit":
+        file_path = tool_input.get("file_path", "")
+        if len(file_path) > 50:
+            parts = file_path.split("/")
+            file_path = ".../" + "/".join(parts[-2:]) if len(parts) > 1 else parts[-1]
+        return f'✏️  Editing: {file_path}'
+
+    else:
+        # Default format for unknown tools
+        return f'🔧 {tool_name}'
+
+
 def parse_and_print_message(
-        message: Message, 
+        message: Message,
         console: Console,
         print_stats: bool = False
         ):
@@ -164,7 +290,7 @@ def parse_and_print_message(
     if isinstance(message, SystemMessage):
         if message.subtype == "compact_boundary":
             print_rich_message(
-                "system", 
+                "system",
                 f"Compaction completed \nPre-compaction tokens: {message.data["compact_metadata"]["pre_tokens"]} \nTrigger: {message.data["compact_metadata"]["trigger"]}",
                 console
                 )
@@ -175,7 +301,20 @@ def parse_and_print_message(
             if isinstance(block, TextBlock):
                 print_rich_message("assistant", block.text, console)
             elif isinstance(block, ToolUseBlock):
-                print_rich_message("tool_use", f"Tool: <{block.name}> \n\n {block.input}", console)
+                # Check if this is TodoWrite - render visualization
+                if block.name == "TodoWrite":
+                    render_todo_visualization(block.input, console)
+                else:
+                    # Use compact formatting for other tools
+                    compact_display = format_tool_compact(block.name, block.input)
+
+                    # Create compact panel
+                    panel = Panel(
+                        compact_display,
+                        border_style="blue",
+                        padding=(0, 1)
+                    )
+                    console.print(panel, end="\n\n")
             elif isinstance(block, ThinkingBlock):
                 print_rich_message("assistant", "Thinking...", console)
     elif isinstance(message, UserMessage):

@@ -115,7 +115,7 @@ async function analyzeSingleCitation(
   targetBrand: string,
   competitors: string[],
   depth: AnalysisDepth,
-  includeS entiment: boolean,
+  includeSentiment: boolean,
   includeRelevance: boolean
 ): Promise<CitationAnalysis> {
   // Simulate LLM API call
@@ -129,7 +129,7 @@ async function analyzeSingleCitation(
   let sentiment: 'positive' | 'neutral' | 'negative' = 'neutral';
   let sentimentScore = 0;
 
-  if (includeS entiment && brandMentioned) {
+  if (includeSentiment && brandMentioned) {
     const lowerResponse = result.response.toLowerCase();
     const positiveWords = ['best', 'excellent', 'great', 'leading', 'top'];
     const negativeWords = ['poor', 'bad', 'worst', 'lacking', 'limited'];
@@ -206,8 +206,8 @@ async function analyzeSingleCitation(
     engine: result.engine,
     brand_mentioned: brandMentioned,
     brand_position: brandPosition,
-    sentiment: includeS entiment ? sentiment : undefined,
-    sentiment_score: includeS entiment ? sentimentScore : undefined,
+    sentiment: includeSentiment ? sentiment : undefined,
+    sentiment_score: includeSentiment ? sentimentScore : undefined,
     relevance_score: relevanceScore,
     key_themes: keyThemes,
     competitors_mentioned: competitorsMentioned,

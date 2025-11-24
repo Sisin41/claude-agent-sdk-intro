@@ -326,7 +326,7 @@ export async function runMultiEngineTest(
     logToolStart('GEO-001', {
       prompt_count: validatedInput.prompts.length,
       engines: validatedInput.engines,
-      max_concurrent: validatedInput.maxConcurrent,
+      max_concurrent: validatedInput.max_concurrent,
     });
 
     // Create all test combinations (prompts × engines)
@@ -337,7 +337,7 @@ export async function runMultiEngineTest(
 
     validatedInput.prompts.forEach((prompt) => {
       validatedInput.engines.forEach((engine) => {
-        allTests.push({ prompt, engine });
+        allTests.push({ prompt: prompt as PromptTest, engine });
       });
     });
 
