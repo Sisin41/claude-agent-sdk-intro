@@ -5,6 +5,61 @@ Generate multiple pieces of content simultaneously, tracking progress and mainta
 
 ---
 
+## CRITICAL: Load All Analysis Artifacts First
+
+**Before generating ANY batch of content, you MUST load these artifacts ONCE and use across ALL pieces:**
+
+```
+STEP 0: Load Shared Context (5 minutes, done ONCE for entire batch)
+
+1. Company Context (REQUIRED):
+   Read: /data/clients/{client-id}/context/company-profile.json
+   → Company values, differentiators, mission
+
+2. Brand Guidelines (REQUIRED):
+   Read: /data/clients/{client-id}/context/brand-guidelines.json
+   → Tone, voice, terminology
+
+3. GEO Analysis (if available):
+   Read: /data/clients/{client-id}/analyses/geo/geo-analysis-{latest}.json
+   → Citation opportunities, visibility gaps, content structure
+
+4. SEO Analysis (if available):
+   Read: /data/clients/{client-id}/analyses/seo/seo-analysis-{latest}.json
+   → Target keywords, content gaps, ranking opportunities
+
+5. Competitor Analysis (if available):
+   Read: /data/clients/{client-id}/analyses/competitor/competitor-analysis-{latest}.json
+   → Differentiation angles, competitor positioning
+
+**Key Efficiency Gain:**
+By loading these ONCE and using across all pieces in the batch, you:
+- Save 2-3 minutes per piece (no repeated file reads)
+- Ensure consistency across all content
+- Can reference insights instantly while writing
+```
+
+**Example:**
+```
+Generating 5 blog posts about AI customer support:
+
+Load artifacts once (5 min) →
+  Company values: ["transparency", "innovation", "customer-first"]
+  Target keywords: ["AI customer support", "support automation", "help desk AI"]
+  Differentiators: ["Real-time analytics", "24/7 support", "99.9% uptime"]
+  Citation opportunities: ["How AI improves support", "Benefits of automation"]
+
+Use across all 5 posts (no re-reading!) →
+  Post 1: Weave in "customer-first" value + "Real-time analytics" differentiator
+  Post 2: Optimize for "support automation" + address citation opportunity
+  Post 3: Highlight "24/7 support" + use competitor differentiation angle
+  ...all with consistent brand voice from guidelines
+
+Time saved: 10-15 minutes (would have read files 5x without batching)
+```
+
+---
+
 ## How Parallel Generation Works
 
 **Traditional Sequential Approach:**

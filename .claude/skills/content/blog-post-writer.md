@@ -5,6 +5,84 @@ Generate high-quality, SEO-optimized blog posts that engage readers, rank in sea
 
 ---
 
+## CRITICAL: Load Prior Analysis First
+
+**Before writing ANY blog post, you MUST read and integrate these artifacts:**
+
+### 1. Company Context (REQUIRED)
+```
+Read: /data/clients/{client-id}/context/company-profile.json
+
+Extract:
+- Core values (e.g., "transparency", "innovation", "customer-first")
+- Key differentiators (e.g., "Real-time analytics", "24/7 support")
+- Mission statement
+- Target customer profile
+
+Use these to: Inform messaging, shape examples, create authentic voice
+```
+
+### 2. GEO Analysis (if available)
+```
+Read: /data/clients/{client-id}/analyses/geo/geo-analysis-{latest}.json
+
+Extract:
+- Citation opportunities (structure content to get AI citations)
+- Visibility gaps (topics to cover)
+- Competitor citation analysis (what works for them)
+- Suggested content structures (for LLM-friendly formatting)
+
+Use these to: Structure sections for AI search visibility, fill content gaps
+```
+
+### 3. SEO Analysis (if available)
+```
+Read: /data/clients/{client-id}/analyses/seo/seo-analysis-{latest}.json
+
+Extract:
+- Target keywords (don't guess - use what SEO agent found!)
+- Content gaps (specific topics missing from existing content)
+- Competitor keyword analysis
+- Ranking opportunities
+
+Use these to: Optimize keywords, fill content gaps, target ranking opportunities
+```
+
+### 4. Competitor Analysis (if available)
+```
+Read: /data/clients/{client-id}/analyses/competitor/competitor-analysis-{latest}.json
+
+Extract:
+- Competitor positioning (how they message)
+- Differentiation angles (how we're better)
+- Content gaps in competitor content
+
+Use these to: Differentiate naturally, highlight competitive advantages
+```
+
+### 5. Brand Guidelines (if available)
+```
+Read: /data/clients/{client-id}/context/brand-guidelines.json
+
+Extract:
+- Tone (professional, casual, technical, friendly?)
+- Voice (expert, approachable, authoritative?)
+- Terminology preferences
+- Words/phrases to avoid
+
+Use these to: Maintain brand consistency
+```
+
+**Why This Matters:**
+Without these artifacts, content will be generic. WITH them, content is:
+- Authentic (reflects company values)
+- Strategic (targets right keywords from SEO analysis)
+- Differentiated (uses competitor insights)
+- Citation-optimized (structured for GEO opportunities)
+- Brand-consistent (follows guidelines)
+
+---
+
 ## Post Types Supported
 
 1. **How-To Guides** - Step-by-step instructions
