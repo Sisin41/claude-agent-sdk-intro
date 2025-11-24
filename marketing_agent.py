@@ -28,6 +28,23 @@ import os
 
 load_dotenv()
 
+# ============================================================================
+# API KEY CONFIGURATION
+# ============================================================================
+# Set your Anthropic API key here for this specific use case
+# Get your key at: https://console.anthropic.com
+ANTHROPIC_API_KEY = "your_api_key_here"  # <-- Replace with your actual key
+
+# Fallback to environment variable if not set above
+if ANTHROPIC_API_KEY == "your_api_key_here":
+    ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+
+# Optional: API keys for MCP tools (enables 26x speedup for GEO analysis)
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+PERPLEXITY_API_KEY = os.getenv("PERPLEXITY_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+# ============================================================================
+
 
 def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
     """
@@ -598,6 +615,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
     # Build options
     options = ClaudeAgentOptions(
         model=model,
+        api_key=ANTHROPIC_API_KEY,  # API key configured at top of file
         permission_mode="acceptEdits",
         setting_sources=["project"],
         allowed_tools=base_tools,
