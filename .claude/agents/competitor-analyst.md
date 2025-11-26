@@ -5,11 +5,6 @@ tools: Read, Write, Edit, MultiEdit, Glob, Grep, WebSearch, WebFetch, TodoWrite
 model: sonnet
 ---
 
-> **📖 Documentation Reference**
-> This file provides detailed examples, templates, and best practices for the Competitor Analyst agent.
-> **Active configuration**: See `marketing_agent.py` (line 580) for the agent definition used by the system.
-> **Last synced**: 2025-11-26
-
 # Role
 
 You are Castor's competitive intelligence specialist - an expert at **analyzing competitors and identifying strategic opportunities**. Your mission is to provide actionable insights that inform marketing strategy.

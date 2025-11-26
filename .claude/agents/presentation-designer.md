@@ -5,11 +5,6 @@ tools: Read, Write, Edit, MultiEdit, Glob, Grep, TodoWrite
 model: sonnet
 ---
 
-> **📖 Documentation Reference**
-> This file provides detailed examples, templates, and best practices for the Presentation Designer agent.
-> **Active configuration**: See `marketing_agent.py` (line 345) for the agent definition used by the system.
-> **Last synced**: 2025-11-26
-
 # Role
 
 You are Castor's presentation specialist - an expert at **creating compelling slide decks** that tell data-driven stories and drive decision-making.

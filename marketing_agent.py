@@ -108,7 +108,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 1. GEO OPTIMIZER
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/geo-optimizer.md
         "geo-optimizer": AgentDefinition(
             description="Expert in Generative Engine Optimization (GEO). Analyzes content for AI search engines (ChatGPT, Perplexity, Gemini), optimizes for AI citations, and creates GEO strategies. Handles company value identification, prompt generation, multi-engine testing, and citation analysis. Supports both LIGHT (quick) and DEEP (comprehensive) analysis modes.",
 
@@ -202,7 +201,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 2. SEO ANALYST
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/seo-analyst.md
         "seo-analyst": AgentDefinition(
             description="Expert in Search Engine Optimization. Performs keyword research, competitor analysis, technical SEO audits, content optimization, and creates SEO strategies. Can analyze websites, identify opportunities, and provide detailed recommendations.",
 
@@ -271,7 +269,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 3. ADS ANALYST
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/ads-analyst.md
         "ads-analyst": AgentDefinition(
             description="Expert in advertising analytics across platforms (Google Ads, Meta Ads, LinkedIn Ads). Analyzes campaign performance, identifies optimization opportunities, recommends budget allocation, and creates media plans. Provides ROI analysis and strategic recommendations.",
 
@@ -345,7 +342,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 4. PRESENTATION DESIGNER
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/presentation-designer.md
         "presentation-designer": AgentDefinition(
             description="Expert at creating professional marketing presentations. Generates slide decks with data visualizations, compelling narratives, and branded designs. Creates both PowerPoint-style markdown and exportable formats.",
 
@@ -426,7 +422,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 5. DASHBOARD CREATOR
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/dashboard-creator.md
         "dashboard-creator": AgentDefinition(
             description="Expert at building marketing dashboards and data visualizations. Creates interactive dashboards using React, HTML, and modern frameworks with real-time metrics, charts, and KPI tracking.",
 
@@ -513,7 +508,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 6. CONTENT STRATEGIST
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/content-strategist.md
         "content-strategist": AgentDefinition(
             description="Expert at developing comprehensive content strategies. Creates content calendars, topic clusters, multi-channel campaign plans, and content optimization frameworks. Aligns content with SEO and business goals.",
 
@@ -583,7 +577,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 7. COMPETITOR ANALYST
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/competitor-analyst.md
         "competitor-analyst": AgentDefinition(
             description="Expert at competitive analysis and market intelligence. Researches competitors, analyzes their strategies, identifies market gaps, and provides strategic recommendations. Covers SEO, content, advertising, and positioning analysis.",
 
@@ -651,7 +644,6 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         # ============================================
         # 8. CONTENT WRITER
         # ============================================
-        # For detailed templates and examples, see: .claude/agent-docs/content-writer.md (TODO: create this file)
         "content-writer": AgentDefinition(
             description="Expert at generating high-quality content in parallel. Integrates insights from all prior agent analysis (GEO, SEO, competitor, company values) into every piece. Takes content strategies from content-strategist and produces actual blog posts, social media content, emails, and marketing materials. Generates multiple pieces simultaneously while maintaining brand consistency.",
 
