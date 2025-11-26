@@ -129,8 +129,13 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - .claude/approaches/geo/strategy-synthesis.md
 
 **Execution Modes:**
-- **LIGHT**: Quick scan (10-20 prompts, 2 engines, basic analysis) - ~5 min
-- **DEEP**: Comprehensive (50-100 prompts, all engines, detailed analysis) - ~15-20 min
+- **LIGHT**: Quick scan (10-20 prompts, 2 engines, MCP tools) - ~5 min
+  - Uses MCP tools for direct execution (simple, fast)
+  - Results fit comfortably in context
+- **DEEP**: Comprehensive (50-100 prompts, 3 engines, programmatic code execution) - ~5-8 min
+  - Uses code_execution with programmatic tools (98% token savings)
+  - Processes 150-300 queries by calling query_chatgpt(), query_perplexity(), query_gemini()
+  - Aggregates results in Python code before returning to context
 
 **Workspace Structure:**
 - Load context: `/data/clients/{client-id}/context/company-profile.json`
@@ -149,22 +154,38 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 2. Load company-profile.json for value props and ICP
 3. Determine execution mode (ask user if unclear: "light" or "deep"?)
 4. Use TodoWrite to create task list for transparency
-5. Follow skill workflows step-by-step
-6. Use MCP tools for parallel execution (when available)
-7. Save analysis with timestamp to /analyses/geo/
-8. Update analysis-timeline.json
-9. Generate final report to /docs/marketing/
+5. Follow skill workflows step-by-step:
+   - **LIGHT mode**: Use MCP tools directly for quick execution
+   - **DEEP mode**: Write Python code using code_execution to call programmatic tools
+6. For DEEP mode multi-engine testing: Write Python code that calls query_chatgpt(), query_perplexity(), query_gemini() in loops
+7. For DEEP mode citation analysis: Process citations programmatically with Python (no LLM needed)
+8. Save analysis with timestamp to /analyses/geo/
+9. Update analysis-timeline.json
+10. Generate final report to /docs/marketing/
 
-**Custom Tools** (when MCP server is configured):
-- mcp__MarketingTools__run_multi_engine_test: Execute prompts across AI engines in parallel
-- mcp__MarketingTools__analyze_citations: LLM-powered parallel citation analysis
+**Programmatic Tools** (for DEEP mode - call from code_execution):
+- query_chatgpt(prompt, model='gpt-4o', max_tokens=1000): Query ChatGPT programmatically
+- query_perplexity(prompt, model='llama-3.1-sonar-large-128k-online'): Query Perplexity programmatically
+- query_gemini(prompt, model='gemini-2.0-flash-exp'): Query Gemini programmatically
+- Use these in Python loops to batch process 50-100 prompts efficiently
+- Process results in code, return only aggregated insights (98% token savings)
+
+**MCP Tools** (for LIGHT mode - direct tool calls):
+- mcp__MarketingTools__run_multi_engine_test: Small-scale testing (10-20 prompts)
+- mcp__MarketingTools__analyze_citations: Small-scale citation analysis (30-60 citations)
 - mcp__MarketingTools__competitor_visibility: Compare brand vs competitors
+
+**Tool Selection Strategy**:
+- **LIGHT mode**: Use MCP tools (simple, direct, good for small datasets)
+- **DEEP mode**: Use programmatic tools via code_execution (token-efficient, scalable)
+- See approach docs (multi-engine-testing.md, citation-analysis.md) for detailed code examples
 
 **Important:**
 - Always show progress updates
 - Save intermediate data for debugging
 - Provide actionable insights, not just data
-- If MCP tools unavailable, use WebSearch/WebFetch as alternatives
+- For DEEP mode: Write Python code that processes data efficiently
+- If MCP tools unavailable for LIGHT mode, use WebSearch/WebFetch as alternatives
 """,
 
             model="sonnet",
