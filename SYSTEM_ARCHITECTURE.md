@@ -17,7 +17,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│  Layer 1: MASTER AGENT (Kaya)                               │
+│  Layer 1: MASTER AGENT (Castor)                               │
 │  - Orchestrates workflows                                   │
 │  - Manages user interaction                                 │
 │  - Delegates to sub-agents                                  │
@@ -53,7 +53,7 @@
 
 ## Component Inventory
 
-### Master Agent: Kaya
+### Master Agent: Castor
 
 **File**: `marketing_agent.py` (600+ lines)
 
@@ -273,7 +273,7 @@ common_subagent_tools = [
 
 ### Skills Library (17 files)
 
-**Location**: `.claude/skills/`
+**Location**: `.claude/approaches/`
 **Total Lines**: ~14,500 lines
 **Format**: Markdown with step-by-step instructions
 
@@ -401,7 +401,7 @@ common_subagent_tools = [
 agents = {
     "seo-analyst": AgentDefinition(
         description="Expert in SEO...",
-        prompt="You are Kaya's SEO specialist...",
+        prompt="You are Castor's SEO specialist...",
         model="sonnet",
         tools=common_subagent_tools  # NO Task tool here!
     ),
@@ -411,7 +411,7 @@ agents = {
 
 **Delegation Example**:
 ```python
-# Kaya uses Task tool to delegate
+# Castor uses Task tool to delegate
 Task(
     subagent_type="seo-analyst",
     prompt="Run a comprehensive SEO audit on acmecorp.com",
@@ -435,7 +435,7 @@ Task(
 ```
 Sub-Agent Activated
       ↓
-Read skill file: .claude/skills/seo/technical-audit.md
+Read skill file: .claude/approaches/seo/technical-audit.md
       ↓
 Skill provides step-by-step instructions:
   "Step 1: Fetch homepage with WebFetch"
@@ -661,16 +661,16 @@ Read("/data/seo/keywords_analyzed.json")
 User asks GEO agent: "Analyze our GEO performance and compare to competitors"
 
 Current (inefficient):
-User → Kaya → GEO Agent (does GEO analysis)
-GEO Agent → Kaya (returns results)
-Kaya → Competitor Agent (does competitive analysis)
-Competitor Agent → Kaya (returns results)
-Kaya → Data Synthesis (combines)
+User → Castor → GEO Agent (does GEO analysis)
+GEO Agent → Castor (returns results)
+Castor → Competitor Agent (does competitive analysis)
+Competitor Agent → Castor (returns results)
+Castor → Data Synthesis (combines)
 
 Ideal (if GEO had Task tool):
-User → Kaya → GEO Agent
+User → Castor → GEO Agent
 GEO Agent → Competitor Agent directly
-GEO Agent synthesizes both → Kaya
+GEO Agent synthesizes both → Castor
 ```
 
 **Recommended Fix**:

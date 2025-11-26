@@ -98,11 +98,11 @@
 **User Experience**:
 ```
 User: "Run deep GEO analysis"
-Kaya: "Starting analysis..."
+Castor: "Starting analysis..."
 
 [15 minutes of complete silence - BLACK BOX]
 
-Kaya: "Done!" {dumps giant JSON blob}
+Castor: "Done!" {dumps giant JSON blob}
 ```
 
 **Problems**:
@@ -116,7 +116,7 @@ Kaya: "Done!" {dumps giant JSON blob}
 **User Experience**:
 ```
 User: "Run deep GEO analysis"
-Kaya: "I'll run a comprehensive analysis..."
+Castor: "I'll run a comprehensive analysis..."
 
 ┌─────────────────────────────────┐
 │ 🤝 Delegating to geo-optimizer: │
@@ -141,7 +141,7 @@ Kaya: "I'll run a comprehensive analysis..."
 
 ... (progress continues) ...
 
-Kaya: "Analysis complete! Brand visibility: 16.8%"
+Castor: "Analysis complete! Brand visibility: 16.8%"
 ```
 
 **Improvements**:
@@ -330,7 +330,7 @@ python marketing_agent.py
 
 **3. Sub-Agent Progress Tracking** (Complex)
 - Show nested progress when master agent delegates to sub-agent
-- Hierarchical view: Kaya → SEO Analyst → (tasks)
+- Hierarchical view: Castor → SEO Analyst → (tasks)
 - Requires more sophisticated state tracking
 
 ---

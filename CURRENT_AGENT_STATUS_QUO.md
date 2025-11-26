@@ -9,7 +9,7 @@
 
 ### Components Built
 
-1. **Master Agent (Kaya)** - `/marketing_agent.py`
+1. **Master Agent (Castor)** - `/marketing_agent.py`
    - Personal assistant role
    - Has access to 7 specialized sub-agents
    - Can delegate tasks using the `Task` tool
@@ -24,7 +24,7 @@
    - `content-strategist`: Content strategy
    - `competitor-analyst`: Competitive intelligence
 
-3. **17 Skill Workflows** - Markdown files in `.claude/skills/`
+3. **17 Skill Workflows** - Markdown files in `.claude/approaches/`
    - Detailed step-by-step instructions for complex tasks
    - Examples: `multi-engine-testing.md`, `technical-audit.md`, `campaign-analysis.md`
    - Contains workflow logic, file paths, validation rules
@@ -82,7 +82,7 @@
 
 ## Current Agent Interaction Flow
 
-### What Happens When User Talks to Kaya
+### What Happens When User Talks to Castor
 
 **Step 1: User Input**
 ```
@@ -90,7 +90,7 @@ User: "Run a deep GEO analysis for Acme Corp"
 ```
 
 **Step 2: Master Agent Processes Request**
-- Kaya receives the request
+- Castor receives the request
 - Decides to delegate to `geo-optimizer` sub-agent
 - Uses `Task` tool to spawn sub-agent
 
@@ -120,8 +120,8 @@ TodoWrite(todos=[
 
 **Step 6: Agent Returns Final Result**
 - After all work is done (could be 5-20 minutes)
-- Returns final text response to Kaya
-- Kaya shows user the result
+- Returns final text response to Castor
+- Castor shows user the result
 
 **Step 7: Logging (Post-Execution)**
 - After agent stops, hook runs: `log_agent_actions.py`
@@ -199,7 +199,7 @@ TodoWrite(todos=[
    - No formatted tables, charts, or structured output
 
 4. **No Sub-Agent Transparency**
-   - When Kaya delegates to sub-agent, user sees Task tool call
+   - When Castor delegates to sub-agent, user sees Task tool call
    - But during sub-agent execution, it's a black box
    - Can't see the sub-agent's thought process or tool usage
 
@@ -245,7 +245,7 @@ TodoWrite(todos=[
 
 **What User Sees**:
 ```
-Kaya: "I'll run a comprehensive GEO analysis. Let me delegate to my GEO specialist."
+Castor: "I'll run a comprehensive GEO analysis. Let me delegate to my GEO specialist."
 
 [Tool Use: Task - geo-optimizer]
 
@@ -253,7 +253,7 @@ Kaya: "I'll run a comprehensive GEO analysis. Let me delegate to my GEO speciali
 
 [Tool Result: Giant JSON blob with 300 test results]
 
-Kaya: "Analysis complete! Brand mentioned in 16.8% of AI engine responses.
+Castor: "Analysis complete! Brand mentioned in 16.8% of AI engine responses.
 Top engine was Perplexity at 28%. Full report saved to /data/clients/..."
 ```
 
@@ -267,7 +267,7 @@ Read("/data/clients/acme/context/company-profile.json")
 # User sees: Nothing
 
 # Step 2: Load skill workflow (2 seconds)
-Read(".claude/skills/geo/company-value-identification.md")
+Read(".claude/approaches/geo/company-value-identification.md")
 # User sees: Nothing
 
 # Step 3: Extract value props (30 seconds)
@@ -561,7 +561,7 @@ competitors = context["competitors"]       # ["Zendesk", "Intercom"]
 
 | Component | Status | Notes |
 |-----------|--------|-------|
-| Master agent (Kaya) | ✅ Working | Delegates successfully |
+| Master agent (Castor) | ✅ Working | Delegates successfully |
 | 7 sub-agents | ✅ Working | Execute tasks correctly |
 | 17 skill workflows | ✅ Working | Detailed instructions exist |
 | File workspace | ✅ Working | Persistent storage works |
@@ -609,7 +609,7 @@ competitors = context["competitors"]       # ["Zendesk", "Intercom"]
 4. **Frontend Components** (for web app)
    - React components to render each visualization type
    - Event subscription to agent progress
-   - Hierarchical view: User → Kaya → Sub-Agent → Tools
+   - Hierarchical view: User → Castor → Sub-Agent → Tools
 
 5. **Message Type Extensions**
    - New message type: `VisualizationMessage`
@@ -624,11 +624,11 @@ competitors = context["competitors"]       # ["Zendesk", "Intercom"]
 
 ```
 User: "Run deep GEO analysis"
-Kaya: "Starting analysis..."
+Castor: "Starting analysis..."
 
 [15 minutes of silence]
 
-Kaya: "Done! Results: {giant JSON blob}"
+Castor: "Done! Results: {giant JSON blob}"
 ```
 
 **User Experience**: Frustrating, unclear, boring
@@ -637,7 +637,7 @@ Kaya: "Done! Results: {giant JSON blob}"
 
 ```
 User: "Run deep GEO analysis"
-Kaya: "I'll run a comprehensive GEO analysis for Acme Corp."
+Castor: "I'll run a comprehensive GEO analysis for Acme Corp."
 
 ┌─────────────────────────────────────────┐
 │ 🎯 Delegating to GEO Optimizer          │
@@ -707,7 +707,7 @@ Kaya: "I'll run a comprehensive GEO analysis for Acme Corp."
 │ TOTAL      │ 48       │ 16.8%            │
 └────────────┴──────────┴──────────────────┘
 
-Kaya: "Analysis complete! Your brand has the highest visibility
+Castor: "Analysis complete! Your brand has the highest visibility
 on Perplexity (28%). I recommend focusing GEO optimization efforts
 there. Full report saved to /data/clients/acme/analyses/geo/..."
 ```
@@ -833,13 +833,13 @@ mcp_servers = {
 
 **Current Flow**:
 ```
-User → Kaya → [Task tool spawn] → Sub-Agent runs → [Black box] → Result
+User → Castor → [Task tool spawn] → Sub-Agent runs → [Black box] → Result
 ```
 
 **Needed**:
 - Sub-agent tool calls visible in UI
 - Hierarchical display showing:
-  - Kaya (master)
+  - Castor (master)
     - → SEO Analyst (sub-agent)
       - → WebFetch(acmecorp.com)
       - → TodoWrite([...])
@@ -907,8 +907,8 @@ User → Kaya → [Task tool spawn] → Sub-Agent runs → [Black box] → Resul
 - `marketing_agent.py:32-610` - Agent definitions and configuration
 - `cli_tools.py:45-218` - Current terminal display logic
 - `.claude/output-styles/personal-assistant.md` - Master agent prompt
-- `.claude/skills/geo/multi-engine-testing.md` - GEO workflow
-- `.claude/skills/seo/technical-audit.md` - SEO workflow
+- `.claude/approaches/geo/multi-engine-testing.md` - GEO workflow
+- `.claude/approaches/seo/technical-audit.md` - SEO workflow
 - `.claude/hooks/log_agent_actions.py` - Tool call logging
 
 ### MCP Implementation (Exists but Not Connected)
@@ -952,4 +952,4 @@ The **user experience layer** is absent:
 
 We have a powerful multi-agent system executing complex marketing workflows behind the scenes, but users are staring at a black box waiting for JSON to appear.
 
-The next phase is building the **visualization and event streaming layer** so users can see what Kaya and her team are actually doing.
+The next phase is building the **visualization and event streaming layer** so users can see what Castor and her team are actually doing.

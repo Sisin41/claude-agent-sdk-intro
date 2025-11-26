@@ -387,12 +387,12 @@ def render_tool_use_compact(block: ToolUseBlock, console: Console):
 ## Phase 1E: Sub-Agent Progress Tracking
 
 ### Goal
-When Kaya delegates to a sub-agent, show nested progress.
+When Castor delegates to a sub-agent, show nested progress.
 
 ### Visualization
 ```
 ┌─────────────────────────────────────┐
-│ Kaya                                │
+│ Castor                                │
 │ I'll delegate this to my SEO        │
 │ specialist.                         │
 └─────────────────────────────────────┘
@@ -493,7 +493,7 @@ Build a production chat interface where agents' work is visible through real-tim
 │                        ↕                                │
 │  ┌──────────────────────────────────────────────────┐  │
 │  │  Claude Agent SDK                                │  │
-│  │  - Kaya (master agent)                           │  │
+│  │  - Castor (master agent)                           │  │
 │  │  - 7 sub-agents                                  │  │
 │  │  - Tools (Read, Write, TodoWrite, etc.)          │  │
 │  └──────────────────────────────────────────────────┘  │
@@ -855,7 +855,7 @@ export default function Chat({ sessionId }: { sessionId: string }) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Ask Kaya anything..."
+            placeholder="Ask Castor anything..."
             className="flex-1 border rounded-lg px-4 py-2"
           />
           <button

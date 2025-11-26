@@ -1,6 +1,6 @@
 # Deployment Readiness Summary
 
-**Project**: Marketing Agent with Kaya (Multi-Agent System)
+**Project**: Marketing Agent with Castor (Multi-Agent System)
 **Status**: Core system functional, UX layer missing
 **Date**: November 24, 2025
 
@@ -20,7 +20,7 @@ The marketing agent system is **functionally complete** but **not user-ready**. 
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| Master Agent (Kaya) | ✅ Working | Orchestrates and delegates |
+| Master Agent (Castor) | ✅ Working | Orchestrates and delegates |
 | 7 Sub-Agents | ✅ Working | SEO, GEO, Ads, Content, etc. |
 | 17 Skill Workflows | ✅ Working | Detailed markdown instructions |
 | File Workspace | ✅ Working | Client data persistence |
@@ -124,7 +124,7 @@ python marketing_agent.py
 
 User: "Run deep GEO analysis"
 
-Kaya: "I'll run a comprehensive analysis..."
+Castor: "I'll run a comprehensive analysis..."
 
 ┌─────────────────────────────────────┐
 │ 📋 GEO Optimizer Progress           │
@@ -471,7 +471,7 @@ websocket client
 - Agent System: `/marketing_agent.py`
 - CLI Tools: `/cli_tools.py`
 - MCP Tools: `/mcp-servers/marketing-tools/`
-- Skills: `/.claude/skills/`
+- Skills: `/.claude/approaches/`
 
 **Support**:
 - Claude Agent SDK Docs: https://docs.claude.com/en/docs/claude-code/

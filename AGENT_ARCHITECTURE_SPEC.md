@@ -325,7 +325,7 @@ Session ─── references ──→ Environment (read)
 
   "metadata": {
     "execution_time_ms": 45000,
-    "skill_files_used": [".claude/skills/seo/technical-audit.md"],
+    "skill_files_used": [".claude/approaches/seo/technical-audit.md"],
     "tools_used": ["WebFetch", "Bash"]
   }
 }

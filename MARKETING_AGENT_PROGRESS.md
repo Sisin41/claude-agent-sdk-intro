@@ -228,7 +228,7 @@ claude-agent-sdk-intro/
 
 ### 2025-11-20
 - **14:30** - ✅ Created tracking document (MARKETING_AGENT_PROGRESS.md)
-- **14:35** - ✅ Created directory structure (data/, docs/marketing/, .claude/skills/)
+- **14:35** - ✅ Created directory structure (data/, docs/marketing/, .claude/approaches/)
 - **14:40** - ✅ Built marketing_agent.py with all 7 sub-agent definitions
 - **14:50** - ✅ Created all 7 agent markdown files in .claude/agents/
   - geo-optimizer.md
@@ -245,7 +245,7 @@ claude-agent-sdk-intro/
 ## 🎯 Next Immediate Steps
 
 1. ✅ Create this tracking document
-2. ✅ Create directory structure (data/, docs/marketing/, .claude/skills/)
+2. ✅ Create directory structure (data/, docs/marketing/, .claude/approaches/)
 3. ✅ Build marketing_agent.py with all sub-agent definitions
 4. ✅ Create 7 agent markdown files in .claude/agents/
 5. ⏳ Build MCP tools package structure (package.json, tsconfig, etc.)
@@ -288,7 +288,7 @@ _None yet_
 1. **Project Structure** ✅
    - Created `/data/geo/`, `/data/seo/`, `/data/ads/` directories
    - Created `/docs/marketing/` directory
-   - Created `.claude/skills/` with subdirectories for each domain
+   - Created `.claude/approaches/` with subdirectories for each domain
    - Created `/mcp-servers/marketing-tools/` structure
 
 2. **Main Marketing Agent** ✅

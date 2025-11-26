@@ -27,7 +27,7 @@ This document specifies the requirements for **2 critical MCP tools** that enabl
 **Priority**: **P0 (Must Have)**
 **Purpose**: Execute test prompts across multiple AI engines (ChatGPT, Perplexity, Gemini) in parallel to measure brand visibility
 
-**Defined In**: `.claude/skills/geo/multi-engine-testing.md`
+**Defined In**: `.claude/approaches/geo/multi-engine-testing.md`
 
 ### Business Value
 
@@ -682,7 +682,7 @@ This tool is **complete and ready** when:
 **Priority**: **P0 (Must Have)**
 **Purpose**: Analyze citations using parallel LLM calls to extract deep insights (relevance, sentiment, recommendations)
 
-**Defined In**: `.claude/skills/geo/citation-analysis.md`
+**Defined In**: `.claude/approaches/geo/citation-analysis.md`
 
 ### Business Value
 

@@ -323,7 +323,7 @@ meta-ads-performance-2024-01-22.csv
 
   "metadata": {
     "skill_files_used": [
-      ".claude/skills/seo/technical-audit.md"
+      ".claude/approaches/seo/technical-audit.md"
     ],
     "mcp_tools_used": [],
     "data_sources": [

@@ -45,7 +45,7 @@ async def main():
 
     print_rich_message(
         "system",
-        f"Welcome to your personal assistant, Kaya!\n\nSelected model: {args.model}",
+        f"Welcome to your personal assistant, Castor!\n\nSelected model: {args.model}",
         console
         )
 

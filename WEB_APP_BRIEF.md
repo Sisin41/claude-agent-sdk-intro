@@ -26,7 +26,7 @@ We've built a fully functional multi-agent marketing system with **7 specialized
 
 ### Core Components ✅
 
-**1. Master Agent (Kaya)**
+**1. Master Agent (Castor)**
 - Personal assistant that orchestrates 7 sub-agents
 - Delegates tasks using the `Task` tool
 - File: `/marketing_agent.py`
@@ -176,7 +176,7 @@ def render_todo_visualization(tool_input: dict, console: Console):
 │              ↕                              │
 │  ┌──────────────────────────────────────┐  │
 │  │  Claude Agent SDK                    │  │
-│  │  - Kaya (master)                     │  │
+│  │  - Castor (master)                     │  │
 │  │  - 7 sub-agents                      │  │
 │  │  - TodoWrite, Read, Write, etc.      │  │
 │  └──────────────────────────────────────┘  │
@@ -607,7 +607,7 @@ export default function ChatContainer({ sessionId }: ChatContainerProps) {
     <div className="flex flex-col h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">Kaya - Marketing Agent</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Castor - Marketing Agent</h1>
         <p className="text-sm text-gray-500">
           {isConnected ? '🟢 Connected' : '🔴 Disconnected'}
         </p>
@@ -629,7 +629,7 @@ export default function ChatContainer({ sessionId }: ChatContainerProps) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-            placeholder="Ask Kaya anything..."
+            placeholder="Ask Castor anything..."
             disabled={!isConnected}
             className="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -946,7 +946,7 @@ pip install websocket-client
 python -c "
 from websocket import create_connection
 ws = create_connection('ws://localhost:8000/ws/test-session')
-ws.send('{\"content\": \"Hello Kaya\"}')
+ws.send('{\"content\": \"Hello Castor\"}')
 result = ws.recv()
 print(result)
 ws.close()
@@ -1110,7 +1110,7 @@ REACT_APP_WS_URL=wss://your-domain.com/ws
 - Agent definitions and tool configurations
 - Current agent prompts and skills
 
-**Skills**: `/.claude/skills/`
+**Skills**: `/.claude/approaches/`
 - Detailed workflow instructions
 - Expected behavior for each agent
 

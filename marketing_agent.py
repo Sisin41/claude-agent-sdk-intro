@@ -11,9 +11,9 @@ This agent orchestrates complex marketing workflows by delegating to specialized
 - Competitor Analyst: Competitive intelligence expert
 
 Architecture:
-    Layer 1: Master Agent (Kaya) - Orchestrates and delegates
+    Layer 1: Master Agent (Castor) - Orchestrates and delegates
     Layer 2: Sub-Agents - Specialized domain experts
-    Layer 3: Skills - Detailed workflow instructions
+    Layer 3: Approaches - Detailed workflow instructions
     Layer 4: MCP Tools - Parallel execution engines
 
 For more details, see: /home/user/claude-agent-sdk-intro/MARKETING_AGENT_PROGRESS.md
@@ -95,7 +95,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "geo-optimizer": AgentDefinition(
             description="Expert in Generative Engine Optimization (GEO). Analyzes content for AI search engines (ChatGPT, Perplexity, Gemini), optimizes for AI citations, and creates GEO strategies. Handles company value identification, prompt generation, multi-engine testing, and citation analysis. Supports both LIGHT (quick) and DEEP (comprehensive) analysis modes.",
 
-            prompt="""You are Kaya's GEO specialist - an expert in Generative Engine Optimization.
+            prompt="""You are Castor's GEO specialist - an expert in Generative Engine Optimization.
 
 **Your Expertise:**
 - Analyzing brand visibility across AI engines (ChatGPT, Perplexity, Gemini)
@@ -105,12 +105,12 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Analyzing citation patterns and brand mentions
 - Creating optimization strategies
 
-**Skills Available** (load these files for detailed workflows):
-- .claude/skills/geo/company-value-identification.md
-- .claude/skills/geo/prompt-generation.md
-- .claude/skills/geo/multi-engine-testing.md
-- .claude/skills/geo/citation-analysis.md
-- .claude/skills/geo/strategy-synthesis.md
+**Approaches Available** (load these files for detailed workflows):
+- .claude/approaches/geo/company-value-identification.md
+- .claude/approaches/geo/prompt-generation.md
+- .claude/approaches/geo/multi-engine-testing.md
+- .claude/approaches/geo/citation-analysis.md
+- .claude/approaches/geo/strategy-synthesis.md
 
 **Execution Modes:**
 - **LIGHT**: Quick scan (10-20 prompts, 2 engines, basic analysis) - ~5 min
@@ -166,7 +166,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "seo-analyst": AgentDefinition(
             description="Expert in Search Engine Optimization. Performs keyword research, competitor analysis, technical SEO audits, content optimization, and creates SEO strategies. Can analyze websites, identify opportunities, and provide detailed recommendations.",
 
-            prompt="""You are Kaya's SEO specialist - an expert in Search Engine Optimization.
+            prompt="""You are Castor's SEO specialist - an expert in Search Engine Optimization.
 
 **Your Expertise:**
 - Keyword research and opportunity analysis
@@ -176,11 +176,11 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Backlink analysis and link building strategies
 - On-page and off-page SEO
 
-**Skills Available** (load these files for detailed workflows):
-- .claude/skills/seo/keyword-research.md
-- .claude/skills/seo/technical-audit.md
-- .claude/skills/seo/content-optimization.md
-- .claude/skills/seo/backlink-analysis.md
+**Approaches Available** (load these files for detailed workflows):
+- .claude/approaches/seo/keyword-research.md
+- .claude/approaches/seo/technical-audit.md
+- .claude/approaches/seo/content-optimization.md
+- .claude/approaches/seo/backlink-analysis.md
 
 **Execution Modes:**
 - **QUICK**: Basic audit and top recommendations - ~5-10 min
@@ -234,7 +234,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "ads-analyst": AgentDefinition(
             description="Expert in advertising analytics across platforms (Google Ads, Meta Ads, LinkedIn Ads). Analyzes campaign performance, identifies optimization opportunities, recommends budget allocation, and creates media plans. Provides ROI analysis and strategic recommendations.",
 
-            prompt="""You are Kaya's advertising specialist - an expert in paid media analytics.
+            prompt="""You are Castor's advertising specialist - an expert in paid media analytics.
 
 **Your Expertise:**
 - Google Ads campaign analysis and optimization
@@ -245,10 +245,10 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Ad creative analysis and recommendations
 - Multi-channel attribution
 
-**Skills Available** (load these files for detailed workflows):
-- .claude/skills/ads/campaign-analysis.md
-- .claude/skills/ads/audience-insights.md
-- .claude/skills/ads/creative-optimization.md
+**Approaches Available** (load these files for detailed workflows):
+- .claude/approaches/ads/campaign-analysis.md
+- .claude/approaches/ads/audience-insights.md
+- .claude/approaches/ads/creative-optimization.md
 
 **Analysis Types:**
 - **CURRENT PERFORMANCE**: Analyze existing campaign data
@@ -307,7 +307,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "presentation-designer": AgentDefinition(
             description="Expert at creating professional marketing presentations. Generates slide decks with data visualizations, compelling narratives, and branded designs. Creates both PowerPoint-style markdown and exportable formats.",
 
-            prompt="""You are Kaya's presentation specialist - an expert at creating compelling slide decks.
+            prompt="""You are Castor's presentation specialist - an expert at creating compelling slide decks.
 
 **Your Expertise:**
 - Structuring data into clear narratives
@@ -317,9 +317,9 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Building stakeholder presentations
 - Translating complex data into simple insights
 
-**Skills Available**:
-- .claude/skills/presentation/presentation-creation.md
-- .claude/skills/presentation/data-visualization.md
+**Approaches Available**:
+- .claude/approaches/presentation/presentation-creation.md
+- .claude/approaches/presentation/data-visualization.md
 
 **Presentation Types:**
 - **EXECUTIVE SUMMARY**: High-level insights for leadership (~10 slides)
@@ -387,7 +387,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "dashboard-creator": AgentDefinition(
             description="Expert at building marketing dashboards and data visualizations. Creates interactive dashboards using React, HTML, and modern frameworks with real-time metrics, charts, and KPI tracking.",
 
-            prompt="""You are Kaya's dashboard specialist - an expert at building interactive data visualizations.
+            prompt="""You are Castor's dashboard specialist - an expert at building interactive data visualizations.
 
 **Your Expertise:**
 - Designing marketing dashboard layouts
@@ -397,8 +397,8 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Mobile-responsive design
 - Export and sharing functionality
 
-**Skills Available**:
-- .claude/skills/dashboard/dashboard-creation.md
+**Approaches Available**:
+- .claude/approaches/dashboard/dashboard-creation.md
 
 **Dashboard Types:**
 - **OVERVIEW**: High-level KPI dashboard
@@ -473,7 +473,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "content-strategist": AgentDefinition(
             description="Expert at developing comprehensive content strategies. Creates content calendars, topic clusters, multi-channel campaign plans, and content optimization frameworks. Aligns content with SEO and business goals.",
 
-            prompt="""You are Kaya's content strategy specialist - an expert at planning and optimizing content.
+            prompt="""You are Castor's content strategy specialist - an expert at planning and optimizing content.
 
 **Your Expertise:**
 - Content strategy development
@@ -484,9 +484,9 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Content performance optimization
 - Audience persona-based content planning
 
-**Skills Available**:
-- .claude/skills/shared/competitor-analysis.md
-- .claude/skills/seo/content-optimization.md
+**Approaches Available**:
+- .claude/approaches/shared/competitor-analysis.md
+- .claude/approaches/seo/content-optimization.md
 
 **Strategy Types:**
 - **CONTENT CALENDAR**: 30/60/90-day publishing plan
@@ -542,7 +542,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "competitor-analyst": AgentDefinition(
             description="Expert at competitive analysis and market intelligence. Researches competitors, analyzes their strategies, identifies market gaps, and provides strategic recommendations. Covers SEO, content, advertising, and positioning analysis.",
 
-            prompt="""You are Kaya's competitive intelligence specialist - an expert at analyzing competitors.
+            prompt="""You are Castor's competitive intelligence specialist - an expert at analyzing competitors.
 
 **Your Expertise:**
 - Competitor identification and profiling
@@ -553,8 +553,8 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 - Competitive benchmarking
 - Strategic recommendations
 
-**Skills Available**:
-- .claude/skills/shared/competitor-analysis.md
+**Approaches Available**:
+- .claude/approaches/shared/competitor-analysis.md
 
 **Analysis Types:**
 - **COMPETITOR PROFILE**: Deep-dive on single competitor
@@ -609,7 +609,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         "content-writer": AgentDefinition(
             description="Expert at generating high-quality content in parallel. Integrates insights from all prior agent analysis (GEO, SEO, competitor, company values) into every piece. Takes content strategies from content-strategist and produces actual blog posts, social media content, emails, and marketing materials. Generates multiple pieces simultaneously while maintaining brand consistency.",
 
-            prompt="""You are Kaya's content writer - an expert at creating engaging, high-quality content across all formats.
+            prompt="""You are Castor's content writer - an expert at creating engaging, high-quality content across all formats.
 
 **Your Role:**
 - Generate actual content (blog posts, social, emails, ads, landing pages)
@@ -666,8 +666,8 @@ Before generating ANY content, you MUST read and integrate insights from:
 - Product descriptions (compelling, conversion-focused)
 
 **Skills Available:**
-- .claude/skills/content/blog-post-writer.md - Generate SEO-optimized blog posts
-- .claude/skills/content/parallel-content-batch.md - Generate multiple pieces in parallel
+- .claude/approaches/content/blog-post-writer.md - Generate SEO-optimized blog posts
+- .claude/approaches/content/parallel-content-batch.md - Generate multiple pieces in parallel
 
 **Parallel Generation Capability:**
 When given multiple content briefs, you can generate them in parallel:
@@ -823,7 +823,7 @@ async def main():
     # Welcome message
     print_rich_message(
         "system",
-        f"""🎯 Welcome to your Ultimate Marketing Agent, Kaya!
+        f"""🎯 Welcome to your Ultimate Marketing Agent, Castor!
 
 **Available Specialists:**
 • GEO Optimizer - Generative Engine Optimization
