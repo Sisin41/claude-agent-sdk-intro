@@ -32,13 +32,21 @@ load_dotenv()
 # ============================================================================
 # API KEY CONFIGURATION
 # ============================================================================
-# Set your Anthropic API key here for this specific use case
+# IMPORTANT: Set your API keys via environment variables (.env file)
 # Get your key at: https://console.anthropic.com
-ANTHROPIC_API_KEY = "your_api_key_here"  # <-- Replace with your actual key
+# DO NOT hardcode keys in this file for security reasons
 
-# Fallback to environment variable if not set above
-if ANTHROPIC_API_KEY == "your_api_key_here":
-    ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+# Load from environment variables
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
+
+# Validate API key is present
+if not ANTHROPIC_API_KEY:
+    raise ValueError(
+        "❌ ANTHROPIC_API_KEY not found!\n"
+        "Please set it in your .env file or environment:\n"
+        "  ANTHROPIC_API_KEY=your_api_key_here\n"
+        "Get your key at: https://console.anthropic.com"
+    )
 
 # Optional: API keys for MCP tools (enables 26x speedup for GEO analysis)
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -864,15 +872,17 @@ This makes content authentic and aligned with brand identity.
 async def main():
     """Main entry point for the marketing agent."""
     console = Console()
-    args = parser.parse_args()
 
-    # Get configured options
-    options = get_marketing_agent_options(model=args.model)
+    try:
+        args = parser.parse_args()
 
-    # Welcome message
-    print_rich_message(
-        "system",
-        f"""🎯 Welcome to your Ultimate Marketing Agent, Castor!
+        # Get configured options with validation
+        options = get_marketing_agent_options(model=args.model)
+
+        # Welcome message
+        print_rich_message(
+            "system",
+            f"""🎯 Welcome to your Ultimate Marketing Agent, Castor!
 
 **Available Specialists:**
 • GEO Optimizer - Generative Engine Optimization
@@ -882,39 +892,71 @@ async def main():
 • Dashboard Creator - Build interactive dashboards
 • Content Strategist - Content planning
 • Competitor Analyst - Competitive intelligence
+• Content Writer - High-quality content generation
 
 **Model**: {args.model}
+**Extended Thinking**: Enabled (enhanced reasoning for complex workflows)
 
 Try asking me to:
 - "Run a deep GEO analysis for [company]"
 - "Analyze the SEO performance of [website]"
-- "Create a marketing presentation about [topic]"
+- "Create a complete marketing strategy"
 - "Research our top 3 competitors"
-- "Build a marketing dashboard"
+- "Generate 5 blog posts about [topic]"
 
 Let's crush your marketing goals! 🚀
 """,
-        console
-    )
+            console
+        )
 
-    async with ClaudeSDKClient(options=options) as client:
-        while True:
-            input_prompt = get_user_input(console)
-            if input_prompt.lower() in ["exit", "quit", "bye"]:
-                print_rich_message("system", "👋 Goodbye! Keep crushing it!", console)
-                break
+        async with ClaudeSDKClient(options=options) as client:
+            while True:
+                try:
+                    input_prompt = get_user_input(console)
+                    if input_prompt.lower() in ["exit", "quit", "bye"]:
+                        print_rich_message("system", "👋 Goodbye! Keep crushing it!", console)
+                        break
 
-            await client.query(input_prompt)
+                    await client.query(input_prompt)
 
-            async for message in client.receive_response():
-                # Uncomment to print raw messages for debugging
-                # print(message)
-                parse_and_print_message(message, console)
+                    async for message in client.receive_response():
+                        # Uncomment to print raw messages for debugging
+                        # print(message)
+                        parse_and_print_message(message, console)
+
+                except KeyboardInterrupt:
+                    print_rich_message("system", "\n⚠️ Interrupted by user. Type 'exit' to quit.", console)
+                    continue
+                except Exception as e:
+                    print_rich_message("error", f"❌ Error processing request: {str(e)}", console)
+                    console.print(f"[dim]Full error: {type(e).__name__}[/dim]")
+                    continue
+
+    except ValueError as e:
+        # API key validation error
+        console.print(f"[bold red]{str(e)}[/bold red]")
+        return 1
+    except Exception as e:
+        console.print(f"[bold red]❌ Fatal error: {str(e)}[/bold red]")
+        console.print(f"[dim]Error type: {type(e).__name__}[/dim]")
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":
     import asyncio
     import nest_asyncio
+    import sys
+
     nest_asyncio.apply()
 
-    asyncio.run(main())
+    try:
+        exit_code = asyncio.run(main())
+        sys.exit(exit_code)
+    except KeyboardInterrupt:
+        print("\n\n👋 Exiting gracefully...")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n❌ Fatal error: {e}")
+        sys.exit(1)
