@@ -16,17 +16,174 @@ Execute generated prompts across multiple AI engines (ChatGPT, Perplexity, Gemin
 
 ## Execution Modes
 
-### LIGHT Mode
+### LIGHT Mode (Standard Approach)
 **Prompts**: 10-20
 **Engines**: 2 (ChatGPT + Perplexity recommended)
 **Total Tests**: 20-40
 **Expected Time**: 30-60 seconds (with MCP) / 10-15 minutes (manual)
+**Token Usage**: ~8,000 tokens
+**Approach**: Use MCP tool directly
 
-### DEEP Mode
-**Prompts**: 80-100
+### DEEP Mode (Programmatic Approach) ⚡ RECOMMENDED
+**Prompts**: 50-100
 **Engines**: 3 (ChatGPT + Perplexity + Gemini)
-**Total Tests**: 240-300
-**Expected Time**: 30-90 seconds (with MCP) / 40-60 minutes (manual)
+**Total Tests**: 150-300
+**Expected Time**: 2-5 minutes
+**Token Usage**: ~1,500 tokens (150x savings!)
+**Approach**: Use programmatic tool calling (code execution)
+
+---
+
+## 🚀 Programmatic Tool Calling (DEEP Mode)
+
+For large-scale testing (50+ prompts), use **programmatic tool calling** to:
+- Run hundreds of queries efficiently
+- Process responses in code (not in context)
+- Return only aggregated insights
+- Save 100-150x tokens
+
+### How It Works
+
+**Step 1: Generate test prompts** (same as before)
+**Step 2: Run queries programmatically**
+
+Write Python code that calls AI engines:
+
+```python
+# Import required libraries
+import json
+
+# Load test prompts
+test_prompts = [
+    "What is the best customer support software?",
+    "How to reduce support ticket volume?",
+    "AI help desk solutions comparison",
+    "Best practices for customer service teams",
+    # ... 50-100 prompts total
+]
+
+brand_name = "propel.io"
+competitors = ["zendesk", "intercom", "freshdesk"]
+
+# Run tests programmatically
+results = []
+
+for prompt in test_prompts:
+    # Query all engines (these are programmatic tools)
+    chatgpt_resp = await query_chatgpt(prompt)
+    perplexity_resp = await query_perplexity(prompt)
+    gemini_resp = await query_gemini(prompt)
+
+    # Extract citations IN CODE (not loaded into context!)
+    chatgpt_citations = extract_brand_mentions(chatgpt_resp, brand_name, competitors)
+    perplexity_citations = extract_brand_mentions(perplexity_resp, brand_name, competitors)
+    gemini_citations = extract_brand_mentions(gemini_resp, brand_name, competitors)
+
+    # Aggregate per prompt
+    results.append({
+        "prompt": prompt,
+        "brand_cited": any([
+            brand_name.lower() in chatgpt_resp.lower(),
+            brand_name.lower() in perplexity_resp.lower(),
+            brand_name.lower() in gemini_resp.lower()
+        ]),
+        "engines_cited_in": [
+            e for e, cited in [
+                ("chatgpt", brand_name.lower() in chatgpt_resp.lower()),
+                ("perplexity", brand_name.lower() in perplexity_resp.lower()),
+                ("gemini", brand_name.lower() in gemini_resp.lower())
+            ] if cited
+        ],
+        "competitor_mentions": {
+            "chatgpt": extract_competitors(chatgpt_resp, competitors),
+            "perplexity": extract_competitors(perplexity_resp, competitors),
+            "gemini": extract_competitors(gemini_resp, competitors)
+        }
+    })
+
+# Calculate visibility score
+total_tests = len(results) * 3  # 3 engines per prompt
+brand_citations = sum(len(r["engines_cited_in"]) for r in results)
+visibility_score = (brand_citations / total_tests) * 100
+
+# Return ONLY aggregated insights (not 75K tokens of raw responses!)
+print(json.dumps({
+    "visibility_score": round(visibility_score, 2),
+    "total_prompts_tested": len(test_prompts),
+    "brand_citations": brand_citations,
+    "citation_breakdown": {
+        "chatgpt": sum(1 for r in results if "chatgpt" in r["engines_cited_in"]),
+        "perplexity": sum(1 for r in results if "perplexity" in r["engines_cited_in"]),
+        "gemini": sum(1 for r in results if "gemini" in r["engines_cited_in"])
+    },
+    "top_competitor": find_most_mentioned_competitor(results),
+    "citation_opportunities": identify_gaps(results)[:10]
+}, indent=2))
+```
+
+### Helper Functions (include in code)
+
+```python
+def extract_brand_mentions(response: str, brand: str, competitors: list) -> dict:
+    """Extract brand and competitor mentions from response"""
+    lower_resp = response.lower()
+    return {
+        "brand_mentioned": brand.lower() in lower_resp,
+        "competitors": [c for c in competitors if c.lower() in lower_resp]
+    }
+
+def extract_competitors(response: str, competitors: list) -> list:
+    """Extract which competitors are mentioned"""
+    return [c for c in competitors if c.lower() in response.lower()]
+
+def find_most_mentioned_competitor(results: list) -> str:
+    """Find competitor mentioned most often"""
+    from collections import Counter
+    all_competitors = []
+    for r in results:
+        for engine_comps in r["competitor_mentions"].values():
+            all_competitors.extend(engine_comps)
+    if not all_competitors:
+        return "None"
+    return Counter(all_competitors).most_common(1)[0][0]
+
+def identify_gaps(results: list) -> list:
+    """Identify prompts where brand was NOT cited (opportunities)"""
+    gaps = []
+    for r in results:
+        if not r["brand_cited"]:
+            gaps.append(r["prompt"])
+    return gaps
+```
+
+### Token Savings Breakdown
+
+**Traditional Approach (50 prompts × 3 engines = 150 responses):**
+```
+Each response: ~500 tokens
+Total response tokens: 150 × 500 = 75,000 tokens
+Plus prompt overhead: ~5,000 tokens
+Total: ~80,000 tokens
+```
+
+**Programmatic Approach:**
+```
+Responses processed in code (not loaded to context): 0 tokens
+Final aggregated insights: ~500 tokens
+Code overhead: ~1,000 tokens
+Total: ~1,500 tokens
+
+Savings: 80,000 → 1,500 = 98% reduction! ⚡
+```
+
+### When to Use Each Approach
+
+| Scenario | Approach | Why |
+|----------|----------|-----|
+| Quick test (10-20 prompts) | MCP Direct | Simple, fast, results fit in context |
+| Deep analysis (50-100 prompts) | Programmatic | Massive token savings, enables scale |
+| Real-time feedback needed | MCP Direct | See each response as it comes |
+| Batch processing | Programmatic | Process hundreds efficiently |
 
 ---
 

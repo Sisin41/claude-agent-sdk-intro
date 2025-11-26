@@ -24,6 +24,7 @@ from rich import print
 from rich.console import Console
 from cli_tools import parser, print_rich_message, parse_and_print_message, get_user_input
 from dotenv import load_dotenv
+from marketing_tools import PROGRAMMATIC_TOOLS, TOOL_HANDLERS
 import os
 
 load_dotenv()
@@ -67,9 +68,18 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         'WebSearch',
         'WebFetch',
         'Bash',  # Enable Python/data analysis capabilities
+
+        # Code execution for programmatic tool calling
+        {
+            "type": "code_execution_20250825",
+            "name": "code_execution"
+        }
     ]
 
-    # Common tools for most sub-agents
+    # Merge base tools with programmatic tools
+    all_tools = base_tools + PROGRAMMATIC_TOOLS
+
+    # Common tools for most sub-agents (including code execution for programmatic calling)
     common_subagent_tools = [
         'Read',
         'Write',
@@ -80,7 +90,13 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
         'TodoWrite',
         'WebSearch',
         'WebFetch',
-    ]
+
+        # Code execution for programmatic tool calling
+        {
+            "type": "code_execution_20250825",
+            "name": "code_execution"
+        }
+    ] + PROGRAMMATIC_TOOLS  # Add programmatic tools for sub-agents
 
     # Enhanced tools for data-focused agents (analysis, visualization)
     data_analysis_tools = common_subagent_tools + [
@@ -798,15 +814,20 @@ This makes content authentic and aligned with brand identity.
         }
     }
 
-    # Build options
+    # Build options with programmatic tool calling support
     options = ClaudeAgentOptions(
         model=model,
         api_key=ANTHROPIC_API_KEY,  # API key configured at top of file
         permission_mode="acceptEdits",
         setting_sources=["project"],
-        allowed_tools=base_tools,
+        allowed_tools=all_tools,  # Includes code_execution + programmatic tools
         agents=agents,
         mcp_servers=mcp_servers if mcp_servers else None,
+
+        # Enable programmatic tool calling (beta)
+        extra_headers={
+            "anthropic-beta": "advanced-tool-use-2025-11-20"
+        }
     )
 
     return options
