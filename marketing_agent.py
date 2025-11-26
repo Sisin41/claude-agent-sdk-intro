@@ -47,9 +47,11 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 # ============================================================================
 
 
-def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
+def get_marketing_agent_options(model: str = "claude-sonnet-4-5-20250929"):
     """
     Configure the marketing agent with all sub-agents and tools.
+
+    Uses latest Claude Sonnet 4.5 with extended thinking for complex orchestration.
 
     Returns:
         ClaudeAgentOptions: Configured agent options with sub-agents
@@ -845,6 +847,10 @@ This makes content authentic and aligned with brand identity.
         allowed_tools=all_tools,  # Includes code_execution + programmatic tools
         agents=agents,
         mcp_servers=mcp_servers if mcp_servers else None,
+
+        # Enable extended thinking for complex multi-agent orchestration
+        # Extended thinking helps with planning, reasoning, and decision-making
+        extended_thinking=True,
 
         # Enable programmatic tool calling (beta)
         extra_headers={
