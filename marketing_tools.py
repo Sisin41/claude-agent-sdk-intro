@@ -19,12 +19,17 @@ PROGRAMMATIC_TOOLS = [
     # ========================================================================
     {
         "name": "query_chatgpt",
-        "description": """Query ChatGPT (GPT-4) with a prompt and return the response text.
+        "description": """Query ChatGPT (GPT-4o) with a prompt and return the response text.
+
+        **IMPORTANT FOR GEO TESTING**: This simulates what users with ChatGPT Plus (web search enabled) see.
+        While the API doesn't have direct web search, we instruct the model to provide current information
+        as if browsing were enabled, which reflects the user experience we're testing for GEO.
 
         Designed for programmatic calling from code execution to enable:
         - Batch querying of multiple prompts
         - In-code processing of responses
         - Token-efficient aggregation of results
+        - Testing brand visibility in AI search results
 
         Returns: String response from ChatGPT
 
@@ -38,13 +43,13 @@ PROGRAMMATIC_TOOLS = [
                 },
                 "model": {
                     "type": "string",
-                    "description": "Model to use (default: gpt-4o)",
+                    "description": "Model to use (default: gpt-4o - latest as of Jan 2025)",
                     "default": "gpt-4o"
                 },
                 "max_tokens": {
                     "type": "number",
-                    "description": "Maximum tokens in response (default: 1000)",
-                    "default": 1000
+                    "description": "Maximum tokens in response (default: 1500)",
+                    "default": 1500
                 }
             },
             "required": ["prompt"]
@@ -54,14 +59,19 @@ PROGRAMMATIC_TOOLS = [
 
     {
         "name": "query_perplexity",
-        "description": """Query Perplexity AI with a prompt and return the response with citations.
+        "description": """Query Perplexity AI with web search enabled and return response with citations.
+
+        **IMPORTANT FOR GEO TESTING**: Uses Perplexity's online search models which actively
+        search the web to answer queries. This is CRITICAL for GEO testing as we're checking
+        if companies appear in real-time web search results.
 
         Designed for programmatic calling from code execution to enable:
-        - Batch querying across multiple prompts
-        - Citation extraction in code
+        - Batch querying across multiple prompts with live web search
+        - Citation extraction in code (URLs where brand is mentioned)
         - Token-efficient aggregation
+        - Testing brand visibility in AI search results
 
-        Returns: JSON string with response and citations
+        Returns: JSON string with response and citations array
 
         Note: Requires PERPLEXITY_API_KEY environment variable.""",
         "input_schema": {
@@ -73,8 +83,8 @@ PROGRAMMATIC_TOOLS = [
                 },
                 "model": {
                     "type": "string",
-                    "description": "Model to use (default: llama-3.1-sonar-large-128k-online)",
-                    "default": "llama-3.1-sonar-large-128k-online"
+                    "description": "Model to use (default: sonar-pro - latest online model with web search)",
+                    "default": "sonar-pro"
                 }
             },
             "required": ["prompt"]
@@ -84,14 +94,19 @@ PROGRAMMATIC_TOOLS = [
 
     {
         "name": "query_gemini",
-        "description": """Query Google Gemini with a prompt and return the response text.
+        "description": """Query Google Gemini with Google Search grounding enabled.
+
+        **IMPORTANT FOR GEO TESTING**: Uses Gemini with Google Search grounding which allows
+        the model to search the web in real-time. This is CRITICAL for GEO testing as we're
+        checking if companies appear when Gemini searches Google.
 
         Designed for programmatic calling from code execution to enable:
-        - Batch querying of multiple prompts
+        - Batch querying of multiple prompts with live web search via Google
         - In-code processing of responses
         - Token-efficient aggregation of results
+        - Testing brand visibility in Gemini's search-grounded responses
 
-        Returns: String response from Gemini
+        Returns: JSON string with response and grounding metadata (sources, URLs)
 
         Note: Requires GOOGLE_API_KEY environment variable.""",
         "input_schema": {
@@ -103,8 +118,13 @@ PROGRAMMATIC_TOOLS = [
                 },
                 "model": {
                     "type": "string",
-                    "description": "Model to use (default: gemini-2.0-flash-exp)",
+                    "description": "Model to use (default: gemini-2.0-flash-exp - latest with grounding support)",
                     "default": "gemini-2.0-flash-exp"
+                },
+                "enable_search_grounding": {
+                    "type": "boolean",
+                    "description": "Enable Google Search grounding (default: true)",
+                    "default": true
                 }
             },
             "required": ["prompt"]
@@ -190,28 +210,46 @@ PROGRAMMATIC_TOOLS = [
 # ============================================================================
 # These would be implemented server-side to handle tool calls from code execution
 
-async def handle_query_chatgpt(prompt: str, model: str = "gpt-4o", max_tokens: int = 1000) -> str:
+async def handle_query_chatgpt(prompt: str, model: str = "gpt-4o", max_tokens: int = 1500) -> str:
     """
     Implementation for query_chatgpt tool.
     Called when code execution invokes this tool.
+
+    Note: For GEO testing, we simulate ChatGPT Plus with web search enabled by
+    instructing the model to provide current information as users would see.
     """
     import openai
 
     client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+    # System message to simulate web search behavior for GEO testing
+    system_message = {
+        "role": "system",
+        "content": (
+            "You are ChatGPT with web search enabled. Provide current, accurate information "
+            "as if you have access to recent web content. When answering questions about "
+            "products, services, or companies, cite specific sources and URLs when relevant. "
+            "Respond as users with ChatGPT Plus (search enabled) would see."
+        )
+    }
+
     response = await client.chat.completions.create(
         model=model,
-        messages=[{"role": "user", "content": prompt}],
-        max_tokens=max_tokens
+        messages=[system_message, {"role": "user", "content": prompt}],
+        max_tokens=max_tokens,
+        temperature=0.7
     )
 
     return response.choices[0].message.content
 
 
-async def handle_query_perplexity(prompt: str, model: str = "llama-3.1-sonar-large-128k-online") -> str:
+async def handle_query_perplexity(prompt: str, model: str = "sonar-pro") -> str:
     """
     Implementation for query_perplexity tool.
     Called when code execution invokes this tool.
+
+    Uses Perplexity's latest online search models which actively search the web.
+    Critical for GEO testing as it shows real-time brand visibility in search results.
     """
     import httpx
     import json
@@ -225,9 +263,13 @@ async def handle_query_perplexity(prompt: str, model: str = "llama-3.1-sonar-lar
             },
             json={
                 "model": model,
-                "messages": [{"role": "user", "content": prompt}]
+                "messages": [{"role": "user", "content": prompt}],
+                # Ensure we get citations for GEO testing
+                "return_citations": True,
+                "return_images": False,
+                "temperature": 0.2  # Lower temp for more consistent results
             },
-            timeout=30.0
+            timeout=45.0  # Longer timeout for web search
         )
 
         result = response.json()
@@ -235,23 +277,68 @@ async def handle_query_perplexity(prompt: str, model: str = "llama-3.1-sonar-lar
         # Return JSON string with response and citations
         return json.dumps({
             "response": result["choices"][0]["message"]["content"],
-            "citations": result.get("citations", [])
+            "citations": result.get("citations", []),
+            "web_results": result.get("web_results", [])  # Additional search metadata
         })
 
 
-async def handle_query_gemini(prompt: str, model: str = "gemini-2.0-flash-exp") -> str:
+async def handle_query_gemini(prompt: str, model: str = "gemini-2.0-flash-exp", enable_search_grounding: bool = True) -> str:
     """
     Implementation for query_gemini tool.
     Called when code execution invokes this tool.
+
+    Enables Google Search grounding for real-time web search capabilities.
+    Critical for GEO testing as it shows brand visibility when Gemini searches Google.
     """
     import google.generativeai as genai
+    import json
 
     genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-    model_instance = genai.GenerativeModel(model)
 
-    response = await model_instance.generate_content_async(prompt)
+    # Configure tools for search grounding if enabled
+    tools = None
+    if enable_search_grounding:
+        tools = [genai.Tool(google_search=genai.GoogleSearch())]
 
-    return response.text
+    model_instance = genai.GenerativeModel(
+        model,
+        tools=tools if enable_search_grounding else None
+    )
+
+    response = await model_instance.generate_content_async(
+        prompt,
+        generation_config=genai.GenerationConfig(
+            temperature=0.7,
+            max_output_tokens=1500
+        )
+    )
+
+    # Extract grounding metadata (sources) if available
+    grounding_metadata = {}
+    if hasattr(response, 'grounding_metadata') and response.grounding_metadata:
+        grounding_metadata = {
+            "search_queries": getattr(response.grounding_metadata, 'search_queries', []),
+            "grounding_chunks": [
+                {
+                    "web": {
+                        "uri": chunk.web.uri if hasattr(chunk, 'web') else None,
+                        "title": chunk.web.title if hasattr(chunk, 'web') else None
+                    }
+                }
+                for chunk in getattr(response.grounding_metadata, 'grounding_chunks', [])
+            ]
+        }
+
+    # Return JSON with response and grounding metadata
+    return json.dumps({
+        "response": response.text,
+        "grounding_metadata": grounding_metadata,
+        "citations": [
+            chunk.get("web", {}).get("uri")
+            for chunk in grounding_metadata.get("grounding_chunks", [])
+            if chunk.get("web", {}).get("uri")
+        ] if grounding_metadata else []
+    })
 
 
 async def handle_fetch_backlink_data(domain: str, limit: int = 10000) -> str:

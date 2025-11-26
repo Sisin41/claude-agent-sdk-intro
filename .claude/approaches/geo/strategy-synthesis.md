@@ -600,7 +600,7 @@ Before saving report:
 
 **Agent Workflow**:
 ```
-1. Read this skill file
+1. Read this approach file
 2. Load all 4 data files from previous steps
 3. Calculate key metrics
 4. Identify gaps and opportunities
@@ -635,7 +635,7 @@ Before saving report:
 
 ## MCP Tools Needed
 
-**None** - This skill uses only built-in tools (Read, Write, Edit)
+**None** - This approach uses only built-in tools (Read, Write, Edit)
 
 Strategy synthesis is primarily about data aggregation and narrative creation, which the agent can do natively without custom tools.
 

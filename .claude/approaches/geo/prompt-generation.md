@@ -544,7 +544,7 @@ Before saving output:
 
 **Agent Workflow**:
 ```
-1. Read this skill file
+1. Read this approach file
 2. Load company value data from previous step
 3. Determine mode (LIGHT or DEEP)
 4. Execute generation steps:
@@ -561,12 +561,12 @@ Before saving output:
 5. Validate output
 6. Save JSON to /data/geo/
 7. Provide summary to user (e.g., "Generated 95 prompts across 5 question types")
-8. Pass to next skill (multi-engine-testing.md)
+8. Pass to next approach (multi-engine-testing.md)
 ```
 
 ---
 
-## Next Skill
+## Next Approach
 Once complete, prompts feed into:
 → **`multi-engine-testing.md`** for execution across AI engines
 

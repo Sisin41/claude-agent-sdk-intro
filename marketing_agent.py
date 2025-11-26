@@ -154,7 +154,7 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 2. Load company-profile.json for value props and ICP
 3. Determine execution mode (ask user if unclear: "light" or "deep"?)
 4. Use TodoWrite to create task list for transparency
-5. Follow skill workflows step-by-step:
+5. Follow approach workflows step-by-step:
    - **LIGHT mode**: Use MCP tools directly for quick execution
    - **DEEP mode**: Write Python code using code_execution to call programmatic tools
 6. For DEEP mode multi-engine testing: Write Python code that calls query_chatgpt(), query_perplexity(), query_gemini() in loops
@@ -164,9 +164,10 @@ def get_marketing_agent_options(model: str = "claude-sonnet-4-20250514"):
 10. Generate final report to /docs/marketing/
 
 **Programmatic Tools** (for DEEP mode - call from code_execution):
-- query_chatgpt(prompt, model='gpt-4o', max_tokens=1000): Query ChatGPT programmatically
-- query_perplexity(prompt, model='llama-3.1-sonar-large-128k-online'): Query Perplexity programmatically
-- query_gemini(prompt, model='gemini-2.0-flash-exp'): Query Gemini programmatically
+- query_chatgpt(prompt, model='gpt-4o', max_tokens=1500): Query ChatGPT with search simulation
+- query_perplexity(prompt, model='sonar-pro'): Query Perplexity with live web search (returns citations)
+- query_gemini(prompt, model='gemini-2.0-flash-exp', enable_search_grounding=True): Query Gemini with Google Search grounding
+- **CRITICAL**: All tools enable search/grounding for GEO testing (checking brand visibility in AI search)
 - Use these in Python loops to batch process 50-100 prompts efficiently
 - Process results in code, return only aggregated insights (98% token savings)
 

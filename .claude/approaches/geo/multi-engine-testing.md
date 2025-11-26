@@ -69,35 +69,53 @@ competitors = ["zendesk", "intercom", "freshdesk"]
 results = []
 
 for prompt in test_prompts:
-    # Query all engines (these are programmatic tools)
-    chatgpt_resp = await query_chatgpt(prompt)
-    perplexity_resp = await query_perplexity(prompt)
-    gemini_resp = await query_gemini(prompt)
+    # Query all engines with SEARCH ENABLED (critical for GEO testing)
+    # ChatGPT: Simulates search-enabled ChatGPT Plus (model: gpt-4o)
+    # Perplexity: Live web search with citations (model: sonar-pro)
+    # Gemini: Google Search grounding enabled (model: gemini-2.0-flash-exp)
+
+    chatgpt_resp = await query_chatgpt(prompt)  # Returns: string
+    perplexity_resp = await query_perplexity(prompt)  # Returns: JSON with {response, citations, web_results}
+    gemini_resp = await query_gemini(prompt)  # Returns: JSON with {response, grounding_metadata, citations}
+
+    # Parse JSON responses
+    import json
+    perplexity_data = json.loads(perplexity_resp)
+    gemini_data = json.loads(gemini_resp)
+
+    # Extract text responses
+    chatgpt_text = chatgpt_resp
+    perplexity_text = perplexity_data["response"]
+    gemini_text = gemini_data["response"]
 
     # Extract citations IN CODE (not loaded into context!)
-    chatgpt_citations = extract_brand_mentions(chatgpt_resp, brand_name, competitors)
-    perplexity_citations = extract_brand_mentions(perplexity_resp, brand_name, competitors)
-    gemini_citations = extract_brand_mentions(gemini_resp, brand_name, competitors)
+    chatgpt_citations = extract_brand_mentions(chatgpt_text, brand_name, competitors)
+    perplexity_citations = extract_brand_mentions(perplexity_text, brand_name, competitors)
+    gemini_citations = extract_brand_mentions(gemini_text, brand_name, competitors)
 
     # Aggregate per prompt
     results.append({
         "prompt": prompt,
         "brand_cited": any([
-            brand_name.lower() in chatgpt_resp.lower(),
-            brand_name.lower() in perplexity_resp.lower(),
-            brand_name.lower() in gemini_resp.lower()
+            brand_name.lower() in chatgpt_text.lower(),
+            brand_name.lower() in perplexity_text.lower(),
+            brand_name.lower() in gemini_text.lower()
         ]),
         "engines_cited_in": [
             e for e, cited in [
-                ("chatgpt", brand_name.lower() in chatgpt_resp.lower()),
-                ("perplexity", brand_name.lower() in perplexity_resp.lower()),
-                ("gemini", brand_name.lower() in gemini_resp.lower())
+                ("chatgpt", brand_name.lower() in chatgpt_text.lower()),
+                ("perplexity", brand_name.lower() in perplexity_text.lower()),
+                ("gemini", brand_name.lower() in gemini_text.lower())
             ] if cited
         ],
         "competitor_mentions": {
-            "chatgpt": extract_competitors(chatgpt_resp, competitors),
-            "perplexity": extract_competitors(perplexity_resp, competitors),
-            "gemini": extract_competitors(gemini_resp, competitors)
+            "chatgpt": extract_competitors(chatgpt_text, competitors),
+            "perplexity": extract_competitors(perplexity_text, competitors),
+            "gemini": extract_competitors(gemini_text, competitors)
+        },
+        "citations": {
+            "perplexity": perplexity_data.get("citations", []),
+            "gemini": gemini_data.get("citations", [])
         }
     })
 
@@ -785,29 +803,28 @@ If validation fails, log warnings but still save results
 
 **Agent Workflow**:
 ```
-1. Read this skill file
-2. Load prompts from previous step
-3. Check if MCP tool available:
-   - If yes: Use parallel execution (fast!)
-   - If no: Warn user, use fallback (slow)
-4. Configure engines (check API keys)
-5. Execute tests with progress tracking
-6. Aggregate results by dimensions
-7. Validate output
-8. Save JSON to /data/geo/
-9. Show summary to user:
-   "✅ Tested 300 prompts across 3 engines in 45 seconds
-    Brand mentioned 48 times (16.8% visibility)
-    Top engine: Perplexity (28.0%)
-    Full results: /data/geo/test-results-acme-deep.json"
-10. Pass data to next skill (citation-analysis.md)
+1. Read this approach file
+2. Load prompts from previous step (/data/geo/prompts-{company}-{mode}.json)
+3. Determine execution approach:
+   - LIGHT (10-20 prompts): Use MCP tool directly
+   - DEEP (50-100 prompts): Use programmatic approach
+4. Use TodoWrite to track progress
+5. Execute tests (MCP or programmatic)
+6. Save results to /data/geo/test-results-{company}-{mode}.json
+7. Provide summary:
+   "✅ Tested 95 prompts across 3 engines (285 total tests)
+    Brand mentioned: 48 times (16.8% visibility)
+    ChatGPT: 12.6% | Perplexity: 29.5% | Gemini: 8.4%
+
+    Next: Run citation analysis to understand why competitors outperform us"
+8. Pass data to next approach (citation-analysis.md)
 ```
 
 ---
 
-## Next Skill
+## Next Approach
 Once complete, test results feed into:
-→ **`citation-analysis.md`** for deep LLM-powered analysis
+→ **`citation-analysis.md`** for deep analysis of why brand was/wasn't cited
 
 ---
 

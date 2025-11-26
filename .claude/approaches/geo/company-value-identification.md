@@ -565,7 +565,7 @@ Not included in LIGHT mode.
 
 **Agent Workflow**:
 ```
-1. Read this skill file for guidance
+1. Read this approach file for guidance
 2. Determine mode (LIGHT or DEEP) based on user request
 3. Execute research steps sequentially
 4. Use TodoWrite to track progress:
@@ -577,12 +577,12 @@ Not included in LIGHT mode.
    - [ ] Data synthesis
 5. Save JSON output to /data/geo/
 6. Provide summary to user
-7. Pass data to next skill (prompt-generation.md)
+7. Pass data to next approach (prompt-generation.md)
 ```
 
 ---
 
-## Next Skill
+## Next Approach
 Once complete, this data feeds into:
 → **`prompt-generation.md`** to create targeted test prompts
 

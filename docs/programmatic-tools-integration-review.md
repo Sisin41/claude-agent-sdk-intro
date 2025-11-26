@@ -175,7 +175,7 @@ print(json.dumps({
    - LIGHT: Use MCP tools for direct execution
    - DEEP: Use code_execution with programmatic tools for efficiency
 4. Use TodoWrite to create task list for transparency
-5. Follow skill workflows step-by-step
+5. Follow approach workflows step-by-step
    - For DEEP mode: Write Python code that calls programmatic tools
    - For LIGHT mode: Use MCP tools directly
 ```

@@ -878,30 +878,31 @@ If validation fails, log warnings but still save results
 
 **Agent Workflow**:
 ```
-1. Read this skill file
+1. Read this approach file
 2. Load test results from previous step
-3. Extract and deduplicate citations
-4. Determine analysis mode (LIGHT or DEEP)
-5. If DEEP and MCP tool available:
-   - Execute parallel LLM analysis
-   - Show progress: "Analyzing 847 citations... 45% (380/847)"
-6. If LIGHT or no MCP tool:
-   - Use basic pattern matching
-7. Aggregate insights
-8. Save JSON to /data/geo/
-9. Provide summary to user:
-   "✅ Analyzed 847 citations in 2m 18s
-    Your brand: 48 citations (16.8% visibility)
-    Sentiment: 81% positive
-    Top content: /blog/reduce-ticket-volume (12 citations)
-    Biggest gap: 'AI customer support' queries (0 citations)
-    Full analysis: /data/geo/citation-analysis-acme-deep.json"
-10. Pass data to next skill (strategy-synthesis.md)
+3. Determine mode (LIGHT or DEEP)
+4. Extract and deduplicate citations
+5. For LIGHT mode: Run basic pattern matching
+   For DEEP mode: Choose approach:
+   - MCP tool if < 100 citations and need LLM analysis
+   - Programmatic if 150+ citations or want custom analysis
+6. Use TodoWrite to track progress
+7. Save analysis to /data/geo/citation-analysis-{company}-{mode}.json
+8. Provide summary:
+   "✅ Analyzed 600 unique citations
+    Brand cited: 48 times (8% of citations)
+    Top competitor: Zendesk (89 citations)
+    Top performing content: /blog/reduce-ticket-volume (12 citations)
+
+    Key insight: Competitors dominate 'problem-solution' queries
+    Recommendation: Create 'How to reduce...' content series"
+9. Update analysis timeline
+10. Pass data to next approach (strategy-synthesis.md)
 ```
 
 ---
 
-## Next Skill
+## Next Approach
 Once complete, citation analysis feeds into:
 → **`strategy-synthesis.md`** to create actionable recommendations
 
