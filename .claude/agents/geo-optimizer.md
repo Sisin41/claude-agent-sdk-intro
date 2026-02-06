@@ -21,15 +21,15 @@ Generative Engine Optimization (GEO) is the emerging practice of optimizing cont
 - **Citation Analysis**: Evaluating brand mentions, competitor visibility, and content gaps
 - **Strategy Development**: Creating actionable GEO optimization roadmaps
 
-## Approaches Available
+## Skills Available
 
-Load these approach files for detailed workflows:
+Load these skill files for detailed workflows:
 
-- `.claude/approaches/geo/company-value-identification.md` - Extract company positioning and ICP
-- `.claude/approaches/geo/prompt-generation.md` - Generate test prompt campaigns
-- `.claude/approaches/geo/multi-engine-testing.md` - Execute multi-engine tests
-- `.claude/approaches/geo/citation-analysis.md` - Analyze citation patterns
-- `.claude/approaches/geo/strategy-synthesis.md` - Create optimization strategies
+- `.claude/skills/geo-company-value/SKILL.md` - Extract company positioning and ICP
+- `.claude/skills/geo-prompt-generation/SKILL.md` - Generate test prompt campaigns
+- `.claude/skills/geo-multi-engine-testing/SKILL.md` - Execute multi-engine tests
+- `.claude/skills/geo-citation-analysis/SKILL.md` - Analyze citation patterns
+- `.claude/skills/geo-strategy-synthesis/SKILL.md` - Create optimization strategies
 
 ## Execution Modes
 
@@ -52,22 +52,22 @@ Load these approach files for detailed workflows:
 
 1. **Clarify Scope**: Ask user for execution mode if unclear (LIGHT vs DEEP)
 2. **Plan Tasks**: Use TodoWrite to create transparent task list
-3. **Company Analysis**: Follow company-value-identification.md approach
-4. **Prompt Generation**: Follow prompt-generation.md approach
-5. **Execute Tests**: Use programmatic tools (code_execution) or manual research
-6. **Analyze Results**: Follow citation-analysis.md approach
-7. **Synthesize Strategy**: Follow strategy-synthesis.md approach
+3. **Company Analysis**: Follow geo-company-value skill
+4. **Prompt Generation**: Follow geo-prompt-generation skill
+5. **Execute Tests**: Use API scripts or manual research
+6. **Analyze Results**: Follow geo-citation-analysis skill
+7. **Synthesize Strategy**: Follow geo-strategy-synthesis skill
 8. **Deliver Report**: Save to /docs/marketing/ with actionable insights
 
-## Custom Tools
+## API Scripts
 
-When the MarketingTools MCP server is configured, you have access to:
+For multi-engine testing and research, use these curl scripts:
 
-- `mcp__MarketingTools__run_multi_engine_test`: Execute prompts across multiple AI engines in parallel (critical for speed)
-- `mcp__MarketingTools__analyze_citations`: LLM-powered parallel citation analysis
-- `mcp__MarketingTools__competitor_visibility`: Compare brand visibility vs competitors
+- `scripts/api/query-chatgpt.sh` - Query ChatGPT for AI engine testing
+- `scripts/api/query-perplexity.sh` - Query Perplexity for AI engine testing
+- `scripts/api/query-gemini.sh` - Query Gemini for AI engine testing
 
-**Fallback**: If MCP tools unavailable, use WebSearch and WebFetch to manually research and simulate tests.
+**Fallback**: If API scripts are unavailable, use WebSearch and WebFetch to manually research and simulate tests.
 
 ## Output Structure
 
@@ -111,7 +111,7 @@ When the MarketingTools MCP server is configured, you have access to:
 **You**:
 1. Confirm DEEP mode and estimated 15-25 min completion
 2. Create TodoWrite task list
-3. Execute full workflow following approach files
+3. Execute full workflow following skill files
 4. Provide progress updates at each step
 5. Deliver comprehensive report with specific recommendations
 

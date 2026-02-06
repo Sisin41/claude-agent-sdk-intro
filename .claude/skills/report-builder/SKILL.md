@@ -1,15 +1,16 @@
 ---
 name: report-builder
-description: Build branded, self-contained HTML audit reports from analysis outputs. Reads JSON data from the audit pipeline and renders a polished visual report with consistent branding, charts, and executive summary. Use after audit-mode analyses are complete.
+description: Build branded, self-contained HTML audit reports in the Royal Tactician "Whimsical Hi-Bit Desktop OS" visual style. Reads JSON data from the audit pipeline and renders a polished Beaverstudio.ai report with window-based sections, pixel-art charts, and retro game-style score cards. Use after audit-mode analyses are complete.
 metadata:
   author: castor
-  version: "1.0"
+  version: "2.0"
   domain: system
+  brand: beaverstudio.ai
 ---
 
 # Report Builder
 
-Generates branded, self-contained HTML reports from marketing audit data.
+Generates branded, self-contained HTML reports in the **Royal Tactician** visual style — a whimsical hi-bit desktop OS aesthetic for Beaverstudio.ai.
 
 ## When to Use
 
@@ -41,121 +42,112 @@ Write a single self-contained HTML file:
 /data/audits/{batch-id}/{company}/outputs/report.html
 ```
 
-The HTML must be fully self-contained — all CSS inline, no external dependencies. Should open correctly in any browser.
+The HTML must be fully self-contained — Google Fonts link is the only external dependency. Opens correctly in any browser.
+
+## Visual Style: Royal Tactician
+
+Follow [visual identity](references/visual-identity.md) exactly. Key rules:
+
+- **Fonts**: DotGothic16 (UI text) + IBM Plex Mono (data/numbers)
+- **Colors**: Paper & Ink palette with the Magic Five accents (royal blue, lavender, green, gold, coral)
+- **Geometry**: `border-radius: 1px` everywhere. Geometric shadows `Npx Npx 0 <color>` — NO blur.
+- **Layout**: Each section is a "window" with colored title bar and window dots
+- **Charts**: Pixel-style bar charts with stepped fills (repeating-linear-gradient)
+- **Score cards**: Retro game health-bar style with mono font numbers
+- **Buttons**: Mechanical key feel (2px bottom shadow, translateY on active)
+- **Background**: Animated gradient desktop with pixel grid overlay
+- **Taskbar**: Fixed bottom bar with start button, window tabs, system tray LEDs, clock
+- **Decorations**: Pixel clouds, sparkles, hearts scattered on desktop
+- **Cursors**: Custom pixel-art arrow (default) and pixel hand (pointer)
+
+See [wireframe-report.html](assets/wireframe-report.html) for the complete reference implementation.
 
 ## Report Structure
 
-Generate the HTML report with these sections. Use the brand identity defined in [visual identity](references/visual-identity.md).
+### 1. Desktop Background + Main Window Frame
 
-### 1. Header
+The entire report sits inside a "main window" on an animated gradient desktop:
 
 ```html
-<header>
-  <h1>Marketing Audit Report</h1>
-  <p class="subtitle">{Company Name} — {domain}</p>
-  <p class="date">{audit date}</p>
-  <p class="badge">Powered by Castor AI</p>
-</header>
+<div class="desktop-bg">
+  <div class="main-window">
+    <div class="main-window-titlebar">
+      <span class="window-dots"><!-- close, min, max --></span>
+      <span>audit-report.html — Beaverstudio.ai Marketing Audit</span>
+    </div>
+    <div class="main-window-content">
+      <!-- All report sections here -->
+    </div>
+  </div>
+</div>
 ```
 
-### 2. Executive Summary
+### 2. Header
 
-A 3-5 sentence overview synthesizing ALL analysis findings. Highlight:
-- Overall marketing health (strong/moderate/needs attention)
-- Biggest opportunity
-- Most urgent issue
-- Recommended first action
+Beaver avatar (placeholder for logo), company name in IBM Plex Mono, audit metadata, "Powered by Beaverstudio.ai" badge.
 
-### 3. GEO Analysis Section
+### 3. Executive Summary Window (`window-coral`)
 
-If `geo-light.json` exists:
+- Title bar: `executive_summary.exe`
+- "Quick Assessment" ribbon with health label badge (STRONG / MODERATE / WEAK)
+- 3-5 sentence synthesis of all findings
 
-- **Visibility Scorecard**: Show scores per engine (ChatGPT, Perplexity, Gemini) as horizontal bar chart
-- **Brand Mentions**: Total mentions across engines
-- **Top Opportunities**: Table with type, description, impact level
-- **Competitor Comparison**: If available, show relative positioning
+### 4. GEO + SEO Side by Side (two-column grid)
 
-Use colored indicators:
-- Green (>25% visibility): Strong
-- Yellow (10-25%): Moderate
-- Red (<10%): Weak
+**GEO Window** (`window-royal`):
+- Title bar: `geo_analysis.log`
+- Score cards per engine with pixel health bars (green >25%, yellow 10-25%, red <10%)
+- Pixel bar chart for brand mentions per engine
+- Opportunities list with impact badges
 
-### 4. SEO Analysis Section
+**SEO Window** (`window-growth`):
+- Title bar: `seo_analysis.log`
+- Score cards (authority, indexed pages, issues count)
+- Keyword opportunities table with volume and position badges
+- Technical issues with severity badges
+- Quick wins list
 
-If `seo-light.json` exists:
+### 5. Content Recommendations Window (`window-gold`)
 
-- **Domain Overview**: Authority estimate, indexed pages
-- **Keyword Opportunities**: Table with keyword, position, volume, difficulty
-- **Technical Issues**: List with severity badges (red/yellow/green)
-- **Quick Wins**: Numbered action items
+- Title bar: `content_recommendations.txt`
+- Content cards with priority pips (numbered squares)
+- Each card: title, type badge, keyword tags, two-column GEO/SEO angle boxes
+- Impact indicators
 
-### 5. Content Recommendations Section
+### 6. Action Plan Window (`window-lavender`)
 
-If `content-light.json` exists:
-
-- **Strategy Summary**: The overall content direction
-- **Recommended Content Pieces**: Card layout with:
-  - Priority number
-  - Title
-  - Type badge (Blog, Guide, Comparison, Case Study)
-  - Target keywords as tags
-  - GEO angle
-  - SEO angle
-  - Impact indicator
-
-### 6. Action Plan
-
-Synthesize a prioritized action plan across all analyses:
-
-```
-Priority 1 (This Week):  [quick wins from all sections]
-Priority 2 (This Month): [medium-effort improvements]
-Priority 3 (This Quarter): [strategic initiatives]
-```
+- Title bar: `action_plan.todo`
+- Three priority tiers: This Week (coral), This Month (gold), This Quarter (royal)
+- Numbered action items with left-color border and description + context
 
 ### 7. Footer
 
-```html
-<footer>
-  <p>Generated by Castor AI Marketing Audit</p>
-  <p>{timestamp}</p>
-  <p>Confidential — prepared for {company name}</p>
-</footer>
-```
+Beaver stamp, generation timestamp, confidentiality notice, audit ID in mono font.
 
-## Visual Identity
+### 8. Taskbar (fixed bottom)
 
-Follow the brand styles defined in [visual identity](references/visual-identity.md):
-- Color palette, typography, spacing
-- Score card designs
-- Table styles
-- Badge/tag styles
+Start button (rainbow border), window tabs, system tray with green/blue/gold LEDs, live clock.
 
 ## Chart Rendering
 
-Use **inline SVG** for all charts and visualizations. No external JS libraries. Keep it simple:
+Use **CSS pixel-art style** for all data visualization. No SVG needed, no JS libraries:
 
-- **Horizontal bar charts**: For visibility scores, keyword positions
-- **Score cards**: For key metrics (large number + label + trend indicator)
-- **Traffic light indicators**: Red/Yellow/Green circles for severity/health
-
-Example inline SVG bar chart:
-
-```html
-<svg width="100%" height="30" style="margin: 4px 0;">
-  <rect width="{percentage}%" height="30" rx="4" fill="{color}"/>
-  <text x="8" y="20" fill="white" font-size="12">{label}: {value}%</text>
-</svg>
-```
+- **Pixel bar charts**: `repeating-linear-gradient` creates stepped pixel effect
+- **Health bars**: 8px tall bars with stepped fill inside score cards
+- **Score cards**: Large IBM Plex Mono numbers with DotGothic16 labels
+- **Tables**: 2px bordered, cloud-colored headers, hover highlights
+- **Badges**: 1px border-radius, semantic colors, DotGothic16 font
 
 ## Adaptation for Missing Data
 
 If some analysis files are missing:
-- Skip that section entirely
-- Note in the Executive Summary: "Note: {analysis} was not available for this audit"
-- Adjust the Action Plan to only reference available data
-- Still produce a valid, well-formatted report
+- Skip that section window entirely
+- Note in Executive Summary: "Note: {analysis} was not available for this audit"
+- Adjust Action Plan to only reference available data
+- If both GEO and SEO are missing, render as single column instead of two-col
+- Still produce a valid, well-styled report
 
 ## References
 
-- [Visual Identity](references/visual-identity.md) - Brand colors, typography, component styles
+- [Visual Identity](references/visual-identity.md) — Full color palette, typography, component CSS
+- [Wireframe Report](assets/wireframe-report.html) — Complete reference implementation with sample data

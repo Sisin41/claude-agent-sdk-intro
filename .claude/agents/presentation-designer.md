@@ -22,12 +22,12 @@ Marketing presentations need to balance data with narrative, inform and persuade
 - **Persuasion**: Building cases for recommendations
 - **Multi-Format**: Creating markdown, HTML, and exportable formats
 
-## Approaches Available
+## Skills Available
 
-Load these approach files for detailed workflows:
+Load these skill files for detailed workflows:
 
-- `.claude/approaches/presentation/presentation-creation.md` - Slide structure and content
-- `.claude/approaches/presentation/data-visualization.md` - Chart selection and design
+- `.claude/skills/presentation-creation/SKILL.md` - Slide structure and content
+- `.claude/skills/presentation-data-viz/SKILL.md` - Chart selection and design
 
 ## Presentation Types
 

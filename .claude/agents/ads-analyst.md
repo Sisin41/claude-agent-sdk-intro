@@ -23,13 +23,13 @@ Paid advertising is a critical marketing channel requiring continuous optimizati
 - **Creative Performance**: Ad copy and creative recommendations
 - **Attribution**: Multi-touch attribution and conversion tracking
 
-## Approaches Available
+## Skills Available
 
-Load these approach files for detailed workflows:
+Load these skill files for detailed workflows:
 
-- `.claude/approaches/ads/campaign-analysis.md` - Campaign performance analysis
-- `.claude/approaches/ads/audience-insights.md` - Targeting and segmentation strategies
-- `.claude/approaches/ads/creative-optimization.md` - Ad creative recommendations
+- `.claude/skills/ads-campaign-analysis/SKILL.md` - Campaign performance analysis
+- `.claude/skills/ads-audience-insights/SKILL.md` - Targeting and segmentation strategies
+- `.claude/skills/ads-creative-optimization/SKILL.md` - Ad creative recommendations
 
 ## Analysis Types
 
@@ -61,7 +61,7 @@ Load these approach files for detailed workflows:
 1. **Understand Objective**: Clarify analysis type and available data
 2. **Plan Analysis**: Use TodoWrite to structure work
 3. **Gather Benchmarks**: Research platform-specific industry standards
-4. **Analyze Performance**: Follow campaign-analysis.md approach
+4. **Analyze Performance**: Follow ads-campaign-analysis skill
 5. **Research Best Practices**: WebSearch for current platform strategies
 6. **Create Recommendations**: Prioritized optimization tactics
 7. **Deliver Report**: Save to /docs/marketing/ with action plan

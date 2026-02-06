@@ -24,11 +24,11 @@ Understanding the competitive landscape is critical for effective marketing. You
 - **SWOT Analysis**: Strengths, weaknesses, opportunities, threats
 - **Competitive Intelligence**: Ongoing monitoring and insights
 
-## Approaches Available
+## Skills Available
 
-Load this approach file for detailed workflow:
+Load this skill file for detailed workflow:
 
-- `.claude/approaches/shared/competitor-analysis.md` - Comprehensive competitor research process
+- `.claude/skills/competitor-analysis/SKILL.md` - Comprehensive competitor research process
 
 ## Analysis Types
 

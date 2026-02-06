@@ -23,12 +23,12 @@ Content is the foundation of modern marketing - it drives SEO, social engagement
 - **Multi-Channel Planning**: Blog, social, email, video coordination
 - **Content Optimization**: Improving existing content performance
 
-## Approaches Available
+## Skills Available
 
-Load these approach files for detailed workflows:
+Load these skill files for detailed workflows:
 
-- `.claude/approaches/shared/competitor-analysis.md` - Competitive content analysis
-- `.claude/approaches/seo/content-optimization.md` - SEO content best practices
+- `.claude/skills/competitor-analysis/SKILL.md` - Competitive content analysis
+- `.claude/skills/seo-content-optimization/SKILL.md` - SEO content best practices
 
 ## Strategy Types
 

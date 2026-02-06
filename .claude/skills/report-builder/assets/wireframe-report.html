@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acme Corp — Marketing Audit | Beaverstudio.ai</title>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   ROYAL TACTICIAN — Whimsical Hi-Bit Desktop OS
+   Beaverstudio.ai Report Template
+   ═══════════════════════════════════════════════ */
+
+:root {
+  /* Core Ink & Paper */
+  --color-cloud: #F0F4F8;
+  --color-paper: #FFFFFF;
+  --color-vellum: #FFF9F0;
+  --color-ink: #2D323E;
+  --color-ink-light: #4A5568;
+  --color-shadow: #BCCCDC;
+  --color-brand-bg: #b4c2e5;
+
+  /* The Magic Five */
+  --color-royal: #4D8AF0;
+  --color-lavender: #9D7FEA;
+  --color-growth: #57B886;
+  --color-gold: #F2C94C;
+  --color-coral: #E85D75;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DotGothic16', sans-serif;
+  color: var(--color-ink);
+  line-height: 1.6;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M0 0L0 14L4 10L7 15L9 14L6 9L11 9Z' fill='%232D323E' stroke='white' stroke-width='1'/%3E%3C/svg%3E") 0 0, auto;
+}
+
+a, button, .btn, .clickable {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Cpath d='M5 0L5 6L3 6L3 8L1 8L1 10L3 10L3 12L5 12L5 14L7 14L7 12L9 12L9 10L11 10L11 8L13 8L13 6L11 6L11 4L9 4L9 2L7 2L7 0Z' fill='%234D8AF0' stroke='%232D323E' stroke-width='0.5'/%3E%3C/svg%3E") 7 7, pointer;
+}
+
+/* ─── Desktop Background ─── */
+.desktop-bg {
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+  min-height: 100vh;
+  padding: 24px 24px 72px;
+  position: relative;
+}
+.desktop-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─── Decorative Pixel Elements ─── */
+.pixel-cloud {
+  position: fixed;
+  width: 48px;
+  height: 20px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 1px;
+  z-index: 0;
+  animation: float 4s ease-in-out infinite;
+}
+.pixel-cloud::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  width: 20px;
+  height: 12px;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 1px;
+}
+.pixel-sparkle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: var(--color-gold);
+  border-radius: 1px;
+  z-index: 0;
+  animation: sparkle 2s ease-in-out infinite;
+  transform: rotate(45deg);
+}
+.pixel-heart {
+  position: fixed;
+  z-index: 0;
+  font-size: 14px;
+  animation: float 3s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+/* ─── Main Container ─── */
+.report-container {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Main Window ─── */
+.main-window {
+  background: var(--color-cloud);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  box-shadow: 6px 6px 0 rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+.main-window-titlebar {
+  background: linear-gradient(90deg, var(--color-brand-bg), #9aa8d4);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid var(--color-ink);
+}
+.window-dots {
+  display: flex;
+  gap: 4px;
+}
+.window-dot {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255,255,255,0.6);
+  border-radius: 1px;
+  display: inline-block;
+}
+.window-dot-close { background: var(--color-coral); }
+.window-dot-min { background: var(--color-gold); }
+.window-dot-max { background: var(--color-growth); }
+.main-window-title {
+  font-size: 0.85rem;
+  color: var(--color-ink);
+  font-weight: 400;
+  flex: 1;
+  text-align: center;
+}
+.main-window-content {
+  padding: 24px;
+}
+
+/* ─── Report Header ─── */
+.report-header {
+  text-align: center;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  box-shadow: 3px 3px 0 var(--color-shadow);
+  position: relative;
+}
+.report-header .beaver-avatar {
+  width: 80px;
+  height: 80px;
+  background: var(--color-brand-bg);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  box-shadow: 2px 2px 0 var(--color-shadow);
+  /* Placeholder for logo — replace with <img> when available */
+}
+.report-header h1 {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-ink);
+  margin-bottom: 4px;
+}
+.report-header .company-name {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-royal);
+}
+.report-header .meta {
+  font-size: 0.8rem;
+  color: var(--color-ink-light);
+  margin-top: 8px;
+}
+.report-header .powered-by {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 4px 12px;
+  background: var(--color-brand-bg);
+  border: 1px solid var(--color-ink);
+  border-radius: 1px;
+  font-size: 0.7rem;
+  color: var(--color-ink);
+  box-shadow: 1px 1px 0 var(--color-shadow);
+}
+/* Decorative sparkles around header */
+.report-header::before {
+  content: '✦';
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  color: var(--color-gold);
+  font-size: 14px;
+  animation: sparkle 2s ease-in-out infinite;
+}
+.report-header::after {
+  content: '♥';
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  color: var(--color-coral);
+  font-size: 12px;
+  animation: sparkle 2.5s ease-in-out infinite 0.5s;
+}
+
+/* ─── Section Windows ─── */
+.section-window {
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.section-window:hover {
+  box-shadow: 4px 4px 0 var(--current-accent, var(--color-shadow));
+}
+.section-titlebar {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 2px solid var(--color-ink);
+  color: white;
+  font-size: 0.85rem;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+.section-titlebar .icon-box {
+  width: 20px;
+  height: 20px;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+}
+.section-content {
+  padding: 20px;
+}
+
+/* Window color themes */
+.window-coral { --current-accent: var(--color-coral); }
+.window-coral .section-titlebar { background: linear-gradient(90deg, #E85D75, #FF7A8F); }
+.window-royal { --current-accent: var(--color-royal); }
+.window-royal .section-titlebar { background: linear-gradient(90deg, #4D8AF0, #6BA3FF); }
+.window-growth { --current-accent: var(--color-growth); }
+.window-growth .section-titlebar { background: linear-gradient(90deg, #57B886, #6ECF9A); }
+.window-gold { --current-accent: var(--color-gold); }
+.window-gold .section-titlebar { background: linear-gradient(90deg, #F2C94C, #FFE066); }
+.window-gold .section-titlebar { color: var(--color-ink); text-shadow: none; }
+.window-lavender { --current-accent: var(--color-lavender); }
+.window-lavender .section-titlebar { background: linear-gradient(90deg, #9D7FEA, #B794F6); }
+
+/* ─── Score Cards (Retro Game Stats) ─── */
+.score-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+.score-card {
+  background: var(--color-cloud);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  padding: 16px 12px;
+  text-align: center;
+  box-shadow: 2px 2px 0 var(--color-shadow);
+  position: relative;
+}
+.score-card .label {
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.score-card .value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.score-card .subtext {
+  font-size: 0.7rem;
+  color: var(--color-ink-light);
+  margin-top: 4px;
+}
+.score-green .value { color: var(--color-growth); }
+.score-yellow .value { color: #B7931E; }
+.score-red .value { color: var(--color-coral); }
+.score-blue .value { color: var(--color-royal); }
+.score-purple .value { color: var(--color-lavender); }
+
+/* Score card health bar (retro game style) */
+.health-bar {
+  height: 8px;
+  background: var(--color-cloud);
+  border: 1px solid var(--color-ink);
+  border-radius: 1px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.health-bar-fill {
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    currentColor 0px,
+    currentColor 6px,
+    transparent 6px,
+    transparent 8px
+  );
+  transition: width 0.6s ease-out;
+}
+
+/* ─── Pixel Bar Charts ─── */
+.pixel-bar-chart { margin: 16px 0; }
+.pixel-bar-row {
+  display: flex;
+  align-items: center;
+  margin: 6px 0;
+  gap: 8px;
+}
+.pixel-bar-label {
+  width: 100px;
+  font-size: 0.8rem;
+  color: var(--color-ink-light);
+  text-align: right;
+}
+.pixel-bar-track {
+  flex: 1;
+  height: 20px;
+  background: var(--color-cloud);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+.pixel-bar-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--bar-color) 0px,
+    var(--bar-color) 8px,
+    rgba(255,255,255,0.15) 8px,
+    rgba(255,255,255,0.15) 10px
+  );
+  background-color: var(--bar-color);
+  animation: pixel-fill 0.8s ease-out;
+}
+.pixel-bar-value {
+  width: 45px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+/* ─── Tables ─── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+}
+th {
+  background: var(--color-cloud);
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-ink-light);
+  border-bottom: 2px solid var(--color-ink);
+  border-right: 1px solid var(--color-shadow);
+}
+th:last-child { border-right: none; }
+td {
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  border-bottom: 1px solid var(--color-shadow);
+  border-right: 1px solid var(--color-shadow);
+}
+td:last-child { border-right: none; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #F8FAFC; }
+
+/* ─── Badges ─── */
+.badge {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border: 1px solid;
+  border-radius: 1px;
+  display: inline-block;
+}
+.badge-success { background: #ECFDF5; border-color: var(--color-growth); color: var(--color-growth); }
+.badge-warning { background: #FFFBEB; border-color: var(--color-gold); color: #B7931E; }
+.badge-danger { background: #FEF2F2; border-color: var(--color-coral); color: var(--color-coral); }
+.badge-magic { background: #F5F3FF; border-color: var(--color-lavender); color: var(--color-lavender); }
+.badge-info { background: #EBF4FF; border-color: var(--color-royal); color: var(--color-royal); }
+.badge-type {
+  background: var(--color-cloud);
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* ─── Tags ─── */
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  background: var(--color-cloud);
+  border: 1px solid var(--color-shadow);
+  border-radius: 1px;
+  padding: 1px 6px;
+  color: var(--color-ink-light);
+  display: inline-block;
+  margin: 2px;
+}
+
+/* ─── Buttons ─── */
+.btn {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 0.8rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  padding: 6px 16px;
+  box-shadow: 0 2px 0 var(--color-ink);
+  display: inline-block;
+  transition: all 0.05s;
+  text-decoration: none;
+}
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.btn-primary { background: var(--color-royal); color: white; }
+.btn-magic { background: var(--color-lavender); color: white; }
+.btn-success { background: var(--color-growth); color: white; }
+
+/* ─── Content Cards ─── */
+.content-card {
+  background: var(--color-cloud);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  padding: 16px;
+  margin: 10px 0;
+  box-shadow: 2px 2px 0 var(--color-shadow);
+}
+.content-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.priority-pip {
+  width: 28px;
+  height: 28px;
+  background: var(--color-coral);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: white;
+  box-shadow: 1px 1px 0 var(--color-ink);
+  flex-shrink: 0;
+}
+.content-card h4 {
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--color-ink);
+}
+.content-card .angles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+.angle-box {
+  background: var(--color-paper);
+  border: 1px solid var(--color-shadow);
+  border-radius: 1px;
+  padding: 8px;
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+}
+.angle-box .angle-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+/* ─── Action Plan ─── */
+.action-list { list-style: none; padding: 0; }
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  margin: 8px 0;
+  background: var(--color-cloud);
+  border: 1px solid var(--color-shadow);
+  border-left: 4px solid;
+  border-radius: 1px;
+  font-size: 0.85rem;
+}
+.action-item .action-marker {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.7rem;
+}
+.action-thisweek { border-left-color: var(--color-coral); }
+.action-thisweek .action-marker { background: #FEF2F2; color: var(--color-coral); }
+.action-thismonth { border-left-color: var(--color-gold); }
+.action-thismonth .action-marker { background: #FFFBEB; color: #B7931E; }
+.action-quarter { border-left-color: var(--color-royal); }
+.action-quarter .action-marker { background: #EBF4FF; color: var(--color-royal); }
+
+/* ─── Two Column Layout ─── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
+}
+
+/* ─── Footer ─── */
+.report-footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 24px;
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  box-shadow: 2px 2px 0 var(--color-shadow);
+}
+.report-footer .footer-text {
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+}
+.report-footer .beaver-stamp {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+/* ─── Taskbar ─── */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: linear-gradient(180deg, #3D4452, #2D323E);
+  border-top: 2px solid #4A5568;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  gap: 8px;
+  z-index: 100;
+  font-size: 0.75rem;
+}
+.start-btn {
+  padding: 4px 12px;
+  background: linear-gradient(135deg, var(--color-royal), var(--color-lavender));
+  border: 2px solid;
+  border-image: linear-gradient(90deg, #E85D75, #F2C94C, #57B886, #4D8AF0, #9D7FEA) 1;
+  border-radius: 1px;
+  color: white;
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+.start-btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.taskbar-divider {
+  width: 1px;
+  height: 28px;
+  background: #4A5568;
+}
+.taskbar-tab {
+  padding: 4px 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 1px;
+  color: rgba(255,255,255,0.7);
+  font-family: 'DotGothic16', sans-serif;
+  font-size: 0.7rem;
+  background: rgba(255,255,255,0.05);
+}
+.taskbar-tab.active {
+  background: white;
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+  box-shadow: 0 -2px 0 var(--color-royal);
+}
+.taskbar-tray {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 1px;
+}
+.led {
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+.led-green { background: var(--color-growth); animation: pulse 2s ease-in-out infinite; }
+.led-blue { background: var(--color-royal); }
+.led-gold { background: var(--color-gold); }
+.clock {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.8);
+}
+
+/* ─── Mini Inline Chart (Sparkline via blocks) ─── */
+.sparkline-blocks {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 24px;
+}
+.sparkline-block {
+  width: 6px;
+  border: 1px solid var(--color-ink);
+  border-radius: 1px;
+  background: var(--color-royal);
+}
+
+/* ─── Opportunity List ─── */
+.opp-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-shadow);
+  font-size: 0.8rem;
+}
+.opp-item:last-child { border-bottom: none; }
+.opp-icon {
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-ink);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  flex-shrink: 0;
+}
+
+/* ─── Executive Summary Ribbon ─── */
+.exec-ribbon {
+  background: var(--color-vellum);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 3px 3px 0 var(--color-coral);
+  position: relative;
+}
+.exec-ribbon::before {
+  content: '!';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 24px;
+  height: 24px;
+  background: var(--color-coral);
+  color: white;
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.exec-ribbon h3 {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--color-ink);
+  margin-bottom: 8px;
+}
+.exec-ribbon p {
+  font-size: 0.8rem;
+  color: var(--color-ink-light);
+  line-height: 1.5;
+}
+.exec-ribbon .health-label {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 2px solid;
+  border-radius: 1px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.health-moderate { border-color: var(--color-gold); color: #B7931E; background: #FFFBEB; }
+.health-strong { border-color: var(--color-growth); color: var(--color-growth); background: #ECFDF5; }
+.health-weak { border-color: var(--color-coral); color: var(--color-coral); background: #FEF2F2; }
+
+/* ─── Section Header with Icon ─── */
+.section-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.section-subhead {
+  font-size: 0.75rem;
+  color: var(--color-ink-light);
+}
+
+/* ─── Animations ─── */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0.4; transform: rotate(45deg) scale(1); }
+  50% { opacity: 1; transform: rotate(45deg) scale(1.3); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@keyframes pixel-fill {
+  from { width: 0; }
+}
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ Decorative Desktop Elements ═══ -->
+<div class="pixel-cloud" style="top: 40px; left: 60px;"></div>
+<div class="pixel-cloud" style="top: 80px; right: 120px; animation-delay: 1s;"></div>
+<div class="pixel-cloud" style="top: 200px; left: 30px; animation-delay: 2.5s;"></div>
+<div class="pixel-sparkle" style="top: 120px; left: 200px;"></div>
+<div class="pixel-sparkle" style="top: 300px; right: 80px; animation-delay: 1s;"></div>
+<div class="pixel-sparkle" style="bottom: 200px; left: 100px; animation-delay: 0.7s;"></div>
+<div class="pixel-heart" style="top: 60px; right: 60px;">&#x1F49A;</div>
+<div class="pixel-heart" style="bottom: 300px; left: 50px; animation-delay: 1.5s;">&#x1F49B;</div>
+<div class="pixel-heart" style="top: 400px; right: 40px; animation-delay: 0.8s;">&#x1F49C;</div>
+
+<!-- ═══ Desktop Background ═══ -->
+<div class="desktop-bg">
+<div class="report-container">
+
+<!-- ═══ Main Window Frame ═══ -->
+<div class="main-window">
+<div class="main-window-titlebar">
+  <div class="window-dots">
+    <span class="window-dot window-dot-close"></span>
+    <span class="window-dot window-dot-min"></span>
+    <span class="window-dot window-dot-max"></span>
+  </div>
+  <span class="main-window-title">audit-report.html — Beaverstudio.ai Marketing Audit</span>
+</div>
+
+<div class="main-window-content">
+
+<!-- ═══ Report Header ═══ -->
+<div class="report-header">
+  <div class="beaver-avatar">&#x1F9AB;</div>
+  <h1>Marketing Audit Report</h1>
+  <div class="company-name">Acme Corp — acme.com</div>
+  <div class="meta">Generated February 6, 2026 &nbsp;|&nbsp; Audit ID: audit-acme-20260206</div>
+  <div class="powered-by">&#x2728; Powered by Beaverstudio.ai</div>
+</div>
+
+<!-- ═══ Executive Summary ═══ -->
+<div class="section-window window-coral">
+  <div class="section-titlebar">
+    <div class="icon-box">&#x1F4CB;</div>
+    <span>executive_summary.exe</span>
+    <span style="margin-left: auto; font-size: 0.7rem; opacity: 0.7;">&#x2588;&#x2588;&#x2588;</span>
+  </div>
+  <div class="section-content">
+    <div class="exec-ribbon">
+      <h3>&#x1F50D; Quick Assessment</h3>
+      <p>
+        Acme Corp shows <strong>moderate marketing health</strong> with strong organic fundamentals but significant gaps in AI search visibility. Perplexity shows the highest brand presence (29%) while Gemini trails at just 8%. The biggest opportunity is thought leadership content — competitors are weak here and AI engines are hungry for authoritative sources. Immediate action: optimize 5 existing blog posts for AI citation patterns.
+      </p>
+      <span class="health-label health-moderate">&#x26A0; MODERATE HEALTH</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GEO + SEO Side by Side ═══ -->
+<div class="two-col">
+
+  <!-- GEO Analysis Window -->
+  <div class="section-window window-royal">
+    <div class="section-titlebar">
+      <div class="icon-box">&#x1F310;</div>
+      <span>geo_analysis.log</span>
+    </div>
+    <div class="section-content">
+      <div class="section-header-bar">
+        <span style="font-size: 0.8rem;">AI Engine Visibility</span>
+        <span class="badge badge-info">LIGHT</span>
+      </div>
+
+      <!-- Score Cards -->
+      <div class="score-grid">
+        <div class="score-card score-yellow">
+          <div class="label">ChatGPT</div>
+          <div class="value">23%</div>
+          <div class="health-bar"><div class="health-bar-fill" style="width: 23%; color: var(--color-gold);"></div></div>
+          <div class="subtext">Below 25% benchmark</div>
+        </div>
+        <div class="score-card score-green">
+          <div class="label">Perplexity</div>
+          <div class="value">29%</div>
+          <div class="health-bar"><div class="health-bar-fill" style="width: 29%; color: var(--color-growth);"></div></div>
+          <div class="subtext">Above benchmark &#x2713;</div>
+        </div>
+        <div class="score-card score-red">
+          <div class="label">Gemini</div>
+          <div class="value">8%</div>
+          <div class="health-bar"><div class="health-bar-fill" style="width: 8%; color: var(--color-coral);"></div></div>
+          <div class="subtext">Critical gap</div>
+        </div>
+      </div>
+
+      <!-- Brand Mentions -->
+      <div style="margin-top: 16px;">
+        <div class="section-header-bar">
+          <span style="font-size: 0.8rem;">Brand Mentions</span>
+          <span class="badge badge-magic">48 total</span>
+        </div>
+        <div class="pixel-bar-chart">
+          <div class="pixel-bar-row">
+            <div class="pixel-bar-label">ChatGPT</div>
+            <div class="pixel-bar-track">
+              <div class="pixel-bar-fill" style="width: 35%; --bar-color: var(--color-royal);">12</div>
+            </div>
+            <div class="pixel-bar-value">12</div>
+          </div>
+          <div class="pixel-bar-row">
+            <div class="pixel-bar-label">Perplexity</div>
+            <div class="pixel-bar-track">
+              <div class="pixel-bar-fill" style="width: 68%; --bar-color: var(--color-lavender);">28</div>
+            </div>
+            <div class="pixel-bar-value">28</div>
+          </div>
+          <div class="pixel-bar-row">
+            <div class="pixel-bar-label">Gemini</div>
+            <div class="pixel-bar-track">
+              <div class="pixel-bar-fill" style="width: 18%; --bar-color: var(--color-gold);">8</div>
+            </div>
+            <div class="pixel-bar-value">8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opportunities -->
+      <div style="margin-top: 16px;">
+        <div style="font-size: 0.8rem; margin-bottom: 8px;">&#x1F3AF; Top Opportunities</div>
+        <div class="opp-item">
+          <div class="opp-icon" style="background: #FEF2F2; border-color: var(--color-coral);">&#x2191;</div>
+          <div>
+            <div>Thought leadership content gap</div>
+            <span class="badge badge-danger">HIGH IMPACT</span>
+          </div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-icon" style="background: #FFFBEB; border-color: var(--color-gold);">&#x2191;</div>
+          <div>
+            <div>Case studies for Perplexity citations</div>
+            <span class="badge badge-warning">MEDIUM</span>
+          </div>
+        </div>
+        <div class="opp-item">
+          <div class="opp-icon" style="background: #ECFDF5; border-color: var(--color-growth);">&#x2191;</div>
+          <div>
+            <div>Comparison page optimization</div>
+            <span class="badge badge-success">QUICK WIN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO Analysis Window -->
+  <div class="section-window window-growth">
+    <div class="section-titlebar">
+      <div class="icon-box">&#x1F50D;</div>
+      <span>seo_analysis.log</span>
+    </div>
+    <div class="section-content">
+      <div class="section-header-bar">
+        <span style="font-size: 0.8rem;">Domain Overview</span>
+        <span class="badge badge-success">LIGHT</span>
+      </div>
+
+      <!-- Score Cards -->
+      <div class="score-grid">
+        <div class="score-card score-green">
+          <div class="label">Authority</div>
+          <div class="value">Medium</div>
+          <div class="subtext">Estimated DA 35-45</div>
+        </div>
+        <div class="score-card score-blue">
+          <div class="label">Indexed</div>
+          <div class="value">1.2K</div>
+          <div class="subtext">pages indexed</div>
+        </div>
+        <div class="score-card score-red">
+          <div class="label">Issues</div>
+          <div class="value">7</div>
+          <div class="subtext">technical issues</div>
+        </div>
+      </div>
+
+      <!-- Keyword Opportunities -->
+      <div style="margin-top: 16px;">
+        <div style="font-size: 0.8rem; margin-bottom: 8px;">&#x1F511; Keyword Opportunities</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Keyword</th>
+              <th>Vol.</th>
+              <th>Pos.</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>project management tool<br><span class="tag">comparison</span></td>
+              <td style="font-family: 'IBM Plex Mono'; font-weight: 600;">8.1K</td>
+              <td><span class="badge badge-warning">~15</span></td>
+            </tr>
+            <tr>
+              <td>best team collaboration<br><span class="tag">recommendation</span></td>
+              <td style="font-family: 'IBM Plex Mono'; font-weight: 600;">5.4K</td>
+              <td><span class="badge badge-danger">~28</span></td>
+            </tr>
+            <tr>
+              <td>agile project planning<br><span class="tag">informational</span></td>
+              <td style="font-family: 'IBM Plex Mono'; font-weight: 600;">3.2K</td>
+              <td><span class="badge badge-success">~8</span></td>
+            </tr>
+            <tr>
+              <td>remote team management<br><span class="tag">problem-solution</span></td>
+              <td style="font-family: 'IBM Plex Mono'; font-weight: 600;">2.9K</td>
+              <td><span class="badge badge-warning">~19</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Technical Issues -->
+      <div style="margin-top: 16px;">
+        <div style="font-size: 0.8rem; margin-bottom: 8px;">&#x1F6A8; Issues Found</div>
+        <div class="opp-item">
+          <span class="badge badge-danger">HIGH</span>
+          <span>Missing schema markup on product pages</span>
+        </div>
+        <div class="opp-item">
+          <span class="badge badge-warning">MED</span>
+          <span>Slow LCP on mobile (3.8s)</span>
+        </div>
+        <div class="opp-item">
+          <span class="badge badge-success">LOW</span>
+          <span>Thin content on 12 category pages</span>
+        </div>
+      </div>
+
+      <!-- Quick Wins -->
+      <div style="margin-top: 16px;">
+        <div style="font-size: 0.8rem; margin-bottom: 8px;">&#x26A1; Quick Wins</div>
+        <div style="font-size: 0.8rem; color: var(--color-ink-light); padding: 4px 0; border-bottom: 1px solid var(--color-shadow);">
+          &#x25B8; Add JSON-LD schema to product pages
+        </div>
+        <div style="font-size: 0.8rem; color: var(--color-ink-light); padding: 4px 0; border-bottom: 1px solid var(--color-shadow);">
+          &#x25B8; Optimize images for Core Web Vitals
+        </div>
+        <div style="font-size: 0.8rem; color: var(--color-ink-light); padding: 4px 0;">
+          &#x25B8; Internal link from blog to product pages
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /two-col -->
+
+<!-- ═══ Content Recommendations ═══ -->
+<div class="section-window window-gold">
+  <div class="section-titlebar">
+    <div class="icon-box">&#x1F4DD;</div>
+    <span>content_recommendations.txt</span>
+  </div>
+  <div class="section-content">
+    <div class="section-header-bar">
+      <span style="font-size: 0.8rem;">Recommended Content Pieces</span>
+      <span class="badge badge-magic">&#x2728; AI-Optimized</span>
+    </div>
+    <p style="font-size: 0.8rem; color: var(--color-ink-light); margin-bottom: 12px;">
+      Cross-referencing GEO gaps with SEO opportunities. These pieces maximize both AI citation potential and organic search lift.
+    </p>
+
+    <div class="content-card">
+      <div class="content-card-header">
+        <div class="priority-pip">1</div>
+        <div>
+          <h4>"The Complete Guide to Agile Project Management in 2026"</h4>
+          <span class="badge badge-type">Guide</span>
+          <span class="badge badge-danger">HIGH IMPACT</span>
+        </div>
+      </div>
+      <div style="margin: 8px 0;">
+        <span class="tag">agile project planning</span>
+        <span class="tag">project management</span>
+        <span class="tag">team collaboration</span>
+      </div>
+      <div class="angles">
+        <div class="angle-box">
+          <div class="angle-label" style="color: var(--color-royal);">&#x1F310; GEO Angle</div>
+          Fills thought leadership gap. High citation potential on "agile" queries across all 3 engines.
+        </div>
+        <div class="angle-box">
+          <div class="angle-label" style="color: var(--color-growth);">&#x1F50D; SEO Angle</div>
+          Targets 3.2K volume keyword at position ~8. Could reach top 3 with comprehensive guide format.
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="content-card-header">
+        <div class="priority-pip" style="background: var(--color-gold); color: var(--color-ink);">2</div>
+        <div>
+          <h4>"Acme vs Monday vs Asana: Honest Comparison (2026)"</h4>
+          <span class="badge badge-type">Comparison</span>
+          <span class="badge badge-warning">MEDIUM</span>
+        </div>
+      </div>
+      <div style="margin: 8px 0;">
+        <span class="tag">project management tool</span>
+        <span class="tag">best team collaboration</span>
+      </div>
+      <div class="angles">
+        <div class="angle-box">
+          <div class="angle-label" style="color: var(--color-royal);">&#x1F310; GEO Angle</div>
+          Comparison queries have 29% visibility — highest category. Own the narrative before competitors do.
+        </div>
+        <div class="angle-box">
+          <div class="angle-label" style="color: var(--color-growth);">&#x1F50D; SEO Angle</div>
+          Combined 13.5K monthly volume. Product comparison pages convert 3-5x higher than informational.
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="content-card-header">
+        <div class="priority-pip" style="background: var(--color-royal);">3</div>
+        <div>
+          <h4>"How We Helped [Client] Cut Project Delivery Time by 40%"</h4>
+          <span class="badge badge-type">Case Study</span>
+          <span class="badge badge-success">QUICK WIN</span>
+        </div>
+      </div>
+      <div style="margin: 8px 0;">
+        <span class="tag">remote team management</span>
+        <span class="tag">case study</span>
+      </div>
+      <div class="angles">
+        <div class="angle-box">
+          <div class="angle-label" style="color: var(--color-royal);">&#x1F310; GEO Angle</div>
+          Case studies with specific data points are heavily cited by Perplexity. Builds trust signals for all engines.
+        </div>
+        <div class="angle-box">
+          <div class="angle-label" style="color: var(--color-growth);">&#x1F50D; SEO Angle</div>
+          Long-tail conversions. Case studies attract backlinks naturally, improving domain authority.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ Action Plan ═══ -->
+<div class="section-window window-lavender">
+  <div class="section-titlebar">
+    <div class="icon-box">&#x1F680;</div>
+    <span>action_plan.todo</span>
+  </div>
+  <div class="section-content">
+    <div class="section-header-bar">
+      <span style="font-size: 0.8rem;">Prioritized Action Plan</span>
+      <div>
+        <span class="btn btn-magic" style="font-size: 0.65rem; padding: 3px 10px;">&#x2728; Export</span>
+      </div>
+    </div>
+
+    <div style="font-size: 0.75rem; color: var(--color-coral); font-weight: 600; margin: 12px 0 8px; text-transform: uppercase; letter-spacing: 1px;">
+      &#x1F525; This Week
+    </div>
+    <ul class="action-list">
+      <li class="action-item action-thisweek">
+        <div class="action-marker">1</div>
+        <div>
+          <div>Add JSON-LD schema to all product pages</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">SEO quick win — improves rich snippets immediately</div>
+        </div>
+      </li>
+      <li class="action-item action-thisweek">
+        <div class="action-marker">2</div>
+        <div>
+          <div>Optimize 5 existing blog posts for AI citation patterns</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">GEO quick win — add structured data, clear definitions, expert quotes</div>
+        </div>
+      </li>
+    </ul>
+
+    <div style="font-size: 0.75rem; color: #B7931E; font-weight: 600; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 1px;">
+      &#x1F4C5; This Month
+    </div>
+    <ul class="action-list">
+      <li class="action-item action-thismonth">
+        <div class="action-marker">3</div>
+        <div>
+          <div>Publish "Complete Guide to Agile Project Management"</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">Content priority #1 — addresses GEO + SEO gap simultaneously</div>
+        </div>
+      </li>
+      <li class="action-item action-thismonth">
+        <div class="action-marker">4</div>
+        <div>
+          <div>Create comparison page (Acme vs Monday vs Asana)</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">High-intent keyword target + strongest GEO category (29%)</div>
+        </div>
+      </li>
+      <li class="action-item action-thismonth">
+        <div class="action-marker">5</div>
+        <div>
+          <div>Fix Core Web Vitals — optimize LCP to under 2.5s</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">Technical SEO — improves rankings + user experience</div>
+        </div>
+      </li>
+    </ul>
+
+    <div style="font-size: 0.75rem; color: var(--color-royal); font-weight: 600; margin: 16px 0 8px; text-transform: uppercase; letter-spacing: 1px;">
+      &#x1F4CA; This Quarter
+    </div>
+    <ul class="action-list">
+      <li class="action-item action-quarter">
+        <div class="action-marker">6</div>
+        <div>
+          <div>Launch case study content series (3 studies)</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">Builds trust signals for Perplexity + earns backlinks</div>
+        </div>
+      </li>
+      <li class="action-item action-quarter">
+        <div class="action-marker">7</div>
+        <div>
+          <div>Build topical authority cluster around "project management"</div>
+          <div style="font-size: 0.7rem; color: var(--color-ink-light); margin-top: 2px;">8-12 interlinked pieces establishing domain expertise</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<div class="report-footer">
+  <div class="beaver-stamp">&#x1F9AB;</div>
+  <div class="footer-text">
+    Generated by Beaverstudio.ai Marketing Audit &nbsp;&#x2022;&nbsp; February 6, 2026 &nbsp;&#x2022;&nbsp; Confidential
+  </div>
+  <div class="footer-text" style="margin-top: 4px; font-family: 'IBM Plex Mono', monospace;">
+    audit-acme-20260206-143000 &nbsp;|&nbsp; GEO + SEO + Content
+  </div>
+</div>
+
+</div><!-- /main-window-content -->
+</div><!-- /main-window -->
+
+</div><!-- /report-container -->
+</div><!-- /desktop-bg -->
+
+<!-- ═══ Taskbar ═══ -->
+<div class="taskbar">
+  <div class="start-btn clickable">&#x1F9AB; Beaver</div>
+  <div class="taskbar-divider"></div>
+  <div class="taskbar-tab active clickable">&#x1F4CB; Audit Report</div>
+  <div class="taskbar-tab clickable">&#x1F310; GEO Analysis</div>
+  <div class="taskbar-tab clickable">&#x1F50D; SEO Analysis</div>
+  <div class="taskbar-tray">
+    <div class="led led-green"></div>
+    <div class="led led-blue"></div>
+    <div class="led led-gold"></div>
+    <div class="clock" id="clock">14:30</div>
+  </div>
+</div>
+
+<script>
+// Live clock in taskbar
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent =
+    now.getHours().toString().padStart(2,'0') + ':' +
+    now.getMinutes().toString().padStart(2,'0');
+}
+updateClock();
+setInterval(updateClock, 60000);
+</script>
+
+</body>
+</html>

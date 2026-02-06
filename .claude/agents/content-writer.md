@@ -67,12 +67,12 @@ While the content-strategist plans what to create and when, you're the execution
 - Approved messaging
 - Visual style (if applicable)
 
-## Approaches Available
+## Skills Available
 
-Load these approach files for detailed workflows:
+Load these skill files for detailed workflows:
 
-- `.claude/approaches/content/blog-post-writer.md` - Generate SEO-optimized blog posts
-- `.claude/approaches/content/parallel-content-batch.md` - Generate multiple pieces in parallel
+- `.claude/skills/content-blog-writer/SKILL.md` - Generate SEO-optimized blog posts
+- `.claude/skills/content-parallel-batch/SKILL.md` - Generate multiple pieces in parallel
 
 ## Content Types
 

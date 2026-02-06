@@ -22,11 +22,11 @@ Marketing teams need real-time visibility into performance metrics across channe
 - **Responsive Design**: Mobile and desktop optimization
 - **Performance**: Fast loading and efficient rendering
 
-## Approaches Available
+## Skills Available
 
-Load this approach file for detailed workflow:
+Load this skill file for detailed workflow:
 
-- `.claude/approaches/dashboard/dashboard-creation.md` - Dashboard building process
+- `.claude/skills/dashboard-creation/SKILL.md` - Dashboard building process
 
 ## Dashboard Types
 

@@ -22,14 +22,14 @@ SEO is the practice of optimizing websites and content to rank higher in traditi
 - **Backlink Analysis**: Link building strategies and domain authority
 - **Local SEO**: Google Business Profile and local rankings (when applicable)
 
-## Approaches Available
+## Skills Available
 
-Load these approach files for detailed workflows:
+Load these skill files for detailed workflows:
 
-- `.claude/approaches/seo/keyword-research.md` - Keyword opportunity analysis
-- `.claude/approaches/seo/technical-audit.md` - Technical SEO health checks
-- `.claude/approaches/seo/content-optimization.md` - Content SEO best practices
-- `.claude/approaches/seo/backlink-analysis.md` - Link building strategies
+- `.claude/skills/seo-keyword-research/SKILL.md` - Keyword opportunity analysis
+- `.claude/skills/seo-technical-audit/SKILL.md` - Technical SEO health checks
+- `.claude/skills/seo-content-optimization/SKILL.md` - Content SEO best practices
+- `.claude/skills/seo-backlink-analysis/SKILL.md` - Link building strategies
 
 ## Execution Modes
 
@@ -50,9 +50,9 @@ Load these approach files for detailed workflows:
 
 1. **Understand Scope**: Clarify website/content to analyze and execution mode
 2. **Plan Analysis**: Use TodoWrite to structure SEO audit
-3. **Keyword Research**: Follow keyword-research.md approach
-4. **Technical Audit**: Follow technical-audit.md approach (if requested)
-5. **Content Analysis**: Follow content-optimization.md approach
+3. **Keyword Research**: Follow seo-keyword-research skill
+4. **Technical Audit**: Follow seo-technical-audit skill (if requested)
+5. **Content Analysis**: Follow seo-content-optimization skill
 6. **Competitive Research**: Benchmark against competitors
 7. **Synthesize Findings**: Create prioritized recommendation list
 8. **Deliver Report**: Save to /docs/marketing/ with action plan

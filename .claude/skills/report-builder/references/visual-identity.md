@@ -1,297 +1,253 @@
-# Visual Identity — Castor AI Reports
+# Visual Identity — Beaverstudio.ai Reports
 
-Standard brand identity for all generated reports.
+## Royal Tactician — "Whimsical Hi-Bit Desktop OS"
+
+Brand: **Beaverstudio.ai**
+Logo background: `#b4c2e5`
+Style: Pixel-art inspired, retro desktop OS, playful and geometric
+
+## Fonts (Google Fonts)
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+
+| Role | Font | Weight(s) | Usage |
+|------|------|-----------|-------|
+| Body / UI | DotGothic16 | 400 | All interface text, labels, buttons, paragraphs |
+| Data / Stats | IBM Plex Mono | 400, 500, 600, 700 | Numbers, timestamps, counters, code, scores |
 
 ## Color Palette
 
-| Role | Hex | Usage |
-|------|-----|-------|
-| Primary | `#1a1a2e` | Headers, dark backgrounds |
-| Secondary | `#16213e` | Section backgrounds, cards |
-| Accent | `#0f3460` | Interactive elements, links |
-| Highlight | `#e94560` | CTAs, alerts, important badges |
-| Success | `#06d6a0` | Positive scores, green indicators |
-| Warning | `#ffd166` | Moderate scores, yellow indicators |
-| Danger | `#ef476f` | Low scores, red indicators, critical issues |
-| Text Primary | `#eaeaea` | Body text on dark backgrounds |
-| Text Secondary | `#a0a0b0` | Supporting text, captions |
-| Background | `#0d1117` | Page background |
-| Card BG | `#161b22` | Card/section backgrounds |
-| Border | `#30363d` | Borders, dividers |
+### Core Ink & Paper
 
-## Typography
+| Token | Hex | Role |
+|-------|-----|------|
+| `--color-cloud` | `#F0F4F8` | App background, window content fill |
+| `--color-paper` | `#FFFFFF` | Card surfaces, input backgrounds |
+| `--color-vellum` | `#FFF9F0` | Warm chat panels, user messages |
+| `--color-ink` | `#2D323E` | Primary text, borders, window frames |
+| `--color-ink-light` | `#4A5568` | Secondary text, descriptions |
+| `--color-shadow` | `#BCCCDC` | Geometric shadows, dividers, disabled states |
+| `--color-brand-bg` | `#b4c2e5` | Logo background, brand tint |
+
+### Semantic Accents (The Magic Five)
+
+| Token | Hex | Role | Window/Section |
+|-------|-----|------|----------------|
+| `--color-royal` | `#4D8AF0` | Primary action, links | Agents, GEO section |
+| `--color-lavender` | `#9D7FEA` | AI/magic actions | Sessions, AI processing |
+| `--color-growth` | `#57B886` | Success, ROI | Analytics, SEO section |
+| `--color-gold` | `#F2C94C` | Budget, premium | Files, Content section |
+| `--color-coral` | `#E85D75` | Errors, warnings | Settings, Alerts |
+
+### Chart Palette (ordered)
+
+`#4D8AF0`, `#57B886`, `#9D7FEA`, `#F2C94C`, `#E85D75`
+
+## Geometry Rules
+
+| Property | Value | Notes |
+|----------|-------|-------|
+| Border Radius | `1px` | Sharp, retro, geometric — NO rounded corners |
+| Border Weight | 1px (cards) / 2px (windows, emphasis) | Ink-on-paper feel |
+| Geometric Shadow | `Npx Npx 0 <color>` | NO blur ever. Cards: 2-3px. Windows: 4px accent color |
+| Spacing | 4, 6, 8, 12, 16, 24, 32px scale | Prefer gap over margin |
+
+## Component Classes
+
+### Windows (Report Sections)
+
+Each report section renders as an OS "window" with a colored title bar.
 
 ```css
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-
-/* Headings */
-h1 { font-size: 2rem; font-weight: 700; color: #eaeaea; }
-h2 { font-size: 1.5rem; font-weight: 600; color: #eaeaea; border-bottom: 2px solid #e94560; padding-bottom: 8px; }
-h3 { font-size: 1.15rem; font-weight: 600; color: #a0a0b0; }
-
-/* Body */
-body { font-size: 0.95rem; line-height: 1.6; color: #eaeaea; }
+.window {
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+}
+.window-titlebar {
+  padding: 8px 12px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+/* Window dots: 10x10px squares with 2px white border */
+.window-dot { width: 10px; height: 10px; border: 2px solid white; display: inline-block; }
 ```
 
-## Base HTML Template
+Window themes by section:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{company_name}} — Marketing Audit Report</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0d1117;
-      color: #eaeaea;
-      line-height: 1.6;
-      padding: 0;
-    }
-    .container { max-width: 900px; margin: 0 auto; padding: 40px 24px; }
+| Section | Title Bar Gradient | Shadow Color |
+|---------|-------------------|--------------|
+| GEO Analysis | `#4D8AF0 -> #6BA3FF` | `#4D8AF0` |
+| SEO Analysis | `#57B886 -> #6ECF9A` | `#57B886` |
+| Content | `#F2C94C -> #FFE066` | `#F2C94C` |
+| Action Plan | `#9D7FEA -> #B794F6` | `#9D7FEA` |
+| Executive Summary | `#E85D75 -> #FF7A8F` | `#E85D75` |
 
-    /* Header */
-    .report-header {
-      text-align: center;
-      padding: 48px 24px;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      border-radius: 12px;
-      margin-bottom: 32px;
-    }
-    .report-header h1 { font-size: 2rem; margin-bottom: 8px; }
-    .report-header .subtitle { color: #a0a0b0; font-size: 1.1rem; }
-    .report-header .date { color: #a0a0b0; font-size: 0.85rem; margin-top: 12px; }
-    .report-header .badge {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 4px 16px;
-      background: #e94560;
-      color: white;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
+### Score Cards (Retro Game Stats)
 
-    /* Sections */
-    .section {
-      background: #161b22;
-      border: 1px solid #30363d;
-      border-radius: 12px;
-      padding: 28px;
-      margin-bottom: 24px;
-    }
-    .section h2 {
-      font-size: 1.35rem;
-      border-bottom: 2px solid #e94560;
-      padding-bottom: 8px;
-      margin-bottom: 20px;
-    }
-
-    /* Score Cards */
-    .score-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin: 16px 0;
-    }
-    .score-card {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 20px;
-      text-align: center;
-    }
-    .score-card .value {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin: 8px 0;
-    }
-    .score-card .label { color: #a0a0b0; font-size: 0.85rem; }
-    .score-card .trend { font-size: 0.8rem; margin-top: 4px; }
-    .score-green .value { color: #06d6a0; }
-    .score-yellow .value { color: #ffd166; }
-    .score-red .value { color: #ef476f; }
-
-    /* Bar Charts */
-    .bar-chart { margin: 12px 0; }
-    .bar-row {
-      display: flex;
-      align-items: center;
-      margin: 8px 0;
-    }
-    .bar-label { width: 120px; font-size: 0.85rem; color: #a0a0b0; }
-    .bar-track {
-      flex: 1;
-      height: 28px;
-      background: #0d1117;
-      border-radius: 4px;
-      overflow: hidden;
-      position: relative;
-    }
-    .bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      padding-left: 8px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: white;
-      min-width: fit-content;
-    }
-
-    /* Tables */
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 12px 0;
-    }
-    th, td {
-      padding: 10px 12px;
-      text-align: left;
-      border-bottom: 1px solid #30363d;
-      font-size: 0.9rem;
-    }
-    th {
-      color: #a0a0b0;
-      font-weight: 600;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Badges */
-    .badge-high { background: #ef476f22; color: #ef476f; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
-    .badge-medium { background: #ffd16622; color: #ffd166; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
-    .badge-low { background: #06d6a022; color: #06d6a0; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
-    .badge-type { background: #0f346022; color: #5fa8d3; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
-
-    /* Tags */
-    .tag {
-      display: inline-block;
-      background: #30363d;
-      color: #a0a0b0;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      margin: 2px;
-    }
-
-    /* Content Cards */
-    .content-card {
-      background: #0d1117;
-      border: 1px solid #30363d;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 12px 0;
-    }
-    .content-card .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .content-card .priority {
-      background: #e94560;
-      color: white;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 700;
-      margin-right: 12px;
-    }
-
-    /* Action Plan */
-    .action-plan { list-style: none; padding: 0; }
-    .action-plan li {
-      padding: 12px 16px;
-      margin: 8px 0;
-      background: #0d1117;
-      border-left: 3px solid #e94560;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.9rem;
-    }
-    .action-plan .priority-label {
-      font-weight: 600;
-      color: #e94560;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    /* Footer */
-    .report-footer {
-      text-align: center;
-      padding: 32px;
-      color: #a0a0b0;
-      font-size: 0.8rem;
-      border-top: 1px solid #30363d;
-      margin-top: 40px;
-    }
-
-    /* Utility */
-    .text-muted { color: #a0a0b0; }
-    .text-small { font-size: 0.85rem; }
-    .mt-16 { margin-top: 16px; }
-    .mb-16 { margin-bottom: 16px; }
-    .note {
-      background: #ffd16610;
-      border-left: 3px solid #ffd166;
-      padding: 12px 16px;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.85rem;
-      color: #ffd166;
-      margin: 12px 0;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <!-- Report sections go here -->
-  </div>
-</body>
-</html>
+```css
+.score-card {
+  background: var(--color-paper);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  padding: 16px;
+  box-shadow: 2px 2px 0 var(--color-shadow);
+  text-align: center;
+}
+.score-card .value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.score-card .label {
+  font-family: 'DotGothic16', sans-serif;
+  color: var(--color-ink-light);
+  font-size: 0.85rem;
+}
 ```
 
-## Component Examples
+Color score thresholds:
+- `>25%`: `--color-growth` (green)
+- `10-25%`: `--color-gold` (yellow)
+- `<10%`: `--color-coral` (red)
 
-### Score Card
-```html
-<div class="score-card score-red">
-  <div class="label">ChatGPT Visibility</div>
-  <div class="value">12%</div>
-  <div class="trend text-muted">Below benchmark (25%)</div>
-</div>
+### Pixel Progress Bars
+
+```css
+.pixel-bar-track {
+  background: var(--color-cloud);
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  height: 24px;
+  overflow: hidden;
+}
+.pixel-bar-fill {
+  height: 100%;
+  /* Stepped pixel effect via repeating gradient */
+  background-image: repeating-linear-gradient(
+    90deg,
+    currentColor 0px,
+    currentColor 8px,
+    transparent 8px,
+    transparent 10px
+  );
+}
 ```
 
-### Bar Chart Row
-```html
-<div class="bar-row">
-  <div class="bar-label">ChatGPT</div>
-  <div class="bar-track">
-    <div class="bar-fill" style="width: 23%; background: #ef476f;">23%</div>
-  </div>
-</div>
+### Mechanical Buttons
+
+```css
+.btn {
+  font-family: 'DotGothic16', sans-serif;
+  border: 2px solid var(--color-ink);
+  border-radius: 1px;
+  padding: 6px 16px;
+  box-shadow: 0 2px 0 var(--color-ink);
+  cursor: pointer;
+  transition: all 0.05s;
+}
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: none;
+}
+.btn-primary { background: #4D8AF0; color: white; }
+.btn-magic { background: #9D7FEA; color: white; }
+.btn-success { background: #57B886; color: white; }
+.btn-danger { background: #E85D75; color: white; }
 ```
 
-### Impact Badge
-```html
-<span class="badge-high">High Impact</span>
-<span class="badge-medium">Medium</span>
-<span class="badge-low">Low</span>
+### Status Badges
+
+```css
+.badge { font-family: 'DotGothic16'; font-size: 0.75rem; padding: 2px 8px; border: 1px solid; border-radius: 1px; }
+.badge-success { background: #ECFDF5; border-color: #57B886; color: #57B886; }
+.badge-warning { background: #FFFBEB; border-color: #F2C94C; color: #B7931E; }
+.badge-danger { background: #FEF2F2; border-color: #E85D75; color: #E85D75; }
+.badge-magic { background: #F5F3FF; border-color: #9D7FEA; color: #9D7FEA; }
+.badge-info { background: #EBF4FF; border-color: #4D8AF0; color: #4D8AF0; }
 ```
 
-### Keyword Tag
-```html
-<span class="tag">project management</span>
-<span class="tag">team collaboration</span>
+### Tags (Keywords)
+
+```css
+.tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  background: var(--color-cloud);
+  border: 1px solid var(--color-shadow);
+  border-radius: 1px;
+  padding: 2px 6px;
+  color: var(--color-ink-light);
+}
 ```
+
+## Desktop Background
+
+Reports sit on an animated gradient desktop:
+
+```css
+.desktop-bg {
+  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+  min-height: 100vh;
+  position: relative;
+}
+/* Pixel grid overlay */
+.desktop-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+}
+```
+
+## Taskbar
+
+```css
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(180deg, #3D4452, #2D323E);
+  border-top: 2px solid #4A5568;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  z-index: 100;
+}
+```
+
+## Animations
+
+| Name | Duration | Use |
+|------|----------|-----|
+| `gradient-shift` | 15s infinite | Desktop background |
+| `float` | 1s ease-in-out infinite | Decorative elements hover |
+| `sparkle` | 2s ease-in-out infinite | Decorative stars |
+| `typing-cursor` | 0.8s step-end infinite | AI processing indicator |
+| `pixel-fill` | 0.6s ease-out | Progress bar fill on load |
+
+## Design Principles
+
+1. **Square Everything** — `border-radius: 1px`. No rounded corners anywhere.
+2. **Geometric Shadows** — No blur, no spread. Always `Npx Npx 0 <color>`.
+3. **Mechanical Buttons** — 2px bottom shadow, disappears + translates on press.
+4. **Color = Identity** — Every window/section has an assigned accent from the five-color palette.
+5. **Paper & Ink** — Content on white cards over cool gray. Text is soft charcoal, never pure black.
+6. **Playful Pixel Spirit** — Decorative pixel elements (sparkles, hearts, clouds) scattered throughout.
+
+## Wireframe Reference
+
+See [wireframe-report.html](../assets/wireframe-report.html) for a live example of the complete report styling.
