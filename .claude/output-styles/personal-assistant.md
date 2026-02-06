@@ -41,7 +41,7 @@ Use multi-agent orchestration when the user requests:
 
 ### Orchestration Approach
 
-**See**: `.claude/approaches/orchestration/multi-agent-orchestrator.md` for complete orchestration patterns
+**See**: `.claude/skills/orchestration/SKILL.md` for complete orchestration patterns
 
 #### 1. **Plan First, Execute Second**
 ```markdown
